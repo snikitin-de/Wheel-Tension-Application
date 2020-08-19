@@ -96,7 +96,7 @@ namespace Wheel_Tension_Application
             return angles;
         }
 
-        private void AddGroupControls(GroupBox groupBox, Control control, List<string> controlPropertiesList, string name, int indentX, int indentY, int controlHeight, int step, int count)
+        private void AddGroupControls(GroupBox groupBox, Control control, List<string> controlProperties, string name, int indentX, int indentY, int controlHeight, int step, int count)
         {
             int itemsCount = groupBox.Controls.OfType<Control>().Count();
 
@@ -125,17 +125,11 @@ namespace Wheel_Tension_Application
                 newControl.Name = name + indexAdd;
                 newControl.Location = new Point(indentX, indent);
 
-                foreach (var controlProperty in control.GetType().GetProperties())
+                foreach (var property in controlProperties)
                 {
-                    foreach (var controlPropertyListItem in controlPropertiesList)
-                    {
-                        if (controlProperty.Name == controlPropertyListItem)
-                        {
-                            PropertyInfo propertyInfo = control.GetType().GetProperty(controlProperty.Name);
-                            propertyInfo.SetValue(newControl, Convert.ChangeType(controlProperty.GetValue(control), propertyInfo.PropertyType), null);
-                        }
-                    } 
-                }
+                     PropertyInfo propertyInfo = control.GetType().GetProperty(property);
+                     propertyInfo.SetValue(newControl, Convert.ChangeType(propertyInfo.GetValue(control), propertyInfo.PropertyType), null);
+                } 
 
                 groupBox.Controls.Add(newControl);
 
