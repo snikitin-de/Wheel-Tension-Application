@@ -4,6 +4,7 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -95,37 +96,50 @@ namespace Wheel_Tension_Application
             return angles;
         }
 
-        private void AddNumericUpDown(string name, int initPointX, int initPointY, int step, int count, Size size, decimal min, decimal max, decimal increment, int decimalPlaces)
+        private void AddGroupControls(GroupBox groupBox, Control control, List<string> controlPropertiesList, string name, int indentX, int indentY, int controlHeight, int step, int count)
         {
-            int itemsCount = wheelTensionGroupBox.Controls.OfType<NumericUpDown>().Count();
+            int itemsCount = groupBox.Controls.OfType<Control>().Count();
 
             if (count < itemsCount)
             {
-                foreach (Control item in wheelTensionGroupBox.Controls.OfType<NumericUpDown>().Reverse())
+                foreach (Control item in groupBox.Controls.OfType<Control>().Reverse())
                 {
                     if (item.Name.IndexOf(name) > -1)
                     {
-                        wheelTensionGroupBox.Controls.Remove(item);
+                        groupBox.Controls.Remove(item);
                     }
                 }
             }
+
+            int indent = indentY;
 
             for (int i = 0; i < count; i++)
             {
                 int indexAdd = i + 1;
 
-                wheelTensionGroupBox.Controls.Add(new NumericUpDown
-                {
-                    Location = new Point(initPointX, initPointY),
-                    Name = name + indexAdd,
-                    Minimum = min,
-                    Maximum = max,
-                    DecimalPlaces = decimalPlaces,
-                    Increment = increment,
-                    Size = size
-                });
+                Type type = control.GetType();
 
-                initPointY += step;
+                ConstructorInfo ctor = type.GetConstructor(Type.EmptyTypes);
+                Control newControl = (Control)ctor.Invoke(null);
+
+                newControl.Name = name + indexAdd;
+                newControl.Location = new Point(indentX, indent);
+
+                foreach (var controlProperty in control.GetType().GetProperties())
+                {
+                    foreach (var controlPropertyListItem in controlPropertiesList)
+                    {
+                        if (controlProperty.Name == controlPropertyListItem)
+                        {
+                            PropertyInfo propertyInfo = control.GetType().GetProperty(controlProperty.Name);
+                            propertyInfo.SetValue(newControl, Convert.ChangeType(controlProperty.GetValue(control), propertyInfo.PropertyType), null);
+                        }
+                    } 
+                }
+
+                groupBox.Controls.Add(newControl);
+
+                indent += controlHeight + step;
             }
         }
 
@@ -208,15 +222,64 @@ namespace Wheel_Tension_Application
         {
             string selected = leftSideComboBox.GetItemText(leftSideComboBox.SelectedItem);
 
-            AddNumericUpDown("leftSideSpokesNumericUpDown", 7, 76, 28, Int16.Parse(selected), new Size(145, 21), 0, 44, 0.5M, 1);
-            
+            NumericUpDown numericUpDown = new NumericUpDown()
+            {
+
+                Minimum = 0,
+                Maximum = 44,
+                DecimalPlaces = 1,
+                Increment = 0.5M,
+                Size = new Size(leftSideComboBox.Size.Width, leftSideComboBox.Size.Height)
+            };
+
+            List<string> properties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
+
+            int stepControl = 3;
+            int indentFromComboBox = leftSideComboBox.Location.Y + leftSideComboBox.Size.Height + stepControl;
+
+            AddGroupControls(
+                wheelTensionGroupBox,
+                numericUpDown,
+                properties,
+                "leftSideSpokesNumericUpDown",
+                leftSideComboBox.Location.X,
+                indentFromComboBox,
+                leftSideComboBox.Size.Height,
+                stepControl,
+                Int16.Parse(selected)
+            );  
         }
 
         private void rightSideComboBox_TextChanged(object sender, EventArgs e)
         {
             string selected = rightSideComboBox.GetItemText(rightSideComboBox.SelectedItem);
 
-            AddNumericUpDown("rightSideSpokesNumericUpDown", 162, 76, 28, Int16.Parse(selected), new Size(145, 21), 0, 44, 0.5M, 1);
+            NumericUpDown numericUpDown = new NumericUpDown
+            {
+
+                Minimum = 0,
+                Maximum = 44,
+                DecimalPlaces = 1,
+                Increment = 0.5M,
+                Size = new Size(rightSideComboBox.Size.Width, rightSideComboBox.Size.Height)
+            };
+
+            List<string> properties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
+
+            int stepControl = 3;
+            int indentFromComboBox = rightSideComboBox.Location.Y + rightSideComboBox.Size.Height + stepControl;
+
+            AddGroupControls(
+                wheelTensionGroupBox,
+                numericUpDown,
+                properties,
+                "rightSideSpokesNumericUpDown",
+                rightSideComboBox.Location.X,
+                indentFromComboBox,
+                rightSideComboBox.Size.Height,
+                stepControl,
+                Int16.Parse(selected)
+            );
         }
 
         private void calculateButton_Click(object sender, EventArgs e)
