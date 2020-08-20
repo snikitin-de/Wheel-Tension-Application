@@ -20,6 +20,8 @@ namespace Wheel_Tension_Application
         private string connectionString = "Data Source=" + Path.Combine(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + 
         "\\wheel_tension.sqlite3;Version=3;";
 
+        private List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
+
         public MainForm()
         {
             InitializeComponent();
@@ -137,6 +139,38 @@ namespace Wheel_Tension_Application
             }
         }
 
+        private void AddNumericUpDown(ComboBox comboBox, string name, int stepControl)
+        {
+            string selected = comboBox.GetItemText(comboBox.SelectedItem);
+            int indentFromComboBox = GetIndentFromComboBox(comboBox, stepControl);
+
+            NumericUpDown numericUpDown = new NumericUpDown()
+            {
+                Minimum = 0,
+                Maximum = 44,
+                DecimalPlaces = 1,
+                Increment = 0.5M,
+                Size = new Size(comboBox.Size.Width, comboBox.Size.Height)
+            };
+
+            AddGroupControls(
+                wheelTensionGroupBox,
+                numericUpDown,
+                numericUpDownProperties,
+                name,
+                comboBox.Location.X,
+                indentFromComboBox,
+                comboBox.Size.Height,
+                stepControl,
+                Int16.Parse(selected)
+            );
+        }
+
+        private int GetIndentFromComboBox(ComboBox comboBox, int stepControl)
+        {
+            return comboBox.Location.Y + comboBox.Size.Height + stepControl;
+        }
+
         private List<float> readValuesFromNumeric(string name)
         {
             List<float> values = new List<float>() { };
@@ -214,66 +248,14 @@ namespace Wheel_Tension_Application
 
         private void leftSideComboBox_TextChanged(object sender, EventArgs e)
         {
-            string selected = leftSideComboBox.GetItemText(leftSideComboBox.SelectedItem);
-
-            NumericUpDown numericUpDown = new NumericUpDown()
-            {
-
-                Minimum = 0,
-                Maximum = 44,
-                DecimalPlaces = 1,
-                Increment = 0.5M,
-                Size = new Size(leftSideComboBox.Size.Width, leftSideComboBox.Size.Height)
-            };
-
-            List<string> properties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
-
             int stepControl = 3;
-            int indentFromComboBox = leftSideComboBox.Location.Y + leftSideComboBox.Size.Height + stepControl;
-
-            AddGroupControls(
-                wheelTensionGroupBox,
-                numericUpDown,
-                properties,
-                "leftSideSpokesNumericUpDown",
-                leftSideComboBox.Location.X,
-                indentFromComboBox,
-                leftSideComboBox.Size.Height,
-                stepControl,
-                Int16.Parse(selected)
-            );  
+            AddNumericUpDown(leftSideComboBox, "leftSideSpokesNumericUpDown", stepControl);
         }
 
         private void rightSideComboBox_TextChanged(object sender, EventArgs e)
         {
-            string selected = rightSideComboBox.GetItemText(rightSideComboBox.SelectedItem);
-
-            NumericUpDown numericUpDown = new NumericUpDown
-            {
-
-                Minimum = 0,
-                Maximum = 44,
-                DecimalPlaces = 1,
-                Increment = 0.5M,
-                Size = new Size(rightSideComboBox.Size.Width, rightSideComboBox.Size.Height)
-            };
-
-            List<string> properties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
-
             int stepControl = 3;
-            int indentFromComboBox = rightSideComboBox.Location.Y + rightSideComboBox.Size.Height + stepControl;
-
-            AddGroupControls(
-                wheelTensionGroupBox,
-                numericUpDown,
-                properties,
-                "rightSideSpokesNumericUpDown",
-                rightSideComboBox.Location.X,
-                indentFromComboBox,
-                rightSideComboBox.Size.Height,
-                stepControl,
-                Int16.Parse(selected)
-            );
+            AddNumericUpDown(rightSideComboBox, "rightSideSpokesNumericUpDown", stepControl);
         }
 
         private void calculateButton_Click(object sender, EventArgs e)
