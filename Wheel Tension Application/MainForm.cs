@@ -29,7 +29,7 @@ namespace Wheel_Tension_Application
 
         private void DrawChart(string SeriesName, List<float> tm1Reading, Color color)
         {
-            List<float> spokesAngles = SpokeAnglesCalculate(tm1Reading);
+            List<float> spokesAngles = CalculateSpokeAngles(tm1Reading);
 
             spokesAngles.Add(360);
             tm1Reading.Add(tm1Reading[0]);
@@ -70,7 +70,7 @@ namespace Wheel_Tension_Application
             }
         }
 
-        private List<float> SpokeAnglesCalculate(List<float> tm1Reading)
+        private List<float> CalculateSpokeAngles(List<float> tm1Reading)
         {
             int tm1ReadingLength = tm1Reading.Count;
 
@@ -98,7 +98,7 @@ namespace Wheel_Tension_Application
             return angles;
         }
 
-        private void AddGroupControls(GroupBox groupBox, Control control, List<string> controlProperties, string name, int indentX, int indentY, int controlHeight, int step, int count)
+        private void AddGroupControlsToGroupBox(GroupBox groupBox, Control control, List<string> controlProperties, string name, int indentX, int indentY, int controlHeight, int step, int count)
         {
             int itemsCount = groupBox.Controls.OfType<Control>().Count();
 
@@ -139,7 +139,7 @@ namespace Wheel_Tension_Application
             }
         }
 
-        private void AddNumericUpDown(ComboBox comboBox, string name, int stepControl)
+        private void AddNumericUpDownToGroupBox(ComboBox comboBox, string name, int stepControl)
         {
             string selected = comboBox.GetItemText(comboBox.SelectedItem);
             int indentFromComboBox = GetIndentFromComboBox(comboBox, stepControl);
@@ -153,7 +153,7 @@ namespace Wheel_Tension_Application
                 Size = new Size(comboBox.Size.Width, comboBox.Size.Height)
             };
 
-            AddGroupControls(
+            AddGroupControlsToGroupBox(
                 wheelTensionGroupBox,
                 numericUpDown,
                 numericUpDownProperties,
@@ -171,7 +171,7 @@ namespace Wheel_Tension_Application
             return comboBox.Location.Y + comboBox.Size.Height + stepControl;
         }
 
-        private List<float> readValuesFromNumeric(string name)
+        private List<float> GetWheelTensions(string name)
         {
             List<float> values = new List<float>() { };
 
@@ -186,7 +186,7 @@ namespace Wheel_Tension_Application
             return values;
         }
 
-        private List<string> readFromSQLite(string connectionString, string command, Dictionary<string, string> parameters)
+        private List<string> GetWheelParameterFromDB(string connectionString, string command, Dictionary<string, string> parameters)
         {
             List<string> text = new List<string>();
 
@@ -240,7 +240,7 @@ namespace Wheel_Tension_Application
 
             parameters = new Dictionary<string, string>();
 
-            List<string> materialsList = readFromSQLite(connectionString, materialsListCommand, parameters);
+            List<string> materialsList = GetWheelParameterFromDB(connectionString, materialsListCommand, parameters);
 
             materialComboBox.Items.Clear();
             materialComboBox.Items.AddRange(materialsList.ToArray());
@@ -249,13 +249,13 @@ namespace Wheel_Tension_Application
         private void leftSideComboBox_TextChanged(object sender, EventArgs e)
         {
             int stepControl = 3;
-            AddNumericUpDown(leftSideComboBox, "leftSideSpokesNumericUpDown", stepControl);
+            AddNumericUpDownToGroupBox(leftSideComboBox, "leftSideSpokesNumericUpDown", stepControl);
         }
 
         private void rightSideComboBox_TextChanged(object sender, EventArgs e)
         {
             int stepControl = 3;
-            AddNumericUpDown(rightSideComboBox, "rightSideSpokesNumericUpDown", stepControl);
+            AddNumericUpDownToGroupBox(rightSideComboBox, "rightSideSpokesNumericUpDown", stepControl);
         }
 
         private void calculateButton_Click(object sender, EventArgs e)
@@ -263,8 +263,8 @@ namespace Wheel_Tension_Application
             string leftSideComboBoxSelected = leftSideComboBox.GetItemText(leftSideComboBox.SelectedItem);
             string rightSideComboBoxSelected = rightSideComboBox.GetItemText(rightSideComboBox.SelectedItem);
 
-            List<float> leftSideSpokesTm1 = readValuesFromNumeric("leftSideSpokesNumericUpDown");
-            List<float> rightSideSpokesTm1 = readValuesFromNumeric("rightSideSpokesNumericUpDown");
+            List<float> leftSideSpokesTm1 = GetWheelTensions("leftSideSpokesNumericUpDown");
+            List<float> rightSideSpokesTm1 = GetWheelTensions("rightSideSpokesNumericUpDown");
 
             chart.Series.Clear();
 
@@ -307,7 +307,7 @@ namespace Wheel_Tension_Application
             parameters.Add("@material", materialComboBoxSelected);
             parameters.Add("@shape", shapeComboBoxSelected);
 
-            List<string> thicknessList = readFromSQLite(connectionString, thicknessListCommand, parameters);
+            List<string> thicknessList = GetWheelParameterFromDB(connectionString, thicknessListCommand, parameters);
 
             thicknessComboBox.Items.Clear();
             thicknessComboBox.Items.AddRange(thicknessList.ToArray());
@@ -328,7 +328,7 @@ namespace Wheel_Tension_Application
 
             parameters.Add("@material", materialComboBoxSelected);
 
-            List<string> shapesList = readFromSQLite(connectionString, shapesListCommand, parameters);
+            List<string> shapesList = GetWheelParameterFromDB(connectionString, shapesListCommand, parameters);
 
             shapeComboBox.Items.Clear();
             shapeComboBox.Items.AddRange(shapesList.ToArray());
@@ -362,8 +362,8 @@ namespace Wheel_Tension_Application
             parameters.Add("@shape", shapeComboBoxSelected);
             parameters.Add("@thickness", thicknessComboBoxSelected);
 
-            List<string> tm1Deflection = readFromSQLite(connectionString, tm1ListCommand, parameters);
-            List<string> tension = readFromSQLite(connectionString, tensionListCommand, parameters);
+            List<string> tm1Deflection = GetWheelParameterFromDB(connectionString, tm1ListCommand, parameters);
+            List<string> tension = GetWheelParameterFromDB(connectionString, tensionListCommand, parameters);
 
             conversionTableGridView.ColumnCount = tm1Deflection.Count;
             conversionTableGridView.RowHeadersWidth = 165;
