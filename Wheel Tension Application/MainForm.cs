@@ -17,7 +17,7 @@ namespace Wheel_Tension_Application
 
         readonly private List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
 
-        readonly private string connectionString = "Data Source=" + Path.Combine(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + 
+        readonly private string connectionString = "Data Source=" + Path.Combine(Path.GetDirectoryName(Directory.GetCurrentDirectory())) + 
         "\\wheel_tension.sqlite3;Version=3;";
 
         private Dictionary<string, string> parameters = new Dictionary<string, string>();
@@ -34,13 +34,13 @@ namespace Wheel_Tension_Application
             spokesAngles.Add(360);
             tm1Reading.Add(tm1Reading[0]);
 
-            chart.ChartAreas["ChartArea"].BackColor = System.Drawing.ColorTranslator.FromHtml("#E5ECF6");
+            chart.ChartAreas["ChartArea"].BackColor = ColorTranslator.FromHtml("#E5ECF6");
             chart.ChartAreas["ChartArea"].AxisX.MajorGrid.LineColor = Color.White;
             chart.ChartAreas["ChartArea"].AxisY.MajorGrid.LineColor = Color.White;
 
             chart.Series.Add(SeriesName);
             chart.Series[SeriesName].BorderWidth = 2;
-            chart.Series[SeriesName].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Polar;
+            chart.Series[SeriesName].ChartType = SeriesChartType.Polar;
             chart.Series[SeriesName].MarkerStyle = MarkerStyle.Circle;
             chart.Series[SeriesName].MarkerSize = 5;
 
@@ -268,12 +268,12 @@ namespace Wheel_Tension_Application
 
             chart.Series.Clear();
 
-            Color leftSideSpokesColor = System.Drawing.ColorTranslator.FromHtml("#FFD500");
-            Color rightSideSpokesColor = System.Drawing.ColorTranslator.FromHtml("#BA86FF");
+            Color leftSideSpokesColor = ColorTranslator.FromHtml("#FFD500");
+            Color rightSideSpokesColor = ColorTranslator.FromHtml("#BA86FF");
 
             chart.ChartAreas["ChartArea"].AxisY.Maximum = new List<float> { leftSideSpokesTm1.Max(), rightSideSpokesTm1.Max() }.Max() * 2.0;
 
-            if (leftSideComboBoxSelected == String.Empty || rightSideComboBoxSelected == String.Empty)
+            if (leftSideComboBoxSelected == string.Empty || rightSideComboBoxSelected == string.Empty)
             {
                 MessageBox.Show("Number of spokes not selected!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             } 
@@ -302,10 +302,11 @@ namespace Wheel_Tension_Application
                 WHERE material = @material AND shape = @shape
                 GROUP BY thickness";
 
-            parameters = new Dictionary<string, string>();
-
-            parameters.Add("@material", materialComboBoxSelected);
-            parameters.Add("@shape", shapeComboBoxSelected);
+            parameters = new Dictionary<string, string>()
+            {
+                { "@material", materialComboBoxSelected },
+                { "@shape", shapeComboBoxSelected }
+            };
 
             List<string> thicknessList = GetWheelParameterFromDB(connectionString, thicknessListCommand, parameters);
 
@@ -324,9 +325,10 @@ namespace Wheel_Tension_Application
                 WHERE material = @material
                 GROUP BY shape";
 
-            parameters = new Dictionary<string, string>();
-
-            parameters.Add("@material", materialComboBoxSelected);
+            parameters = new Dictionary<string, string>()
+            {
+                { "@material", materialComboBoxSelected }
+            };
 
             List<string> shapesList = GetWheelParameterFromDB(connectionString, shapesListCommand, parameters);
 
@@ -356,11 +358,12 @@ namespace Wheel_Tension_Application
                 WHERE material = @material AND shape = @shape AND thickness = @thickness
                 GROUP BY tension";
 
-            parameters = new Dictionary<string, string>();
-
-            parameters.Add("@material", materialComboBoxSelected);
-            parameters.Add("@shape", shapeComboBoxSelected);
-            parameters.Add("@thickness", thicknessComboBoxSelected);
+            parameters = new Dictionary<string, string>()
+            {
+                { "@material", materialComboBoxSelected },
+                { "@shape", shapeComboBoxSelected },
+                { "@thickness", thicknessComboBoxSelected }
+            };
 
             List<string> tm1Deflection = GetWheelParameterFromDB(connectionString, tm1ListCommand, parameters);
             List<string> tension = GetWheelParameterFromDB(connectionString, tensionListCommand, parameters);
