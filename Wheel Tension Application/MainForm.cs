@@ -81,11 +81,11 @@ namespace Wheel_Tension_Application
 
             if (tm1Reading.Count > 0)
             {
-                angleStep = 360 / tm1ReadingLength;
+                angleStep = (float)360 / tm1ReadingLength;
             }
             else
             {
-                angleStep = 360 / 24;
+                angleStep = (float)360 / 24;
             }
 
             for (int i = 0; i < tm1ReadingLength; i++)
