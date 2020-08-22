@@ -270,14 +270,14 @@ namespace Wheel_Tension_Application
 
             chart.Series.Clear();
 
-            chart.ChartAreas["ChartArea"].AxisY.Maximum = new List<float> { leftSideSpokesTm1.Max(), rightSideSpokesTm1.Max() }.Max() * 2.0;
-
             if (leftSideComboBoxSelected == String.Empty || rightSideComboBoxSelected == String.Empty)
             {
                 MessageBox.Show("Number of spokes not selected!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
+                chart.ChartAreas["ChartArea"].AxisY.Maximum = new List<float> { leftSideSpokesTm1.Max(), rightSideSpokesTm1.Max() }.Max() * 2.0;
+
                 if (leftSideComboBoxSelected != rightSideComboBoxSelected)
                 {
                     MessageBox.Show("Your wheel isn't symmetrical!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
