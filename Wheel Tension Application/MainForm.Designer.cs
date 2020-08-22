@@ -47,17 +47,39 @@ namespace Wheel_Tension_Application
             this.conversionTableGroupBox = new System.Windows.Forms.GroupBox();
             this.conversionTableGridView = new System.Windows.Forms.DataGridView();
             this.wheelTensionGroupBox = new System.Windows.Forms.GroupBox();
-            this.rightSideComboBox = new System.Windows.Forms.ComboBox();
+            this.rightSideSpokesGroupBox = new System.Windows.Forms.GroupBox();
+            this.rightSpokesLowerTensionLimitTextBox = new System.Windows.Forms.TextBox();
+            this.rightSpokesUpperTensionLimitTextBox = new System.Windows.Forms.TextBox();
+            this.standartDevRightSpokesTensionTextBox = new System.Windows.Forms.TextBox();
+            this.averageRightSpokesTensionTextBox = new System.Windows.Forms.TextBox();
+            this.rightSpokesLowerTensionLimitLabel = new System.Windows.Forms.Label();
+            this.rightSpokesUpperTensionLimitLabel = new System.Windows.Forms.Label();
+            this.standartDevRightSpokesTensionLabel = new System.Windows.Forms.Label();
+            this.averageRightSpokesTensionLabel = new System.Windows.Forms.Label();
+            this.leftSideSpokesGroupBox = new System.Windows.Forms.GroupBox();
+            this.tensionLeftSpokesLabel = new System.Windows.Forms.Label();
+            this.tm1ReadingLeftSpokesLabel = new System.Windows.Forms.Label();
+            this.leftSpokesLowerTensionLimitTextBox = new System.Windows.Forms.TextBox();
+            this.leftSpokesUpperTensionLimitTextBox = new System.Windows.Forms.TextBox();
+            this.standartDevLeftSpokesTensionTextBox = new System.Windows.Forms.TextBox();
             this.leftSideComboBox = new System.Windows.Forms.ComboBox();
-            this.rightSideLabel = new System.Windows.Forms.Label();
-            this.leftSideLabel = new System.Windows.Forms.Label();
+            this.averageLeftSpokesTensionTextBox = new System.Windows.Forms.TextBox();
+            this.leftSpokesLowerTensionLimitLabel = new System.Windows.Forms.Label();
+            this.leftSpokesUpperTensionLimitLabel = new System.Windows.Forms.Label();
+            this.standartDevLeftSpokesTensionLabel = new System.Windows.Forms.Label();
+            this.averageLeftSpokesTensionLabel = new System.Windows.Forms.Label();
+            this.rightSideComboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tensionRightSpokesLabel = new System.Windows.Forms.Label();
+            this.tm1ReadingRightSpokesLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.wheelSettingsGroupBox.SuspendLayout();
             this.conversionTableGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.conversionTableGridView)).BeginInit();
             this.wheelTensionGroupBox.SuspendLayout();
+            this.rightSideSpokesGroupBox.SuspendLayout();
+            this.leftSideSpokesGroupBox.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,9 +99,9 @@ namespace Wheel_Tension_Application
             // 
             // calculateButton
             // 
-            this.calculateButton.Location = new System.Drawing.Point(778, 864);
+            this.calculateButton.Location = new System.Drawing.Point(920, 859);
             this.calculateButton.Name = "calculateButton";
-            this.calculateButton.Size = new System.Drawing.Size(315, 50);
+            this.calculateButton.Size = new System.Drawing.Size(263, 55);
             this.calculateButton.TabIndex = 1;
             this.calculateButton.Text = "Calculate";
             this.calculateButton.UseVisualStyleBackColor = true;
@@ -186,49 +208,164 @@ namespace Wheel_Tension_Application
             // 
             // wheelTensionGroupBox
             // 
-            this.wheelTensionGroupBox.Controls.Add(this.rightSideComboBox);
-            this.wheelTensionGroupBox.Controls.Add(this.leftSideComboBox);
-            this.wheelTensionGroupBox.Controls.Add(this.rightSideLabel);
-            this.wheelTensionGroupBox.Controls.Add(this.leftSideLabel);
+            this.wheelTensionGroupBox.Controls.Add(this.rightSideSpokesGroupBox);
+            this.wheelTensionGroupBox.Controls.Add(this.leftSideSpokesGroupBox);
             this.wheelTensionGroupBox.Location = new System.Drawing.Point(779, 27);
             this.wheelTensionGroupBox.Name = "wheelTensionGroupBox";
-            this.wheelTensionGroupBox.Size = new System.Drawing.Size(314, 827);
+            this.wheelTensionGroupBox.Size = new System.Drawing.Size(533, 827);
             this.wheelTensionGroupBox.TabIndex = 4;
             this.wheelTensionGroupBox.TabStop = false;
             this.wheelTensionGroupBox.Text = "Wheel Tenion Balancing";
             // 
-            // rightSideComboBox
+            // rightSideSpokesGroupBox
             // 
-            this.rightSideComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.rightSideComboBox.FormattingEnabled = true;
-            this.rightSideComboBox.Items.AddRange(new object[] {
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24"});
-            this.rightSideComboBox.Location = new System.Drawing.Point(162, 47);
-            this.rightSideComboBox.Name = "rightSideComboBox";
-            this.rightSideComboBox.Size = new System.Drawing.Size(146, 21);
-            this.rightSideComboBox.TabIndex = 3;
-            this.rightSideComboBox.TextChanged += new System.EventHandler(this.rightSideComboBox_TextChanged);
+            this.rightSideSpokesGroupBox.Controls.Add(this.tensionRightSpokesLabel);
+            this.rightSideSpokesGroupBox.Controls.Add(this.rightSpokesLowerTensionLimitTextBox);
+            this.rightSideSpokesGroupBox.Controls.Add(this.tm1ReadingRightSpokesLabel);
+            this.rightSideSpokesGroupBox.Controls.Add(this.rightSpokesUpperTensionLimitTextBox);
+            this.rightSideSpokesGroupBox.Controls.Add(this.rightSideComboBox);
+            this.rightSideSpokesGroupBox.Controls.Add(this.standartDevRightSpokesTensionTextBox);
+            this.rightSideSpokesGroupBox.Controls.Add(this.averageRightSpokesTensionTextBox);
+            this.rightSideSpokesGroupBox.Controls.Add(this.rightSpokesLowerTensionLimitLabel);
+            this.rightSideSpokesGroupBox.Controls.Add(this.rightSpokesUpperTensionLimitLabel);
+            this.rightSideSpokesGroupBox.Controls.Add(this.standartDevRightSpokesTensionLabel);
+            this.rightSideSpokesGroupBox.Controls.Add(this.averageRightSpokesTensionLabel);
+            this.rightSideSpokesGroupBox.Location = new System.Drawing.Point(269, 23);
+            this.rightSideSpokesGroupBox.Name = "rightSideSpokesGroupBox";
+            this.rightSideSpokesGroupBox.Size = new System.Drawing.Size(257, 798);
+            this.rightSideSpokesGroupBox.TabIndex = 9;
+            this.rightSideSpokesGroupBox.TabStop = false;
+            this.rightSideSpokesGroupBox.Text = "Right side spokes";
+            // 
+            // rightSpokesLowerTensionLimitTextBox
+            // 
+            this.rightSpokesLowerTensionLimitTextBox.Enabled = false;
+            this.rightSpokesLowerTensionLimitTextBox.Location = new System.Drawing.Point(191, 767);
+            this.rightSpokesLowerTensionLimitTextBox.Name = "rightSpokesLowerTensionLimitTextBox";
+            this.rightSpokesLowerTensionLimitTextBox.Size = new System.Drawing.Size(55, 20);
+            this.rightSpokesLowerTensionLimitTextBox.TabIndex = 8;
+            // 
+            // rightSpokesUpperTensionLimitTextBox
+            // 
+            this.rightSpokesUpperTensionLimitTextBox.Enabled = false;
+            this.rightSpokesUpperTensionLimitTextBox.Location = new System.Drawing.Point(191, 741);
+            this.rightSpokesUpperTensionLimitTextBox.Name = "rightSpokesUpperTensionLimitTextBox";
+            this.rightSpokesUpperTensionLimitTextBox.Size = new System.Drawing.Size(55, 20);
+            this.rightSpokesUpperTensionLimitTextBox.TabIndex = 7;
+            // 
+            // standartDevRightSpokesTensionTextBox
+            // 
+            this.standartDevRightSpokesTensionTextBox.Enabled = false;
+            this.standartDevRightSpokesTensionTextBox.Location = new System.Drawing.Point(191, 715);
+            this.standartDevRightSpokesTensionTextBox.Name = "standartDevRightSpokesTensionTextBox";
+            this.standartDevRightSpokesTensionTextBox.Size = new System.Drawing.Size(55, 20);
+            this.standartDevRightSpokesTensionTextBox.TabIndex = 6;
+            // 
+            // averageRightSpokesTensionTextBox
+            // 
+            this.averageRightSpokesTensionTextBox.Enabled = false;
+            this.averageRightSpokesTensionTextBox.Location = new System.Drawing.Point(191, 689);
+            this.averageRightSpokesTensionTextBox.Name = "averageRightSpokesTensionTextBox";
+            this.averageRightSpokesTensionTextBox.Size = new System.Drawing.Size(55, 20);
+            this.averageRightSpokesTensionTextBox.TabIndex = 5;
+            // 
+            // rightSpokesLowerTensionLimitLabel
+            // 
+            this.rightSpokesLowerTensionLimitLabel.AutoSize = true;
+            this.rightSpokesLowerTensionLimitLabel.Location = new System.Drawing.Point(6, 770);
+            this.rightSpokesLowerTensionLimitLabel.Name = "rightSpokesLowerTensionLimitLabel";
+            this.rightSpokesLowerTensionLimitLabel.Size = new System.Drawing.Size(154, 13);
+            this.rightSpokesLowerTensionLimitLabel.TabIndex = 3;
+            this.rightSpokesLowerTensionLimitLabel.Text = "-20% Lower Tension Limit (kgf) ";
+            // 
+            // rightSpokesUpperTensionLimitLabel
+            // 
+            this.rightSpokesUpperTensionLimitLabel.AutoSize = true;
+            this.rightSpokesUpperTensionLimitLabel.Location = new System.Drawing.Point(6, 744);
+            this.rightSpokesUpperTensionLimitLabel.Name = "rightSpokesUpperTensionLimitLabel";
+            this.rightSpokesUpperTensionLimitLabel.Size = new System.Drawing.Size(154, 13);
+            this.rightSpokesUpperTensionLimitLabel.TabIndex = 2;
+            this.rightSpokesUpperTensionLimitLabel.Text = "+20% Upper Tension Limit (kgf)";
+            // 
+            // standartDevRightSpokesTensionLabel
+            // 
+            this.standartDevRightSpokesTensionLabel.AutoSize = true;
+            this.standartDevRightSpokesTensionLabel.Location = new System.Drawing.Point(6, 718);
+            this.standartDevRightSpokesTensionLabel.Name = "standartDevRightSpokesTensionLabel";
+            this.standartDevRightSpokesTensionLabel.Size = new System.Drawing.Size(175, 13);
+            this.standartDevRightSpokesTensionLabel.TabIndex = 1;
+            this.standartDevRightSpokesTensionLabel.Text = "Standard Deviation of Tension (kgf)";
+            // 
+            // averageRightSpokesTensionLabel
+            // 
+            this.averageRightSpokesTensionLabel.AutoSize = true;
+            this.averageRightSpokesTensionLabel.Location = new System.Drawing.Point(6, 692);
+            this.averageRightSpokesTensionLabel.Name = "averageRightSpokesTensionLabel";
+            this.averageRightSpokesTensionLabel.Size = new System.Drawing.Size(146, 13);
+            this.averageRightSpokesTensionLabel.TabIndex = 0;
+            this.averageRightSpokesTensionLabel.Text = "Average Spoke Tension (kgf)";
+            // 
+            // leftSideSpokesGroupBox
+            // 
+            this.leftSideSpokesGroupBox.Controls.Add(this.tensionLeftSpokesLabel);
+            this.leftSideSpokesGroupBox.Controls.Add(this.tm1ReadingLeftSpokesLabel);
+            this.leftSideSpokesGroupBox.Controls.Add(this.leftSpokesLowerTensionLimitTextBox);
+            this.leftSideSpokesGroupBox.Controls.Add(this.leftSpokesUpperTensionLimitTextBox);
+            this.leftSideSpokesGroupBox.Controls.Add(this.standartDevLeftSpokesTensionTextBox);
+            this.leftSideSpokesGroupBox.Controls.Add(this.leftSideComboBox);
+            this.leftSideSpokesGroupBox.Controls.Add(this.averageLeftSpokesTensionTextBox);
+            this.leftSideSpokesGroupBox.Controls.Add(this.leftSpokesLowerTensionLimitLabel);
+            this.leftSideSpokesGroupBox.Controls.Add(this.leftSpokesUpperTensionLimitLabel);
+            this.leftSideSpokesGroupBox.Controls.Add(this.standartDevLeftSpokesTensionLabel);
+            this.leftSideSpokesGroupBox.Controls.Add(this.averageLeftSpokesTensionLabel);
+            this.leftSideSpokesGroupBox.Location = new System.Drawing.Point(6, 23);
+            this.leftSideSpokesGroupBox.Name = "leftSideSpokesGroupBox";
+            this.leftSideSpokesGroupBox.Size = new System.Drawing.Size(257, 798);
+            this.leftSideSpokesGroupBox.TabIndex = 4;
+            this.leftSideSpokesGroupBox.TabStop = false;
+            this.leftSideSpokesGroupBox.Text = "Left side spokes";
+            // 
+            // tensionLeftSpokesLabel
+            // 
+            this.tensionLeftSpokesLabel.AutoSize = true;
+            this.tensionLeftSpokesLabel.Location = new System.Drawing.Point(132, 20);
+            this.tensionLeftSpokesLabel.Name = "tensionLeftSpokesLabel";
+            this.tensionLeftSpokesLabel.Size = new System.Drawing.Size(69, 13);
+            this.tensionLeftSpokesLabel.TabIndex = 10;
+            this.tensionLeftSpokesLabel.Text = "Tension (kgf)";
+            // 
+            // tm1ReadingLeftSpokesLabel
+            // 
+            this.tm1ReadingLeftSpokesLabel.AutoSize = true;
+            this.tm1ReadingLeftSpokesLabel.Location = new System.Drawing.Point(7, 20);
+            this.tm1ReadingLeftSpokesLabel.Name = "tm1ReadingLeftSpokesLabel";
+            this.tm1ReadingLeftSpokesLabel.Size = new System.Drawing.Size(75, 13);
+            this.tm1ReadingLeftSpokesLabel.TabIndex = 9;
+            this.tm1ReadingLeftSpokesLabel.Text = "TM-1 Reading";
+            // 
+            // leftSpokesLowerTensionLimitTextBox
+            // 
+            this.leftSpokesLowerTensionLimitTextBox.Enabled = false;
+            this.leftSpokesLowerTensionLimitTextBox.Location = new System.Drawing.Point(192, 767);
+            this.leftSpokesLowerTensionLimitTextBox.Name = "leftSpokesLowerTensionLimitTextBox";
+            this.leftSpokesLowerTensionLimitTextBox.Size = new System.Drawing.Size(55, 20);
+            this.leftSpokesLowerTensionLimitTextBox.TabIndex = 8;
+            // 
+            // leftSpokesUpperTensionLimitTextBox
+            // 
+            this.leftSpokesUpperTensionLimitTextBox.Enabled = false;
+            this.leftSpokesUpperTensionLimitTextBox.Location = new System.Drawing.Point(192, 741);
+            this.leftSpokesUpperTensionLimitTextBox.Name = "leftSpokesUpperTensionLimitTextBox";
+            this.leftSpokesUpperTensionLimitTextBox.Size = new System.Drawing.Size(55, 20);
+            this.leftSpokesUpperTensionLimitTextBox.TabIndex = 7;
+            // 
+            // standartDevLeftSpokesTensionTextBox
+            // 
+            this.standartDevLeftSpokesTensionTextBox.Enabled = false;
+            this.standartDevLeftSpokesTensionTextBox.Location = new System.Drawing.Point(192, 715);
+            this.standartDevLeftSpokesTensionTextBox.Name = "standartDevLeftSpokesTensionTextBox";
+            this.standartDevLeftSpokesTensionTextBox.Size = new System.Drawing.Size(55, 20);
+            this.standartDevLeftSpokesTensionTextBox.TabIndex = 6;
             // 
             // leftSideComboBox
             // 
@@ -257,30 +394,89 @@ namespace Wheel_Tension_Application
             "22",
             "23",
             "24"});
-            this.leftSideComboBox.Location = new System.Drawing.Point(7, 47);
+            this.leftSideComboBox.Location = new System.Drawing.Point(10, 49);
             this.leftSideComboBox.MaxDropDownItems = 21;
             this.leftSideComboBox.Name = "leftSideComboBox";
-            this.leftSideComboBox.Size = new System.Drawing.Size(145, 21);
+            this.leftSideComboBox.Size = new System.Drawing.Size(72, 21);
             this.leftSideComboBox.TabIndex = 2;
             this.leftSideComboBox.TextChanged += new System.EventHandler(this.leftSideComboBox_TextChanged);
             // 
-            // rightSideLabel
+            // averageLeftSpokesTensionTextBox
             // 
-            this.rightSideLabel.AutoSize = true;
-            this.rightSideLabel.Location = new System.Drawing.Point(159, 23);
-            this.rightSideLabel.Name = "rightSideLabel";
-            this.rightSideLabel.Size = new System.Drawing.Size(95, 13);
-            this.rightSideLabel.TabIndex = 1;
-            this.rightSideLabel.Text = "Right Side Spokes";
+            this.averageLeftSpokesTensionTextBox.Enabled = false;
+            this.averageLeftSpokesTensionTextBox.Location = new System.Drawing.Point(192, 689);
+            this.averageLeftSpokesTensionTextBox.Name = "averageLeftSpokesTensionTextBox";
+            this.averageLeftSpokesTensionTextBox.Size = new System.Drawing.Size(55, 20);
+            this.averageLeftSpokesTensionTextBox.TabIndex = 5;
             // 
-            // leftSideLabel
+            // leftSpokesLowerTensionLimitLabel
             // 
-            this.leftSideLabel.AutoSize = true;
-            this.leftSideLabel.Location = new System.Drawing.Point(6, 23);
-            this.leftSideLabel.Name = "leftSideLabel";
-            this.leftSideLabel.Size = new System.Drawing.Size(88, 13);
-            this.leftSideLabel.TabIndex = 0;
-            this.leftSideLabel.Text = "Left Side Spokes";
+            this.leftSpokesLowerTensionLimitLabel.AutoSize = true;
+            this.leftSpokesLowerTensionLimitLabel.Location = new System.Drawing.Point(7, 770);
+            this.leftSpokesLowerTensionLimitLabel.Name = "leftSpokesLowerTensionLimitLabel";
+            this.leftSpokesLowerTensionLimitLabel.Size = new System.Drawing.Size(154, 13);
+            this.leftSpokesLowerTensionLimitLabel.TabIndex = 3;
+            this.leftSpokesLowerTensionLimitLabel.Text = "-20% Lower Tension Limit (kgf) ";
+            // 
+            // leftSpokesUpperTensionLimitLabel
+            // 
+            this.leftSpokesUpperTensionLimitLabel.AutoSize = true;
+            this.leftSpokesUpperTensionLimitLabel.Location = new System.Drawing.Point(7, 744);
+            this.leftSpokesUpperTensionLimitLabel.Name = "leftSpokesUpperTensionLimitLabel";
+            this.leftSpokesUpperTensionLimitLabel.Size = new System.Drawing.Size(154, 13);
+            this.leftSpokesUpperTensionLimitLabel.TabIndex = 2;
+            this.leftSpokesUpperTensionLimitLabel.Text = "+20% Upper Tension Limit (kgf)";
+            // 
+            // standartDevLeftSpokesTensionLabel
+            // 
+            this.standartDevLeftSpokesTensionLabel.AutoSize = true;
+            this.standartDevLeftSpokesTensionLabel.Location = new System.Drawing.Point(7, 718);
+            this.standartDevLeftSpokesTensionLabel.Name = "standartDevLeftSpokesTensionLabel";
+            this.standartDevLeftSpokesTensionLabel.Size = new System.Drawing.Size(175, 13);
+            this.standartDevLeftSpokesTensionLabel.TabIndex = 1;
+            this.standartDevLeftSpokesTensionLabel.Text = "Standard Deviation of Tension (kgf)";
+            // 
+            // averageLeftSpokesTensionLabel
+            // 
+            this.averageLeftSpokesTensionLabel.AutoSize = true;
+            this.averageLeftSpokesTensionLabel.Location = new System.Drawing.Point(7, 692);
+            this.averageLeftSpokesTensionLabel.Name = "averageLeftSpokesTensionLabel";
+            this.averageLeftSpokesTensionLabel.Size = new System.Drawing.Size(146, 13);
+            this.averageLeftSpokesTensionLabel.TabIndex = 0;
+            this.averageLeftSpokesTensionLabel.Text = "Average Spoke Tension (kgf)";
+            // 
+            // rightSideComboBox
+            // 
+            this.rightSideComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rightSideComboBox.FormattingEnabled = true;
+            this.rightSideComboBox.Items.AddRange(new object[] {
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24"});
+            this.rightSideComboBox.Location = new System.Drawing.Point(9, 49);
+            this.rightSideComboBox.Name = "rightSideComboBox";
+            this.rightSideComboBox.Size = new System.Drawing.Size(72, 21);
+            this.rightSideComboBox.TabIndex = 3;
+            this.rightSideComboBox.TextChanged += new System.EventHandler(this.rightSideComboBox_TextChanged);
             // 
             // menuStrip
             // 
@@ -288,7 +484,7 @@ namespace Wheel_Tension_Application
             this.aboutToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1100, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1319, 24);
             this.menuStrip.TabIndex = 5;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -299,11 +495,29 @@ namespace Wheel_Tension_Application
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // tensionRightSpokesLabel
+            // 
+            this.tensionRightSpokesLabel.AutoSize = true;
+            this.tensionRightSpokesLabel.Location = new System.Drawing.Point(131, 20);
+            this.tensionRightSpokesLabel.Name = "tensionRightSpokesLabel";
+            this.tensionRightSpokesLabel.Size = new System.Drawing.Size(69, 13);
+            this.tensionRightSpokesLabel.TabIndex = 12;
+            this.tensionRightSpokesLabel.Text = "Tension (kgf)";
+            // 
+            // tm1ReadingRightSpokesLabel
+            // 
+            this.tm1ReadingRightSpokesLabel.AutoSize = true;
+            this.tm1ReadingRightSpokesLabel.Location = new System.Drawing.Point(6, 20);
+            this.tm1ReadingRightSpokesLabel.Name = "tm1ReadingRightSpokesLabel";
+            this.tm1ReadingRightSpokesLabel.Size = new System.Drawing.Size(75, 13);
+            this.tm1ReadingRightSpokesLabel.TabIndex = 11;
+            this.tm1ReadingRightSpokesLabel.Text = "TM-1 Reading";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1100, 921);
+            this.ClientSize = new System.Drawing.Size(1319, 921);
             this.Controls.Add(this.wheelTensionGroupBox);
             this.Controls.Add(this.conversionTableGroupBox);
             this.Controls.Add(this.wheelSettingsGroupBox);
@@ -324,7 +538,10 @@ namespace Wheel_Tension_Application
             this.conversionTableGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.conversionTableGridView)).EndInit();
             this.wheelTensionGroupBox.ResumeLayout(false);
-            this.wheelTensionGroupBox.PerformLayout();
+            this.rightSideSpokesGroupBox.ResumeLayout(false);
+            this.rightSideSpokesGroupBox.PerformLayout();
+            this.leftSideSpokesGroupBox.ResumeLayout(false);
+            this.leftSideSpokesGroupBox.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -348,10 +565,30 @@ namespace Wheel_Tension_Application
         private System.Windows.Forms.GroupBox wheelTensionGroupBox;
         private System.Windows.Forms.ComboBox rightSideComboBox;
         private System.Windows.Forms.ComboBox leftSideComboBox;
-        private System.Windows.Forms.Label rightSideLabel;
-        private System.Windows.Forms.Label leftSideLabel;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.GroupBox leftSideSpokesGroupBox;
+        private System.Windows.Forms.TextBox leftSpokesLowerTensionLimitTextBox;
+        private System.Windows.Forms.TextBox leftSpokesUpperTensionLimitTextBox;
+        private System.Windows.Forms.TextBox standartDevLeftSpokesTensionTextBox;
+        private System.Windows.Forms.TextBox averageLeftSpokesTensionTextBox;
+        private System.Windows.Forms.Label leftSpokesLowerTensionLimitLabel;
+        private System.Windows.Forms.Label leftSpokesUpperTensionLimitLabel;
+        private System.Windows.Forms.Label standartDevLeftSpokesTensionLabel;
+        private System.Windows.Forms.Label averageLeftSpokesTensionLabel;
+        private System.Windows.Forms.GroupBox rightSideSpokesGroupBox;
+        private System.Windows.Forms.TextBox rightSpokesLowerTensionLimitTextBox;
+        private System.Windows.Forms.TextBox rightSpokesUpperTensionLimitTextBox;
+        private System.Windows.Forms.TextBox standartDevRightSpokesTensionTextBox;
+        private System.Windows.Forms.TextBox averageRightSpokesTensionTextBox;
+        private System.Windows.Forms.Label rightSpokesLowerTensionLimitLabel;
+        private System.Windows.Forms.Label rightSpokesUpperTensionLimitLabel;
+        private System.Windows.Forms.Label standartDevRightSpokesTensionLabel;
+        private System.Windows.Forms.Label averageRightSpokesTensionLabel;
+        private System.Windows.Forms.Label tensionLeftSpokesLabel;
+        private System.Windows.Forms.Label tm1ReadingLeftSpokesLabel;
+        private System.Windows.Forms.Label tensionRightSpokesLabel;
+        private System.Windows.Forms.Label tm1ReadingRightSpokesLabel;
     }
 }
 
