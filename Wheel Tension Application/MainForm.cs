@@ -310,8 +310,8 @@ namespace Wheel_Tension_Application
             var leftSideComboBoxSelected = leftSideComboBox.GetItemText(leftSideComboBox.SelectedItem);
             var rightSideComboBoxSelected = rightSideComboBox.GetItemText(rightSideComboBox.SelectedItem);
 
-            List<float> leftSideSpokesTm1 = GetWheelTensions("leftSideSpokesNumericUpDown", wheelTensionGroupBox);
-            List<float> rightSideSpokesTm1 = GetWheelTensions("rightSideSpokesNumericUpDown", wheelTensionGroupBox);
+            List<float> leftSideSpokesTm1 = GetWheelTensions("leftSideSpokesNumericUpDown", leftSideSpokesGroupBox);
+            List<float> rightSideSpokesTm1 = GetWheelTensions("rightSideSpokesNumericUpDown", rightSideSpokesGroupBox);
 
             chart.Series.Clear();
 
