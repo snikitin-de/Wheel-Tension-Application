@@ -295,14 +295,14 @@ namespace Wheel_Tension_Application
         {
             var stepControl = 3;
 
-            AddNumericUpDownToGroupBox(leftSideComboBox, wheelTensionGroupBox, "leftSideSpokesNumericUpDown", stepControl);
+            AddNumericUpDownToGroupBox(leftSideComboBox, leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown", stepControl);
         }
 
         private void rightSideComboBox_TextChanged(object sender, EventArgs e)
         {
             var stepControl = 3;
 
-            AddNumericUpDownToGroupBox(rightSideComboBox, wheelTensionGroupBox, "rightSideSpokesNumericUpDown", stepControl);
+            AddNumericUpDownToGroupBox(rightSideComboBox, rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown", stepControl);
         }
 
         private void calculateButton_Click(object sender, EventArgs e)
