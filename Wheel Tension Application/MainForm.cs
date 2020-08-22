@@ -12,9 +12,6 @@ namespace Wheel_Tension_Application
 {
     public partial class MainForm : Form
     {
-        readonly private Dictionary<string, Dictionary<string, List<string>>> wheel_spokes = new Dictionary<string, Dictionary<string, List<string>>>();
-        readonly private Dictionary<string, List<string>> shape = new Dictionary<string, List<string>>();
-
         readonly private List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
 
         readonly private string connectionString = "Data Source=" + Path.Combine(Path.GetDirectoryName(Directory.GetCurrentDirectory())) + 
@@ -27,7 +24,7 @@ namespace Wheel_Tension_Application
             InitializeComponent();
         }
 
-        private void DrawChart(string SeriesName, List<float> tm1Reading, Color color)
+        private void DrawChart(string SeriesName, List<float> tm1Reading)
         {
             List<float> spokesAngles = CalculateSpokeAngles(tm1Reading);
 
@@ -72,12 +69,12 @@ namespace Wheel_Tension_Application
         private List<float> CalculateSpokeAngles(List<float> tm1Reading)
         {
             int tm1ReadingLength = tm1Reading.Count;
-
-            float angleStep = 0;
             float angle = 0;
 
             List<float> angles = new List<float>(tm1ReadingLength);
 
+
+            float angleStep;
             if (tm1Reading.Count > 0)
             {
                 angleStep = (float)360 / tm1ReadingLength;
@@ -274,9 +271,6 @@ namespace Wheel_Tension_Application
             List<float> leftSideSpokesTm1 = GetWheelTensions("leftSideSpokesNumericUpDown");
             List<float> rightSideSpokesTm1 = GetWheelTensions("rightSideSpokesNumericUpDown");
 
-            Color leftSideSpokesColor = ColorTranslator.FromHtml("#FFD500");
-            Color rightSideSpokesColor = ColorTranslator.FromHtml("#BA86FF");
-
             chart.Series.Clear();
 
             if (leftSideComboBoxSelected == String.Empty || rightSideComboBoxSelected == String.Empty)
@@ -292,8 +286,8 @@ namespace Wheel_Tension_Application
                     MessageBox.Show("Your wheel isn't symmetrical!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
-                DrawChart("Left Side Spokes", leftSideSpokesTm1, leftSideSpokesColor);
-                DrawChart("Right Side Spokes", rightSideSpokesTm1, rightSideSpokesColor);
+                DrawChart("Left Side Spokes", leftSideSpokesTm1);
+                DrawChart("Right Side Spokes", rightSideSpokesTm1);
             }
         }
 
