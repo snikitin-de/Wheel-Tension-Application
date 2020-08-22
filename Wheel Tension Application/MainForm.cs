@@ -265,26 +265,24 @@ namespace Wheel_Tension_Application
             List<float> leftSideSpokesTm1 = GetWheelTensions("leftSideSpokesNumericUpDown");
             List<float> rightSideSpokesTm1 = GetWheelTensions("rightSideSpokesNumericUpDown");
 
-            chart.Series.Clear();
-
             Color leftSideSpokesColor = ColorTranslator.FromHtml("#FFD500");
             Color rightSideSpokesColor = ColorTranslator.FromHtml("#BA86FF");
 
+            chart.Series.Clear();
+
             chart.ChartAreas["ChartArea"].AxisY.Maximum = new List<float> { leftSideSpokesTm1.Max(), rightSideSpokesTm1.Max() }.Max() * 2.0;
 
-            if (leftSideComboBoxSelected == string.Empty || rightSideComboBoxSelected == string.Empty)
+            if (leftSideComboBoxSelected == String.Empty || rightSideComboBoxSelected == String.Empty)
             {
                 MessageBox.Show("Number of spokes not selected!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            } 
-            else if (leftSideComboBoxSelected != rightSideComboBoxSelected)
-            {
-                MessageBox.Show("Your wheel isn't symmetrical!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                DrawChart("Left Side Spokes", leftSideSpokesTm1, leftSideSpokesColor);
-                DrawChart("Right Side Spokes", rightSideSpokesTm1, rightSideSpokesColor);
             }
             else
             {
+                if (leftSideComboBoxSelected != rightSideComboBoxSelected)
+                {
+                    MessageBox.Show("Your wheel isn't symmetrical!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
                 DrawChart("Left Side Spokes", leftSideSpokesTm1, leftSideSpokesColor);
                 DrawChart("Right Side Spokes", rightSideSpokesTm1, rightSideSpokesColor);
             }
