@@ -172,11 +172,11 @@ namespace Wheel_Tension_Application
             return comboBox.Location.Y + comboBox.Size.Height + stepControl;
         }
 
-        private List<float> GetWheelTensions(string name)
+        private List<float> GetWheelTensions(string name, GroupBox groupBox)
         {
             var values = new List<float>() { };
 
-            foreach (Control item in wheelTensionGroupBox.Controls.OfType<NumericUpDown>().Reverse())
+            foreach (Control item in groupBox.Controls.OfType<NumericUpDown>().Reverse())
             {
                 if (item.Name.IndexOf(name) > -1)
                 {
@@ -310,8 +310,8 @@ namespace Wheel_Tension_Application
             var leftSideComboBoxSelected = leftSideComboBox.GetItemText(leftSideComboBox.SelectedItem);
             var rightSideComboBoxSelected = rightSideComboBox.GetItemText(rightSideComboBox.SelectedItem);
 
-            List<float> leftSideSpokesTm1 = GetWheelTensions("leftSideSpokesNumericUpDown");
-            List<float> rightSideSpokesTm1 = GetWheelTensions("rightSideSpokesNumericUpDown");
+            List<float> leftSideSpokesTm1 = GetWheelTensions("leftSideSpokesNumericUpDown", wheelTensionGroupBox);
+            List<float> rightSideSpokesTm1 = GetWheelTensions("rightSideSpokesNumericUpDown", wheelTensionGroupBox);
 
             chart.Series.Clear();
 
