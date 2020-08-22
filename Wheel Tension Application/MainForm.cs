@@ -249,8 +249,6 @@ namespace Wheel_Tension_Application
                 FROM tm1_conversion_table
                 GROUP BY material";
 
-            parameters = new Dictionary<string, string>();
-
             List<string> materialsList = GetWheelParameterFromDB(connectionString, materialsListCommand, parameters);
 
             SetComboBoxValue(materialComboBox, materialsList, true, true);
