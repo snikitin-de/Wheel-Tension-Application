@@ -127,7 +127,7 @@ namespace Wheel_Tension_Application
                 newControl.Name = name + indexAdd;
                 newControl.Location = new Point(indentX, indent);
 
-                foreach (var property in controlProperties)
+                foreach (string property in controlProperties)
                 {
                      PropertyInfo propertyInfo = control.GetType().GetProperty(property);
                      propertyInfo.SetValue(newControl, Convert.ChangeType(propertyInfo.GetValue(control), propertyInfo.PropertyType), null);
@@ -201,7 +201,7 @@ namespace Wheel_Tension_Application
 
                         if (parameters.Count > 0)
                         {
-                            foreach (var parameter in parameters)
+                            foreach (KeyValuePair<string, string> parameter in parameters)
                             {
                                 SQLiteParameter param = new SQLiteParameter(parameter.Key) { Value = parameter.Value };
 
@@ -209,7 +209,7 @@ namespace Wheel_Tension_Application
                             }
                         }
 
-                        using (var reader = objCommand.ExecuteReader())
+                        using (SQLiteDataReader reader = objCommand.ExecuteReader())
                         {
                             while (reader.Read())
                             {
