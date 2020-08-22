@@ -230,6 +230,18 @@ namespace Wheel_Tension_Application
             return text;
         }
 
+        private void SetComboBoxValue(ComboBox comboBox, List<string> values, bool isAddRange, bool isEnabled)
+        {
+            comboBox.Items.Clear();
+
+            if (isAddRange)
+            {
+                comboBox.Items.AddRange(values.ToArray());
+            }
+            
+            comboBox.Enabled = isEnabled;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             string materialsListCommand = @"
@@ -241,8 +253,7 @@ namespace Wheel_Tension_Application
 
             List<string> materialsList = GetWheelParameterFromDB(connectionString, materialsListCommand, parameters);
 
-            materialComboBox.Items.Clear();
-            materialComboBox.Items.AddRange(materialsList.ToArray());
+            SetComboBoxValue(materialComboBox, materialsList, true, true);
         }
 
         private void leftSideComboBox_TextChanged(object sender, EventArgs e)
@@ -307,9 +318,7 @@ namespace Wheel_Tension_Application
 
             List<string> thicknessList = GetWheelParameterFromDB(connectionString, thicknessListCommand, parameters);
 
-            thicknessComboBox.Items.Clear();
-            thicknessComboBox.Items.AddRange(thicknessList.ToArray());
-            thicknessComboBox.Enabled = true;
+            SetComboBoxValue(thicknessComboBox, thicknessList, true, true);
         }
 
         private void materialComboBox_TextChanged(object sender, EventArgs e)
@@ -329,12 +338,8 @@ namespace Wheel_Tension_Application
 
             List<string> shapesList = GetWheelParameterFromDB(connectionString, shapesListCommand, parameters);
 
-            shapeComboBox.Items.Clear();
-            shapeComboBox.Items.AddRange(shapesList.ToArray());
-            shapeComboBox.Enabled = true;
-
-            thicknessComboBox.Items.Clear();
-            thicknessComboBox.Enabled = false;
+            SetComboBoxValue(shapeComboBox, shapesList, true, true);
+            SetComboBoxValue(thicknessComboBox, null, false, false);
         }
 
         private void thicknessComboBox_TextChanged(object sender, EventArgs e)
