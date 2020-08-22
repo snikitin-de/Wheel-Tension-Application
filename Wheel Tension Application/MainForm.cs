@@ -133,7 +133,7 @@ namespace Wheel_Tension_Application
             }
         }
 
-        private void AddNumericUpDownToGroupBox(ComboBox comboBox, string name, int stepControl)
+        private void AddNumericUpDownToGroupBox(ComboBox comboBox, GroupBox groupBox, string name, int stepControl)
         {
             string selected = comboBox.GetItemText(comboBox.SelectedItem);
             int indentFromComboBox = GetIndentFromComboBox(comboBox, stepControl);
@@ -148,7 +148,7 @@ namespace Wheel_Tension_Application
             };
 
             AddGroupControlsToGroupBox(
-                wheelTensionGroupBox,
+                groupBox,
                 numericUpDown,
                 numericUpDownProperties,
                 name,
@@ -252,13 +252,13 @@ namespace Wheel_Tension_Application
         private void leftSideComboBox_TextChanged(object sender, EventArgs e)
         {
             int stepControl = 3;
-            AddNumericUpDownToGroupBox(leftSideComboBox, "leftSideSpokesNumericUpDown", stepControl);
+            AddNumericUpDownToGroupBox(leftSideComboBox, wheelTensionGroupBox, "leftSideSpokesNumericUpDown", stepControl);
         }
 
         private void rightSideComboBox_TextChanged(object sender, EventArgs e)
         {
             int stepControl = 3;
-            AddNumericUpDownToGroupBox(rightSideComboBox, "rightSideSpokesNumericUpDown", stepControl);
+            AddNumericUpDownToGroupBox(rightSideComboBox, wheelTensionGroupBox, "rightSideSpokesNumericUpDown", stepControl);
         }
 
         private void calculateButton_Click(object sender, EventArgs e)
