@@ -24,7 +24,7 @@ namespace Wheel_Tension_Application
             InitializeComponent();
         }
 
-        private void DrawChart(string SeriesName, List<float> tm1Reading)
+        private void DrawTensionChart(string SeriesName, List<float> tm1Reading)
         {
             List<float> spokesAngles = CalculateSpokeAngles(tm1Reading);
 
@@ -324,8 +324,8 @@ namespace Wheel_Tension_Application
                     MessageBox.Show("Your wheel isn't symmetrical!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
-                DrawChart("Left Side Spokes", leftSideSpokesTm1);
-                DrawChart("Right Side Spokes", rightSideSpokesTm1);
+                DrawTensionChart("Left Side Spokes", leftSideSpokesTm1);
+                DrawTensionChart("Right Side Spokes", rightSideSpokesTm1);
             }
         }
 
