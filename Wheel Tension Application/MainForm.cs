@@ -12,15 +12,15 @@ namespace Wheel_Tension_Application
 {
     public partial class MainForm : Form
     {
-        private Dictionary<string, Dictionary<string, List<string>>> wheel_spokes = new Dictionary<string, Dictionary<string, List<string>>>();
-        private Dictionary<string, List<string>> shape = new Dictionary<string, List<string>>();
+        readonly private Dictionary<string, Dictionary<string, List<string>>> wheel_spokes = new Dictionary<string, Dictionary<string, List<string>>>();
+        readonly private Dictionary<string, List<string>> shape = new Dictionary<string, List<string>>();
 
-        private Dictionary<string, string> parameters = new Dictionary<string, string>();
+        readonly private List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
 
-        private string connectionString = "Data Source=" + Path.Combine(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + 
+        readonly private string connectionString = "Data Source=" + Path.Combine(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())) + 
         "\\wheel_tension.sqlite3;Version=3;";
 
-        private List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
+        private Dictionary<string, string> parameters = new Dictionary<string, string>();
 
         public MainForm()
         {
