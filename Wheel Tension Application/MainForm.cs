@@ -44,7 +44,7 @@ namespace Wheel_Tension_Application
             float angle;
             float tm1;
 
-            for (int i = 0; i < spokesAngles.Count; i++)
+            for (var i = 0; i < spokesAngles.Count; i++)
             {
                 int spoke = i + 1;
 
@@ -56,7 +56,7 @@ namespace Wheel_Tension_Application
                 chart.Series[SeriesName].Points[i].Label = spoke.ToString();
             }
 
-            for (int i = 0; i < spokesAngles.Count; i++)
+            for (var i = 0; i < spokesAngles.Count; i++)
             {
                 angle = spokesAngles[i];
                 tm1 = tm1Reading[i];
@@ -68,7 +68,8 @@ namespace Wheel_Tension_Application
 
         private List<float> CalculateSpokeAngles(List<float> tm1Reading)
         {
-            int tm1ReadingLength = tm1Reading.Count;
+            var tm1ReadingLength = tm1Reading.Count;
+
             float angle = 0;
 
             List<float> angles = new List<float>(tm1ReadingLength);
@@ -96,7 +97,8 @@ namespace Wheel_Tension_Application
 
         private void AddGroupControlsToGroupBox(GroupBox groupBox, Control control, List<string> controlProperties, string name, int indentX, int indentY, int controlHeight, int step, int count)
         {
-            int itemsCount = groupBox.Controls.OfType<Control>().Count();
+            var itemsCount = groupBox.Controls.OfType<Control>().Count();
+
             int indent = indentY;
 
             if (count < itemsCount)
@@ -112,7 +114,7 @@ namespace Wheel_Tension_Application
 
             for (int i = 0; i < count; i++)
             {
-                int indexAdd = i + 1;
+                var indexAdd = i + 1;
 
                 Type type = control.GetType();
                 ConstructorInfo ctor = type.GetConstructor(Type.EmptyTypes);
@@ -135,7 +137,8 @@ namespace Wheel_Tension_Application
 
         private void AddNumericUpDownToGroupBox(ComboBox comboBox, GroupBox groupBox, string name, int stepControl)
         {
-            string selected = comboBox.GetItemText(comboBox.SelectedItem);
+            var selected = comboBox.GetItemText(comboBox.SelectedItem);
+
             int indentFromComboBox = GetIndentFromComboBox(comboBox, stepControl);
 
             NumericUpDown numericUpDown = new NumericUpDown()
@@ -167,7 +170,7 @@ namespace Wheel_Tension_Application
 
         private List<float> GetWheelTensions(string name)
         {
-            List<float> values = new List<float>() { };
+            var values = new List<float>() { };
 
             foreach (Control item in wheelTensionGroupBox.Controls.OfType<NumericUpDown>().Reverse())
             {
@@ -182,7 +185,7 @@ namespace Wheel_Tension_Application
 
         private List<string> GetWheelParameterFromDB(string connectionString, string command, Dictionary<string, string> parameters)
         {
-            List<string> text = new List<string>();
+            var text = new List<string>();
 
             try
             {
@@ -239,7 +242,7 @@ namespace Wheel_Tension_Application
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string materialsListCommand = @"
+            var materialsListCommand = @"
                 SELECT material
                 FROM tm1_conversion_table
                 GROUP BY material";
@@ -251,20 +254,22 @@ namespace Wheel_Tension_Application
 
         private void leftSideComboBox_TextChanged(object sender, EventArgs e)
         {
-            int stepControl = 3;
+            var stepControl = 3;
+
             AddNumericUpDownToGroupBox(leftSideComboBox, wheelTensionGroupBox, "leftSideSpokesNumericUpDown", stepControl);
         }
 
         private void rightSideComboBox_TextChanged(object sender, EventArgs e)
         {
-            int stepControl = 3;
+            var stepControl = 3;
+
             AddNumericUpDownToGroupBox(rightSideComboBox, wheelTensionGroupBox, "rightSideSpokesNumericUpDown", stepControl);
         }
 
         private void calculateButton_Click(object sender, EventArgs e)
         {
-            string leftSideComboBoxSelected = leftSideComboBox.GetItemText(leftSideComboBox.SelectedItem);
-            string rightSideComboBoxSelected = rightSideComboBox.GetItemText(rightSideComboBox.SelectedItem);
+            var leftSideComboBoxSelected = leftSideComboBox.GetItemText(leftSideComboBox.SelectedItem);
+            var rightSideComboBoxSelected = rightSideComboBox.GetItemText(rightSideComboBox.SelectedItem);
 
             List<float> leftSideSpokesTm1 = GetWheelTensions("leftSideSpokesNumericUpDown");
             List<float> rightSideSpokesTm1 = GetWheelTensions("rightSideSpokesNumericUpDown");
@@ -291,9 +296,10 @@ namespace Wheel_Tension_Application
 
         private void shapeComboBox_TextChanged(object sender, EventArgs e)
         {
-            string materialComboBoxSelected = materialComboBox.GetItemText(materialComboBox.SelectedItem);
-            string shapeComboBoxSelected = shapeComboBox.GetItemText(shapeComboBox.SelectedItem);
-            string thicknessListCommand = @"
+            var materialComboBoxSelected = materialComboBox.GetItemText(materialComboBox.SelectedItem);
+            var shapeComboBoxSelected = shapeComboBox.GetItemText(shapeComboBox.SelectedItem);
+
+            var thicknessListCommand = @"
                 SELECT thickness
                 FROM tm1_conversion_table
                 WHERE material = @material AND shape = @shape
@@ -312,8 +318,9 @@ namespace Wheel_Tension_Application
 
         private void materialComboBox_TextChanged(object sender, EventArgs e)
         {
-            string materialComboBoxSelected = materialComboBox.GetItemText(materialComboBox.SelectedItem);
-            string shapesListCommand = @"
+            var materialComboBoxSelected = materialComboBox.GetItemText(materialComboBox.SelectedItem);
+
+            var shapesListCommand = @"
                 SELECT shape
                 FROM tm1_conversion_table
                 WHERE material = @material
@@ -332,17 +339,16 @@ namespace Wheel_Tension_Application
 
         private void thicknessComboBox_TextChanged(object sender, EventArgs e)
         {
-            string materialComboBoxSelected = materialComboBox.GetItemText(materialComboBox.SelectedItem);
-            string shapeComboBoxSelected = shapeComboBox.GetItemText(shapeComboBox.SelectedItem);
-            string thicknessComboBoxSelected = thicknessComboBox.GetItemText(thicknessComboBox.SelectedItem);
+            var materialComboBoxSelected = materialComboBox.GetItemText(materialComboBox.SelectedItem);
+            var shapeComboBoxSelected = shapeComboBox.GetItemText(shapeComboBox.SelectedItem);
+            var thicknessComboBoxSelected = thicknessComboBox.GetItemText(thicknessComboBox.SelectedItem);
 
-            string tm1ListCommand = @"
+            var tm1ListCommand = @"
                 SELECT tm1_deflection_reading
                 FROM tm1_conversion_table
                 WHERE material = @material AND shape = @shape AND thickness = @thickness
                 GROUP BY tm1_deflection_reading";
-
-            string tensionListCommand = @"
+            var tensionListCommand = @"
                 SELECT tension
                 FROM tm1_conversion_table
                 WHERE material = @material AND shape = @shape AND thickness = @thickness
@@ -365,7 +371,7 @@ namespace Wheel_Tension_Application
             {
                 int columnsWidth = (conversionTableGridView.Width - conversionTableGridView.RowHeadersWidth) / conversionTableGridView.ColumnCount;
 
-                for (int i = 0; i < tm1Deflection.Count; i++)
+                for (var i = 0; i < tm1Deflection.Count; i++)
                 {
                     conversionTableGridView.Columns[i].Name = "";
                     conversionTableGridView.Columns[i].Width = columnsWidth;
