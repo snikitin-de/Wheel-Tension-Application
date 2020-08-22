@@ -240,6 +240,41 @@ namespace Wheel_Tension_Application
             comboBox.Enabled = isEnabled;
         }
 
+        private void SetDataGridViewValues(int columnCount, string[] rowHeaders, List<string[]> rows)
+        {
+            conversionTableGridView.ColumnCount = columnCount;
+            conversionTableGridView.RowHeadersWidth = 165;
+
+            try
+            {
+                int columnsWidth = (conversionTableGridView.Width - conversionTableGridView.RowHeadersWidth) / conversionTableGridView.ColumnCount;
+
+                for (var i = 0; i < columnCount; i++)
+                {
+                    conversionTableGridView.Columns[i].Name = "";
+                    conversionTableGridView.Columns[i].Width = columnsWidth;
+                }
+
+                conversionTableGridView.Rows.Clear();
+
+                if (rows.Count != rowHeaders.Length)
+                {
+                    MessageBox.Show("Number of row headers must be equal number of rows!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                } else
+                {
+                    for (var i = 0; i < rows.Count; i++)
+                    {
+                        conversionTableGridView.Rows.Add(rows[i]);
+                        conversionTableGridView.Rows[i].HeaderCell.Value = rowHeaders[i];
+                    }
+                }
+            }
+            catch (System.DivideByZeroException)
+            {
+                MessageBox.Show("There are no such parameters in the database!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             var materialsListCommand = @"
@@ -364,29 +399,10 @@ namespace Wheel_Tension_Application
             List<string> tm1Deflection = GetWheelParameterFromDB(connectionString, tm1ListCommand, parameters);
             List<string> tension = GetWheelParameterFromDB(connectionString, tensionListCommand, parameters);
 
-            conversionTableGridView.ColumnCount = tm1Deflection.Count;
-            conversionTableGridView.RowHeadersWidth = 165;
+            var rowHeaders = new string[] { "TM-1 READING", "SPOKE TENSION (KGF)" };
+            var rows = new List<string[]> { tm1Deflection.ToArray(), tension.ToArray() };
 
-            try
-            {
-                int columnsWidth = (conversionTableGridView.Width - conversionTableGridView.RowHeadersWidth) / conversionTableGridView.ColumnCount;
-
-                for (var i = 0; i < tm1Deflection.Count; i++)
-                {
-                    conversionTableGridView.Columns[i].Name = "";
-                    conversionTableGridView.Columns[i].Width = columnsWidth;
-                }
-
-                conversionTableGridView.Rows.Clear();
-                conversionTableGridView.Rows.Add(tm1Deflection.ToArray());
-                conversionTableGridView.Rows.Add(tension.ToArray());
-                conversionTableGridView.Rows[0].HeaderCell.Value = "TM-1 READING";
-                conversionTableGridView.Rows[1].HeaderCell.Value = "SPOKE TENSION (KGF)";
-            }
-            catch (System.DivideByZeroException)
-            {
-                MessageBox.Show("There are no such parameters in the database!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            SetDataGridViewValues(tm1Deflection.Count, rowHeaders, rows);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
