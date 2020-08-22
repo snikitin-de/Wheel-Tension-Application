@@ -97,6 +97,7 @@ namespace Wheel_Tension_Application
         private void AddGroupControlsToGroupBox(GroupBox groupBox, Control control, List<string> controlProperties, string name, int indentX, int indentY, int controlHeight, int step, int count)
         {
             int itemsCount = groupBox.Controls.OfType<Control>().Count();
+            int indent = indentY;
 
             if (count < itemsCount)
             {
@@ -109,14 +110,11 @@ namespace Wheel_Tension_Application
                 }
             }
 
-            int indent = indentY;
-
             for (int i = 0; i < count; i++)
             {
                 int indexAdd = i + 1;
 
                 Type type = control.GetType();
-
                 ConstructorInfo ctor = type.GetConstructor(Type.EmptyTypes);
                 Control newControl = (Control)ctor.Invoke(null);
 
@@ -295,7 +293,6 @@ namespace Wheel_Tension_Application
         {
             string materialComboBoxSelected = materialComboBox.GetItemText(materialComboBox.SelectedItem);
             string shapeComboBoxSelected = shapeComboBox.GetItemText(shapeComboBox.SelectedItem);
-
             string thicknessListCommand = @"
                 SELECT thickness
                 FROM tm1_conversion_table
@@ -316,7 +313,6 @@ namespace Wheel_Tension_Application
         private void materialComboBox_TextChanged(object sender, EventArgs e)
         {
             string materialComboBoxSelected = materialComboBox.GetItemText(materialComboBox.SelectedItem);
-
             string shapesListCommand = @"
                 SELECT shape
                 FROM tm1_conversion_table
@@ -376,10 +372,8 @@ namespace Wheel_Tension_Application
                 }
 
                 conversionTableGridView.Rows.Clear();
-
                 conversionTableGridView.Rows.Add(tm1Deflection.ToArray());
                 conversionTableGridView.Rows.Add(tension.ToArray());
-
                 conversionTableGridView.Rows[0].HeaderCell.Value = "TM-1 READING";
                 conversionTableGridView.Rows[1].HeaderCell.Value = "SPOKE TENSION (KGF)";
             }
