@@ -9,51 +9,51 @@ namespace Wheel_Tension_Application
 {
     class FormControls
     {
-        public void AddGroupControlsToGroupBox(GroupBox groupBox, Control control, List<string> controlProperties, string name, int indentX, int indentY, int controlHeight, int step, int count)
+        public void AddGroupControlsToGroupBox(GroupBox groupBox, Control controlForAdding, List<string> controlProperties, string controlName, int controlHeight, int controlCount, int stepBetweenControls, int offsetX, int offsetY)
         {
             var itemsCount = groupBox.Controls.OfType<Control>().Count();
 
-            int indent = indentY;
+            int indent = offsetY;
 
-            if (count < itemsCount)
+            if (controlCount < itemsCount)
             {
                 foreach (Control item in groupBox.Controls.OfType<Control>().Reverse())
                 {
-                    if (item.Name.IndexOf(name) > -1)
+                    if (item.Name.IndexOf(controlName) > -1)
                     {
                         groupBox.Controls.Remove(item);
                     }
                 }
             }
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < controlCount; i++)
             {
                 var indexAdd = i + 1;
 
-                Type type = control.GetType();
+                Type type = controlForAdding.GetType();
                 ConstructorInfo ctor = type.GetConstructor(Type.EmptyTypes);
                 Control newControl = (Control)ctor.Invoke(null);
 
-                newControl.Name = name + indexAdd;
-                newControl.Location = new Point(indentX, indent);
+                newControl.Name = controlName + indexAdd;
+                newControl.Location = new Point(offsetX, indent);
 
                 foreach (string property in controlProperties)
                 {
-                    PropertyInfo propertyInfo = control.GetType().GetProperty(property);
-                    propertyInfo.SetValue(newControl, Convert.ChangeType(propertyInfo.GetValue(control), propertyInfo.PropertyType), null);
+                    PropertyInfo propertyInfo = controlForAdding.GetType().GetProperty(property);
+                    propertyInfo.SetValue(newControl, Convert.ChangeType(propertyInfo.GetValue(controlForAdding), propertyInfo.PropertyType), null);
                 }
 
                 groupBox.Controls.Add(newControl);
 
-                indent += controlHeight + step;
+                indent += controlHeight + stepBetweenControls;
             }
         }
 
-        public void AddNumericUpDownToGroupBox(ComboBox comboBox, GroupBox groupBox, string name, int stepControl, List<string> properties)
+        public void AddNumericUpDownToGroupBox(GroupBox groupBox, ComboBox comboBox, string controlName, List<string> properties, int stepBetweenControls)
         {
             var selected = comboBox.GetItemText(comboBox.SelectedItem);
 
-            int indentFromComboBox = GetIndentFromComboBox(comboBox, stepControl);
+            int indentFromComboBox = GetIndentFromComboBox(comboBox, stepBetweenControls);
 
             NumericUpDown numericUpDown = new NumericUpDown()
             {
@@ -68,12 +68,12 @@ namespace Wheel_Tension_Application
                 groupBox,
                 numericUpDown,
                 properties,
-                name,
-                comboBox.Location.X,
-                indentFromComboBox,
+                controlName,
                 comboBox.Size.Height,
-                stepControl,
-                Int16.Parse(selected)
+                Int16.Parse(selected),
+                stepBetweenControls,
+                comboBox.Location.X,
+                indentFromComboBox
             );
         }
 
@@ -82,13 +82,13 @@ namespace Wheel_Tension_Application
             return comboBox.Location.Y + comboBox.Size.Height + stepControl;
         }
 
-        public List<float> GetWheelTensions(string name, GroupBox groupBox)
+        public List<float> GetWheelTensions(GroupBox groupBox, string controlsName)
         {
             var values = new List<float>() { };
 
             foreach (Control item in groupBox.Controls.OfType<NumericUpDown>().Reverse())
             {
-                if (item.Name.IndexOf(name) > -1)
+                if (item.Name.IndexOf(controlsName) > -1)
                 {
                     values.Add(float.Parse(item.Text));
                 }
