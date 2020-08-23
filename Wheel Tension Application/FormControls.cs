@@ -53,7 +53,7 @@ namespace Wheel_Tension_Application
         {
             var selected = comboBox.GetItemText(comboBox.SelectedItem);
 
-            int indentFromComboBox = GetIndentFromComboBox(comboBox, stepBetweenControls);
+            int indentFromComboBox = GetOffsetFromControl(comboBox) + stepBetweenControls;
 
             NumericUpDown numericUpDown = new NumericUpDown()
             {
@@ -77,9 +77,9 @@ namespace Wheel_Tension_Application
             );
         }
 
-        public int GetIndentFromComboBox(ComboBox comboBox, int stepControl)
+        public int GetOffsetFromControl(Control control)
         {
-            return comboBox.Location.Y + comboBox.Size.Height + stepControl;
+            return control.Location.Y + control.Size.Height;
         }
 
         public List<float> GetWheelTensions(GroupBox groupBox, string controlsName)
