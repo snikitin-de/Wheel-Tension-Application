@@ -78,7 +78,7 @@ namespace Wheel_Tension_Application
             return control.Location.Y + control.Size.Height;
         }
 
-        public List<float> GetWheelTensions(GroupBox groupBox, string controlsName)
+        public List<float> GetValuesFromGroupControls(GroupBox groupBox, string controlsName)
         {
             var values = new List<float>() { };
 

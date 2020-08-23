@@ -95,8 +95,8 @@ namespace Wheel_Tension_Application
 
             var formControl = new FormControls();
 
-            List<float> leftSideSpokesTm1 = formControl.GetWheelTensions(wheelTensionGroupBox, "leftSideSpokesNumericUpDown");
-            List<float> rightSideSpokesTm1 = formControl.GetWheelTensions(wheelTensionGroupBox, "rightSideSpokesNumericUpDown");
+            List<float> leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(wheelTensionGroupBox, "leftSideSpokesNumericUpDown");
+            List<float> rightSideSpokesTm1 = formControl.GetValuesFromGroupControls(wheelTensionGroupBox, "rightSideSpokesNumericUpDown");
 
             chart.Series.Clear();
 
