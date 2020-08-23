@@ -49,40 +49,36 @@ namespace Wheel_Tension_Application
             }
         }
 
-        public void AddNumericUpDownToGroupBox(GroupBox groupBox, ComboBox comboBox, string controlName, List<string> properties, int stepBetweenControls)
+        public void AddNumericUpDownToGroupBox(GroupBox groupBox, string controlName, List<string> controlProperties, int controlWidth, int controlHeight, int controlCount, int stepBetweenControls, int offsetX, int offsetY)
         {
-            var selected = comboBox.GetItemText(comboBox.SelectedItem);
-
-            int indentFromComboBox = GetIndentFromComboBox(comboBox, stepBetweenControls);
-
             NumericUpDown numericUpDown = new NumericUpDown()
             {
                 Minimum = 0,
                 Maximum = 44,
                 DecimalPlaces = 1,
                 Increment = 1M,
-                Size = new Size(comboBox.Size.Width, comboBox.Size.Height)
+                Size = new Size(controlWidth, controlHeight)
             };
 
             AddGroupControlsToGroupBox(
                 groupBox,
                 numericUpDown,
-                properties,
+                controlProperties,
                 controlName,
-                comboBox.Size.Height,
-                Int16.Parse(selected),
+                controlHeight,
+                controlCount,
                 stepBetweenControls,
-                comboBox.Location.X,
-                indentFromComboBox
+                offsetX,
+                offsetY
             );
         }
 
-        public int GetIndentFromComboBox(ComboBox comboBox, int stepControl)
+        public int GetOffsetFromControl(Control control)
         {
-            return comboBox.Location.Y + comboBox.Size.Height + stepControl;
+            return control.Location.Y + control.Size.Height;
         }
 
-        public List<float> GetWheelTensions(GroupBox groupBox, string controlsName)
+        public List<float> GetValuesFromGroupControls(GroupBox groupBox, string controlsName)
         {
             var values = new List<float>() { };
 
