@@ -73,6 +73,27 @@ namespace Wheel_Tension_Application
             );
         }
 
+        public void AddTextBoxToGroupBox(GroupBox groupBox, string controlName, List<string> controlProperties, int controlWidth, int controlHeight, int controlCount, int stepBetweenControls, int offsetX, int offsetY)
+        {
+            TextBox textBox = new TextBox()
+            {
+                Enabled = false,
+                Size = new Size(controlWidth, controlHeight)
+            };
+
+            AddGroupControlsToGroupBox(
+                groupBox,
+                textBox,
+                controlProperties,
+                controlName,
+                controlHeight,
+                controlCount,
+                stepBetweenControls,
+                offsetX,
+                offsetY
+            );
+        }
+
         public int GetOffsetFromControl(Control control)
         {
             return control.Location.Y + control.Size.Height;

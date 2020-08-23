@@ -15,6 +15,7 @@ namespace Wheel_Tension_Application
     public partial class MainForm : Form
     {
         readonly private List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
+        readonly private List<string> textBoxProperties = new List<string>() { "Enabled", "Size" };
 
         readonly private string connectionString = "Data Source=" + Path.Combine(Path.GetDirectoryName(Directory.GetCurrentDirectory())) + 
         "\\wheel_tension.sqlite3;Version=3;";
@@ -63,6 +64,18 @@ namespace Wheel_Tension_Application
                 leftSideComboBox.Location.X,
                 indentFromComboBox
             );
+
+            formControl.AddTextBoxToGroupBox(
+                leftSideSpokesGroupBox,
+                "leftSideSpokesTextBox",
+                textBoxProperties,
+                leftSideComboBox.Size.Width,
+                leftSideComboBox.Size.Height,
+                leftSideSpokesCount,
+                stepBetweenControls,
+                tensionLeftSpokesLabel.Location.X,
+                indentFromComboBox
+            );
         }
 
         private void rightSideComboBox_TextChanged(object sender, EventArgs e)
@@ -84,6 +97,18 @@ namespace Wheel_Tension_Application
                 rightSideSpokesCount,
                 stepBetweenControls,
                 rightSideComboBox.Location.X,
+                indentFromComboBox
+            );
+
+            formControl.AddTextBoxToGroupBox(
+                rightSideSpokesGroupBox,
+                "rightSideSpokesTextBox",
+                textBoxProperties,
+                rightSideComboBox.Size.Width,
+                rightSideComboBox.Size.Height,
+                rightSideSpokesCount,
+                stepBetweenControls,
+                tensionLeftSpokesLabel.Location.X,
                 indentFromComboBox
             );
         }
