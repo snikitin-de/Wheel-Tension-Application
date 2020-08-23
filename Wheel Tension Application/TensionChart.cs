@@ -3,13 +3,14 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Collections.Generic;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Drawing;
 
 namespace Wheel_Tension_Application
 {
     class TensionChart
     {
-        public System.Windows.Forms.DataVisualization.Charting.Chart DrawTension(System.Windows.Forms.DataVisualization.Charting.Chart chart, string SeriesName, List<float> spokesAngles, List<float> tm1Reading)
+        public void DrawTension(Chart chart, string SeriesName, List<float> spokesAngles, List<float> tm1Reading)
         {
             spokesAngles.Add(360);
             tm1Reading.Add(tm1Reading[0]);
@@ -20,8 +21,8 @@ namespace Wheel_Tension_Application
 
             chart.Series.Add(SeriesName);
             chart.Series[SeriesName].BorderWidth = 2;
-            chart.Series[SeriesName].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Polar;
-            chart.Series[SeriesName].MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            chart.Series[SeriesName].ChartType = SeriesChartType.Polar;
+            chart.Series[SeriesName].MarkerStyle = MarkerStyle.Circle;
             chart.Series[SeriesName].MarkerSize = 5;
 
             float angle;
@@ -47,8 +48,6 @@ namespace Wheel_Tension_Application
                 chart.Series[SeriesName].Points.AddXY(0, 0);
                 chart.Series[SeriesName].Points.AddXY(angle, tm1);
             }
-
-            return chart;
         }
     }
 }

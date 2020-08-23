@@ -44,20 +44,20 @@ namespace Wheel_Tension_Application
 
         private void leftSideComboBox_TextChanged(object sender, EventArgs e)
         {
-            var stepControl = 3;
+            var stepBetweenControls = 3;
 
             var formControl = new FormControls();
 
-            formControl.AddNumericUpDownToGroupBox(leftSideComboBox, wheelTensionGroupBox, "leftSideSpokesNumericUpDown", stepControl, numericUpDownProperties);
+            formControl.AddNumericUpDownToGroupBox(wheelTensionGroupBox, leftSideComboBox, "leftSideSpokesNumericUpDown", numericUpDownProperties, stepBetweenControls);
         }
 
         private void rightSideComboBox_TextChanged(object sender, EventArgs e)
         {
-            var stepControl = 3;
+            var stepBetweenControls = 3;
 
             var formControl = new FormControls();
 
-            formControl.AddNumericUpDownToGroupBox(rightSideComboBox, wheelTensionGroupBox, "rightSideSpokesNumericUpDown", stepControl, numericUpDownProperties);
+            formControl.AddNumericUpDownToGroupBox(wheelTensionGroupBox, rightSideComboBox, "rightSideSpokesNumericUpDown", numericUpDownProperties, stepBetweenControls);
         }
 
         private void calculateButton_Click(object sender, EventArgs e)
@@ -67,8 +67,8 @@ namespace Wheel_Tension_Application
 
             var formControl = new FormControls();
 
-            List<float> leftSideSpokesTm1 = formControl.GetWheelTensions("leftSideSpokesNumericUpDown", wheelTensionGroupBox);
-            List<float> rightSideSpokesTm1 = formControl.GetWheelTensions("rightSideSpokesNumericUpDown", wheelTensionGroupBox);
+            List<float> leftSideSpokesTm1 = formControl.GetWheelTensions(wheelTensionGroupBox, "leftSideSpokesNumericUpDown");
+            List<float> rightSideSpokesTm1 = formControl.GetWheelTensions(wheelTensionGroupBox, "rightSideSpokesNumericUpDown");
 
             chart.Series.Clear();
 
