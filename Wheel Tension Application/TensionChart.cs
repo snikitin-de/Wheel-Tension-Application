@@ -9,7 +9,7 @@ namespace Wheel_Tension_Application
 {
     class TensionChart
     {
-        public System.Windows.Forms.DataVisualization.Charting.Chart DrawTension(System.Windows.Forms.DataVisualization.Charting.Chart chart, string SeriesName, List<float> spokesAngles, List<float> tm1Reading)
+        public void DrawTension(System.Windows.Forms.DataVisualization.Charting.Chart chart, string SeriesName, List<float> spokesAngles, List<float> tm1Reading)
         {
             spokesAngles.Add(360);
             tm1Reading.Add(tm1Reading[0]);
@@ -47,8 +47,6 @@ namespace Wheel_Tension_Application
                 chart.Series[SeriesName].Points.AddXY(0, 0);
                 chart.Series[SeriesName].Points.AddXY(angle, tm1);
             }
-
-            return chart;
         }
     }
 }
