@@ -48,7 +48,21 @@ namespace Wheel_Tension_Application
 
             var formControl = new FormControls();
 
-            formControl.AddNumericUpDownToGroupBox(wheelTensionGroupBox, leftSideComboBox, "leftSideSpokesNumericUpDown", numericUpDownProperties, stepBetweenControls);
+            var leftSideSpokesCount = Int16.Parse(leftSideComboBox.GetItemText(leftSideComboBox.SelectedItem));
+
+            int indentFromComboBox = formControl.GetOffsetFromControl(leftSideComboBox) + stepBetweenControls;
+
+            formControl.AddNumericUpDownToGroupBox(
+                wheelTensionGroupBox,
+                "leftSideSpokesNumericUpDown",
+                numericUpDownProperties,
+                leftSideComboBox.Size.Width,
+                leftSideComboBox.Size.Height,
+                leftSideSpokesCount,
+                stepBetweenControls,
+                leftSideComboBox.Location.X,
+                indentFromComboBox
+            );
         }
 
         private void rightSideComboBox_TextChanged(object sender, EventArgs e)
@@ -57,7 +71,21 @@ namespace Wheel_Tension_Application
 
             var formControl = new FormControls();
 
-            formControl.AddNumericUpDownToGroupBox(wheelTensionGroupBox, rightSideComboBox, "rightSideSpokesNumericUpDown", numericUpDownProperties, stepBetweenControls);
+            var rightSideSpokesCount = Int16.Parse(rightSideComboBox.GetItemText(rightSideComboBox.SelectedItem));
+
+            int indentFromComboBox = formControl.GetOffsetFromControl(rightSideComboBox) + stepBetweenControls;
+
+            formControl.AddNumericUpDownToGroupBox(
+                wheelTensionGroupBox,
+                "rightSideSpokesNumericUpDown",
+                numericUpDownProperties,
+                rightSideComboBox.Size.Width,
+                rightSideComboBox.Size.Height,
+                rightSideSpokesCount,
+                stepBetweenControls,
+                rightSideComboBox.Location.X,
+                indentFromComboBox
+            );
         }
 
         private void calculateButton_Click(object sender, EventArgs e)

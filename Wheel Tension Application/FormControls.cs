@@ -49,31 +49,27 @@ namespace Wheel_Tension_Application
             }
         }
 
-        public void AddNumericUpDownToGroupBox(GroupBox groupBox, ComboBox comboBox, string controlName, List<string> properties, int stepBetweenControls)
+        public void AddNumericUpDownToGroupBox(GroupBox groupBox, string controlName, List<string> controlProperties, int controlWidth, int controlHeight, int controlCount, int stepBetweenControls, int offsetX, int offsetY)
         {
-            var selected = comboBox.GetItemText(comboBox.SelectedItem);
-
-            int indentFromComboBox = GetOffsetFromControl(comboBox) + stepBetweenControls;
-
             NumericUpDown numericUpDown = new NumericUpDown()
             {
                 Minimum = 0,
                 Maximum = 44,
                 DecimalPlaces = 1,
                 Increment = 1M,
-                Size = new Size(comboBox.Size.Width, comboBox.Size.Height)
+                Size = new Size(controlWidth, controlHeight)
             };
 
             AddGroupControlsToGroupBox(
                 groupBox,
                 numericUpDown,
-                properties,
+                controlProperties,
                 controlName,
-                comboBox.Size.Height,
-                Int16.Parse(selected),
+                controlHeight,
+                controlCount,
                 stepBetweenControls,
-                comboBox.Location.X,
-                indentFromComboBox
+                offsetX,
+                offsetY
             );
         }
 
