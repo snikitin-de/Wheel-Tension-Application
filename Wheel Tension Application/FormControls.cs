@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -114,6 +115,22 @@ namespace Wheel_Tension_Application
             return values;
         }
 
+        public void SetValuesToGroupControls(GroupBox groupBox, string controlsName, float[] valuesForAdding)
+        {
+            int index = 0;
+
+            Array.Reverse(valuesForAdding);
+
+            foreach (Control item in groupBox.Controls.OfType<TextBox>().Reverse())
+            {
+                if (item.Name.IndexOf(controlsName) > -1)
+                {
+                    item.Text = valuesForAdding[index].ToString();
+                    index++;
+                }
+            }
+        }
+
         public void SetComboBoxValue(ComboBox comboBox, List<string> values, bool isAddRange, bool isEnabled)
         {
             comboBox.Items.Clear();
@@ -124,6 +141,25 @@ namespace Wheel_Tension_Application
             }
 
             comboBox.Enabled = isEnabled;
+        }
+
+        public List<string[]> GetDataGridViewValues(DataGridView dataGridView)
+        {
+            var values = new List<string[]>();
+
+            for (var i = 0; i < dataGridView.Rows.Count; i++)
+            {
+                var columnValues = new string[dataGridView.Columns.Count];
+
+                for (var j = 0; j < dataGridView.Columns.Count; j++)
+                {
+                    columnValues[j] = dataGridView.Rows[i].Cells[j].Value.ToString();
+                }
+
+                values.Add(columnValues);
+            }
+
+            return values;
         }
 
         public void SetDataGridViewValues(DataGridView dataGridView, int columnCount, string[] rowHeaders, List<string[]> rows)

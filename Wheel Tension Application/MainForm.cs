@@ -146,6 +146,9 @@ namespace Wheel_Tension_Application
 
                 tensionChart.DrawTension(chart, "Left Side Spokes", leftSpokesAngles, leftSideSpokesTm1);
                 tensionChart.DrawTension(chart, "Right Side Spokes", rightSpokesAngles, rightSideSpokesTm1);
+
+                parameterCalculations.CalculateTensionKgf(conversionTableGridView, leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown", "leftSideSpokesTextBox");
+                parameterCalculations.CalculateTensionKgf(conversionTableGridView, rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown", "rightSideSpokesTextBox");
             }
         }
 
