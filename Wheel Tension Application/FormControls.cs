@@ -60,7 +60,7 @@ namespace Wheel_Tension_Application
                 Minimum = 0,
                 Maximum = 44,
                 DecimalPlaces = 1,
-                Increment = 0.5M,
+                Increment = 1M,
                 Size = new Size(comboBox.Size.Width, comboBox.Size.Height)
             };
 
