@@ -115,17 +115,16 @@ namespace Wheel_Tension_Application
             return values;
         }
 
-        public void SetValuesToGroupControls(GroupBox groupBox, string controlsName, float[] valuesForAdding)
+        public void SetValuesToGroupControls(GroupBox groupBox, string controlsName, string[] valuesForAdding)
         {
             int index = 0;
 
-            Array.Reverse(valuesForAdding);
-
-            foreach (Control item in groupBox.Controls.OfType<TextBox>().Reverse())
+            foreach (TextBox item in groupBox.Controls.OfType<TextBox>())
             {
                 if (item.Name.IndexOf(controlsName) > -1)
                 {
-                    item.Text = valuesForAdding[index].ToString();
+                    item.Text = valuesForAdding[index];
+
                     index++;
                 }
             }

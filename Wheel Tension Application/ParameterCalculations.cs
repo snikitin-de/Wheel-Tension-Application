@@ -46,16 +46,24 @@ namespace Wheel_Tension_Application
 
             tensions.Reverse();
 
-            var tensionKgf = new List<float>();
+            var tensionKgf = new List<string>();
 
             foreach (float tension in tensions)
             {
+                bool isFound = false;
+
                 for (int j = 0; j < dataGridViewValues[0].Length; j++)
                 {
                     if (tension == float.Parse(dataGridViewValues[0][j]))
                     {
-                        tensionKgf.Add(float.Parse(dataGridViewValues[1][j]));
+                        isFound = true;
+                        tensionKgf.Add(dataGridViewValues[1][j]);
                     }
+                }
+
+                if (!isFound)
+                {
+                    tensionKgf.Add("<null>");
                 }
             }
 

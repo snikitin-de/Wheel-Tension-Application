@@ -235,6 +235,9 @@ namespace Wheel_Tension_Application
             var formControl = new FormControls();
 
             formControl.SetDataGridViewValues(conversionTableGridView, tm1Deflection.Count, rowHeaders, rows);
+
+            leftSideComboBox.Enabled = true;
+            rightSideComboBox.Enabled = true;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
