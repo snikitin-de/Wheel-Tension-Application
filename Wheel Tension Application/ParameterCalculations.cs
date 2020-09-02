@@ -12,12 +12,11 @@ namespace Wheel_Tension_Application
         public List<float> CalculateSpokeAngles(List<float> tm1Reading)
         {
             var tm1ReadingLength = tm1Reading.Count;
+            var angles = new List<float>(tm1ReadingLength);
 
             float angle = 0;
-
-            List<float> angles = new List<float>(tm1ReadingLength);
-
             float angleStep;
+
             if (tm1Reading.Count > 0)
             {
                 angleStep = (float)360 / tm1ReadingLength;

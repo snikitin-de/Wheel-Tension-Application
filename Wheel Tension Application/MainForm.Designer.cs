@@ -35,7 +35,7 @@ namespace Wheel_Tension_Application
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.spokeTensionChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.calculateButton = new System.Windows.Forms.Button();
             this.wheelSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.thicknessComboBox = new System.Windows.Forms.ComboBox();
@@ -52,7 +52,7 @@ namespace Wheel_Tension_Application
             this.rightSpokesLowerTensionLimitTextBox = new System.Windows.Forms.TextBox();
             this.tm1ReadingRightSpokesLabel = new System.Windows.Forms.Label();
             this.rightSpokesUpperTensionLimitTextBox = new System.Windows.Forms.TextBox();
-            this.rightSideComboBox = new System.Windows.Forms.ComboBox();
+            this.rightSideSpokeCountComboBox = new System.Windows.Forms.ComboBox();
             this.standartDevRightSpokesTensionTextBox = new System.Windows.Forms.TextBox();
             this.averageRightSpokesTensionTextBox = new System.Windows.Forms.TextBox();
             this.rightSpokesLowerTensionLimitLabel = new System.Windows.Forms.Label();
@@ -65,7 +65,7 @@ namespace Wheel_Tension_Application
             this.leftSpokesLowerTensionLimitTextBox = new System.Windows.Forms.TextBox();
             this.leftSpokesUpperTensionLimitTextBox = new System.Windows.Forms.TextBox();
             this.standartDevLeftSpokesTensionTextBox = new System.Windows.Forms.TextBox();
-            this.leftSideComboBox = new System.Windows.Forms.ComboBox();
+            this.leftSideSpokeCountComboBox = new System.Windows.Forms.ComboBox();
             this.averageLeftSpokesTensionTextBox = new System.Windows.Forms.TextBox();
             this.leftSpokesLowerTensionLimitLabel = new System.Windows.Forms.Label();
             this.leftSpokesUpperTensionLimitLabel = new System.Windows.Forms.Label();
@@ -73,7 +73,7 @@ namespace Wheel_Tension_Application
             this.averageLeftSpokesTensionLabel = new System.Windows.Forms.Label();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spokeTensionChart)).BeginInit();
             this.wheelSettingsGroupBox.SuspendLayout();
             this.conversionTableGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.conversionTableGridView)).BeginInit();
@@ -83,19 +83,19 @@ namespace Wheel_Tension_Application
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // chart
+            // spokeTensionChart
             // 
             chartArea1.AxisX.LabelStyle.Enabled = false;
             chartArea1.AxisX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
             chartArea1.Name = "ChartArea";
-            this.chart.ChartAreas.Add(chartArea1);
+            this.spokeTensionChart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend";
-            this.chart.Legends.Add(legend1);
-            this.chart.Location = new System.Drawing.Point(7, 247);
-            this.chart.Name = "chart";
-            this.chart.Size = new System.Drawing.Size(767, 667);
-            this.chart.TabIndex = 0;
-            this.chart.Text = "Wheel Tension Balancing";
+            this.spokeTensionChart.Legends.Add(legend1);
+            this.spokeTensionChart.Location = new System.Drawing.Point(7, 247);
+            this.spokeTensionChart.Name = "spokeTensionChart";
+            this.spokeTensionChart.Size = new System.Drawing.Size(767, 667);
+            this.spokeTensionChart.TabIndex = 0;
+            this.spokeTensionChart.Text = "Wheel Tension Balancing";
             // 
             // calculateButton
             // 
@@ -207,7 +207,7 @@ namespace Wheel_Tension_Application
             this.conversionTableGridView.TabIndex = 0;
             // 
             // wheelTensionGroupBox
-            // 
+            //
             this.wheelTensionGroupBox.Controls.Add(this.rightSideSpokesGroupBox);
             this.wheelTensionGroupBox.Controls.Add(this.leftSideSpokesGroupBox);
             this.wheelTensionGroupBox.Location = new System.Drawing.Point(779, 27);
@@ -216,7 +216,7 @@ namespace Wheel_Tension_Application
             this.wheelTensionGroupBox.TabIndex = 4;
             this.wheelTensionGroupBox.TabStop = false;
             this.wheelTensionGroupBox.Text = "Wheel Tenion Balancing";
-            // 
+            //
             // rightSideSpokesGroupBox
             // 
             this.rightSideSpokesGroupBox.Controls.Add(this.tensionRightSpokesLabel);
@@ -270,13 +270,12 @@ namespace Wheel_Tension_Application
             this.rightSpokesUpperTensionLimitTextBox.Name = "rightSpokesUpperTensionLimitTextBox";
             this.rightSpokesUpperTensionLimitTextBox.Size = new System.Drawing.Size(55, 20);
             this.rightSpokesUpperTensionLimitTextBox.TabIndex = 7;
+			//
+            // rightSideSpokeCountComboBox
             // 
-            // rightSideComboBox
-            // 
-            this.rightSideComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.rightSideComboBox.Enabled = false;
-            this.rightSideComboBox.FormattingEnabled = true;
-            this.rightSideComboBox.Items.AddRange(new object[] {
+            this.rightSideSpokeCountComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rightSideSpokeCountComboBox.FormattingEnabled = true;
+            this.rightSideSpokeCountComboBox.Items.AddRange(new object[] {
             "3",
             "4",
             "5",
@@ -299,11 +298,11 @@ namespace Wheel_Tension_Application
             "22",
             "23",
             "24"});
-            this.rightSideComboBox.Location = new System.Drawing.Point(9, 49);
-            this.rightSideComboBox.Name = "rightSideComboBox";
-            this.rightSideComboBox.Size = new System.Drawing.Size(72, 21);
-            this.rightSideComboBox.TabIndex = 3;
-            this.rightSideComboBox.TextChanged += new System.EventHandler(this.rightSideComboBox_TextChanged);
+            this.rightSideSpokeCountComboBox.Location = new System.Drawing.Point(9, 49);
+            this.rightSideSpokeCountComboBox.Name = "rightSideSpokeCountComboBox";
+            this.rightSideSpokeCountComboBox.Size = new System.Drawing.Size(72, 21);
+            this.rightSideSpokeCountComboBox.TabIndex = 3;
+            this.rightSideSpokeCountComboBox.TextChanged += new System.EventHandler(this.rightSideSpokeCountComboBox_TextChanged);
             // 
             // standartDevRightSpokesTensionTextBox
             // 
@@ -419,12 +418,11 @@ namespace Wheel_Tension_Application
             this.standartDevLeftSpokesTensionTextBox.Size = new System.Drawing.Size(55, 20);
             this.standartDevLeftSpokesTensionTextBox.TabIndex = 6;
             // 
-            // leftSideComboBox
+            // leftSideSpokeCountComboBox
             // 
-            this.leftSideComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.leftSideComboBox.Enabled = false;
-            this.leftSideComboBox.FormattingEnabled = true;
-            this.leftSideComboBox.Items.AddRange(new object[] {
+            this.leftSideSpokeCountComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.leftSideSpokeCountComboBox.FormattingEnabled = true;
+            this.leftSideSpokeCountComboBox.Items.AddRange(new object[] {
             "3",
             "4",
             "5",
@@ -447,12 +445,12 @@ namespace Wheel_Tension_Application
             "22",
             "23",
             "24"});
-            this.leftSideComboBox.Location = new System.Drawing.Point(10, 49);
-            this.leftSideComboBox.MaxDropDownItems = 21;
-            this.leftSideComboBox.Name = "leftSideComboBox";
-            this.leftSideComboBox.Size = new System.Drawing.Size(72, 21);
-            this.leftSideComboBox.TabIndex = 2;
-            this.leftSideComboBox.TextChanged += new System.EventHandler(this.leftSideComboBox_TextChanged);
+            this.leftSideSpokeCountComboBox.Location = new System.Drawing.Point(10, 49);
+            this.leftSideSpokeCountComboBox.MaxDropDownItems = 21;
+            this.leftSideSpokeCountComboBox.Name = "leftSideSpokeCountComboBox";
+            this.leftSideSpokeCountComboBox.Size = new System.Drawing.Size(72, 21);
+            this.leftSideSpokeCountComboBox.TabIndex = 2;
+            this.leftSideSpokeCountComboBox.TextChanged += new System.EventHandler(this.leftSideSpokeCountComboBox_TextChanged);
             // 
             // averageLeftSpokesTensionTextBox
             // 
@@ -524,7 +522,7 @@ namespace Wheel_Tension_Application
             this.Controls.Add(this.conversionTableGroupBox);
             this.Controls.Add(this.wheelSettingsGroupBox);
             this.Controls.Add(this.calculateButton);
-            this.Controls.Add(this.chart);
+            this.Controls.Add(this.spokeTensionChart);
             this.Controls.Add(this.menuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -534,7 +532,7 @@ namespace Wheel_Tension_Application
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wheel Tension Application v1.0.0";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spokeTensionChart)).EndInit();
             this.wheelSettingsGroupBox.ResumeLayout(false);
             this.wheelSettingsGroupBox.PerformLayout();
             this.conversionTableGroupBox.ResumeLayout(false);
@@ -553,7 +551,7 @@ namespace Wheel_Tension_Application
 
         #endregion
 
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart spokeTensionChart;
         private System.Windows.Forms.Button calculateButton;
         private System.Windows.Forms.GroupBox wheelSettingsGroupBox;
         private System.Windows.Forms.ComboBox thicknessComboBox;
@@ -565,8 +563,8 @@ namespace Wheel_Tension_Application
         private System.Windows.Forms.GroupBox conversionTableGroupBox;
         private System.Windows.Forms.DataGridView conversionTableGridView;
         private System.Windows.Forms.GroupBox wheelTensionGroupBox;
-        private System.Windows.Forms.ComboBox rightSideComboBox;
-        private System.Windows.Forms.ComboBox leftSideComboBox;
+        private System.Windows.Forms.ComboBox rightSideSpokeCountComboBox;
+        private System.Windows.Forms.ComboBox leftSideSpokeCountComboBox;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.GroupBox leftSideSpokesGroupBox;

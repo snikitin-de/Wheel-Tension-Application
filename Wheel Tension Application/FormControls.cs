@@ -1,4 +1,8 @@
-﻿using System;
+﻿// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -100,15 +104,16 @@ namespace Wheel_Tension_Application
             return control.Location.Y + control.Size.Height;
         }
 
-        public List<float> GetValuesFromGroupControls(GroupBox groupBox, string controlsName)
-        {
-            var values = new List<float>() { };
+        public List<string> GetValuesFromGroupControls(GroupBox groupBox, string controlsName)
 
-            foreach (Control item in groupBox.Controls.OfType<NumericUpDown>().Reverse())
+        {
+            var values = new List<string>() { };
+
+            foreach (Control item in groupBox.Controls.OfType<Control>().Reverse())
             {
                 if (item.Name.IndexOf(controlsName) > -1)
                 {
-                    values.Add(float.Parse(item.Text));
+                    values.Add(item.Text);
                 }
             }
 
@@ -128,6 +133,10 @@ namespace Wheel_Tension_Application
                     index++;
                 }
             }
+
+        public int GetOffsetFromControl(Control control)
+        {
+            return control.Location.Y + control.Size.Height;
         }
 
         public void SetComboBoxValue(ComboBox comboBox, List<string> values, bool isAddRange, bool isEnabled)
