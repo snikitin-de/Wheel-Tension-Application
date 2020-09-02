@@ -73,24 +73,24 @@ namespace Wheel_Tension_Application
             );
         }
 
-        public int GetOffsetFromControl(Control control)
+        public List<string> GetValuesFromGroupControls(GroupBox groupBox, string controlsName)
         {
-            return control.Location.Y + control.Size.Height;
-        }
+            var values = new List<string>() { };
 
-        public List<float> GetValuesFromGroupControls(GroupBox groupBox, string controlsName)
-        {
-            var values = new List<float>() { };
-
-            foreach (Control item in groupBox.Controls.OfType<NumericUpDown>().Reverse())
+            foreach (Control item in groupBox.Controls.OfType<Control>().Reverse())
             {
                 if (item.Name.IndexOf(controlsName) > -1)
                 {
-                    values.Add(float.Parse(item.Text));
+                    values.Add(item.Text);
                 }
             }
 
             return values;
+        }
+
+        public int GetOffsetFromControl(Control control)
+        {
+            return control.Location.Y + control.Size.Height;
         }
 
         public void SetComboBoxValue(ComboBox comboBox, List<string> values, bool isAddRange, bool isEnabled)
