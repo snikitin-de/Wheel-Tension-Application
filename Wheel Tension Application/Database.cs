@@ -16,7 +16,7 @@ namespace Wheel_Tension_Application
 
             try
             {
-                using (SQLiteConnection objConnection = new SQLiteConnection(connectionString))
+                using (var objConnection = new SQLiteConnection(connectionString))
                 {
                     using (SQLiteCommand objCommand = objConnection.CreateCommand())
                     {
@@ -27,7 +27,7 @@ namespace Wheel_Tension_Application
                         {
                             foreach (KeyValuePair<string, string> parameter in parameters)
                             {
-                                SQLiteParameter param = new SQLiteParameter(parameter.Key) { Value = parameter.Value };
+                                var param = new SQLiteParameter(parameter.Key) { Value = parameter.Value };
 
                                 objCommand.Parameters.Add(param);
                             }

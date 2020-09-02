@@ -12,6 +12,9 @@ namespace Wheel_Tension_Application
     {
         public void DrawTension(Chart chart, string SeriesName, List<float> spokesAngles, List<float> tm1Reading)
         {
+            float angle;
+            float tm1;
+
             spokesAngles.Add(360);
             tm1Reading.Add(tm1Reading[0]);
 
@@ -24,9 +27,6 @@ namespace Wheel_Tension_Application
             chart.Series[SeriesName].ChartType = SeriesChartType.Polar;
             chart.Series[SeriesName].MarkerStyle = MarkerStyle.Circle;
             chart.Series[SeriesName].MarkerSize = 5;
-
-            float angle;
-            float tm1;
 
             for (var i = 0; i < spokesAngles.Count; i++)
             {
