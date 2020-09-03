@@ -129,8 +129,6 @@ namespace Wheel_Tension_Application
 
         private void leftSideSpokeCountComboBox_TextChanged(object sender, EventArgs e)
         {
-            var formControl = new FormControls();
-
             var leftSideSpokesCount = Int16.Parse(leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem));
 
             int indentFromComboBox = formControl.GetOffsetFromControl(leftSideSpokeCountComboBox) + stepBetweenControls;
@@ -162,8 +160,6 @@ namespace Wheel_Tension_Application
 
         private void rightSideSpokeCountComboBox_TextChanged(object sender, EventArgs e)
         {
-            var formControl = new FormControls();
-
             var rightSideSpokesCount = Int16.Parse(rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem));
 
             int indentFromComboBox = formControl.GetOffsetFromControl(rightSideSpokeCountComboBox) + stepBetweenControls;
