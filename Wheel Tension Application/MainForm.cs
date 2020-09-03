@@ -62,9 +62,6 @@ namespace Wheel_Tension_Application
 
             List<string> shapesList = database.ExecuteSelectQuery(connectionString, shapesListCommand, parameters);
 
-            parameterCalculations.CalculateTensionKgf(conversionTableGridView, leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown", "leftSideSpokesTextBox");
-            parameterCalculations.CalculateTensionKgf(conversionTableGridView, rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown", "rightSideSpokesTextBox");
-
             formControl.SetComboBoxValue(shapeComboBox, shapesList, true, true);
             formControl.SetComboBoxValue(thicknessComboBox, null, false, false);
         }
@@ -211,6 +208,12 @@ namespace Wheel_Tension_Application
                 {
                     MessageBox.Show("Your wheel isn't symmetrical!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+
+                float[] leftSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(conversionTableGridView, leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown");
+                float[] rightSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(conversionTableGridView, rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown");
+
+                formControl.SetValuesToGroupControls(leftSideSpokesGroupBox, "leftSideSpokesTextBox", leftSideSpokesTensionKgf.Select(x => x.ToString()).ToArray());
+                formControl.SetValuesToGroupControls(rightSideSpokesGroupBox, "rightSideSpokesTextBox", rightSideSpokesTensionKgf.Select(x => x.ToString()).ToArray());
 
                 List<float> leftSpokesAngles = parameterCalculations.CalculateSpokeAngles(leftSideSpokesTm1);
                 List<float> rightSpokesAngles = parameterCalculations.CalculateSpokeAngles(rightSideSpokesTm1);

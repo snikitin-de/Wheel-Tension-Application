@@ -2,6 +2,7 @@
 
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -36,11 +37,11 @@ namespace Wheel_Tension_Application
             return angles;
         }
 
-        public void CalculateTensionKgf(DataGridView dataGridView, GroupBox groupBox, string controlsNameTm1Reading, string controlsNameTensionKgf)
+        public float[] CalculateTensionKgf(DataGridView dataGridView, GroupBox groupBox, string controlsNameTm1Reading)
         {
             var formControl = new FormControls();
 
-            var tensionKgf = new List<string>();
+            var tensionKgf = new List<float>();
 
             List<string[]> dataGridViewValues = formControl.GetDataGridViewValues(dataGridView);
             List<string> tensions = formControl.GetValuesFromGroupControls(groupBox, controlsNameTm1Reading);
@@ -53,20 +54,22 @@ namespace Wheel_Tension_Application
 
                 for (int j = 0; j < dataGridViewValues[0].Length; j++)
                 {
-                    if (tension == dataGridViewValues[0][j])
+                    string tensionFromTable = dataGridViewValues[0][j];
+
+                    if (tension == tensionFromTable)
                     {
                         isFound = true;
-                        tensionKgf.Add(dataGridViewValues[1][j]);
+                        tensionKgf.Add(float.Parse(dataGridViewValues[1][j]));
                     }
                 }
 
                 if (!isFound)
                 {
-                    tensionKgf.Add("<null>");
+                    tensionKgf.Add(0);
                 }
             }
 
-            formControl.SetValuesToGroupControls(groupBox, controlsNameTensionKgf, tensionKgf.ToArray());
+            return tensionKgf.ToArray();
         }
     }
 }

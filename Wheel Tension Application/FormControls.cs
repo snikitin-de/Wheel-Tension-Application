@@ -60,7 +60,7 @@ namespace Wheel_Tension_Application
             {
                 Minimum = 0,
                 Maximum = 44,
-                DecimalPlaces = 1,
+                DecimalPlaces = 0,
                 Increment = 1M,
                 Size = new Size(controlWidth, controlHeight)
             };
