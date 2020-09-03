@@ -18,7 +18,7 @@ namespace Wheel_Tension_Application
         "\\wheel_tension.sqlite3;Version=3;";
 
         private readonly List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
-        private readonly List<string> textBoxProperties = new List<string>() { "Enabled", "Size" };
+        private readonly List<string> textBoxProperties = new List<string>() { "Enabled", "Size", "Text" };
 
         private Dictionary<string, string> parameters = new Dictionary<string, string>() { };
 
