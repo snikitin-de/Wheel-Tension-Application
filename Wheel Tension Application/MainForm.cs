@@ -12,13 +12,18 @@ namespace Wheel_Tension_Application
 {
     public partial class MainForm : Form
     {
-    	readonly int stepBetweenControls = 3;
+        private readonly int stepBetweenControls = 3;
 
-    	readonly private string connectionString = "Data Source=" + Path.Combine(Path.GetDirectoryName(Directory.GetCurrentDirectory())) +
+        private readonly string connectionString = "Data Source=" + Path.Combine(Path.GetDirectoryName(Directory.GetCurrentDirectory())) +
         "\\wheel_tension.sqlite3;Version=3;";
 
-        readonly private List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
-        readonly private List<string> textBoxProperties = new List<string>() { "Enabled", "Size" };
+        private readonly List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
+        private readonly List<string> textBoxProperties = new List<string>() { "Enabled", "Size" };
+
+        List<float> leftSpokesAngles;
+        List<float> rightSpokesAngles;
+        List<float> leftSideSpokesTm1;
+        List<float> rightSideSpokesTm1;
 
         private Dictionary<string, string> parameters = new Dictionary<string, string>() { };
 
@@ -61,9 +66,6 @@ namespace Wheel_Tension_Application
             };
 
             List<string> shapesList = database.ExecuteSelectQuery(connectionString, shapesListCommand, parameters);
-
-            tensionChart.DrawTension(chart, "Left Side Spokes", leftSpokesAngles, leftSideSpokesTm1);
-            tensionChart.DrawTension(chart, "Right Side Spokes", rightSpokesAngles, rightSideSpokesTm1);
 
             parameterCalculations.CalculateTensionKgf(conversionTableGridView, leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown", "leftSideSpokesTextBox");
             parameterCalculations.CalculateTensionKgf(conversionTableGridView, rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown", "rightSideSpokesTextBox");
@@ -126,29 +128,27 @@ namespace Wheel_Tension_Application
 
             formControl.SetDataGridViewValues(conversionTableGridView, tm1Deflection.Count, rowHeaders, rows);
 
-            leftSideComboBox.Enabled = true;
-            rightSideComboBox.Enabled = true;
+            leftSideSpokeCountComboBox.Enabled = true;
+            rightSideSpokeCountComboBox.Enabled = true;
         }
 
         private void leftSideSpokeCountComboBox_TextChanged(object sender, EventArgs e)
         {
-            var stepBetweenControls = 3;
-
             var formControl = new FormControls();
 
-            var leftSideSpokesCount = Int16.Parse(leftSideComboBox.GetItemText(leftSideComboBox.SelectedItem));
+            var leftSideSpokesCount = Int16.Parse(leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem));
 
-            int indentFromComboBox = formControl.GetOffsetFromControl(leftSideComboBox) + stepBetweenControls;
+            int indentFromComboBox = formControl.GetOffsetFromControl(leftSideSpokeCountComboBox) + stepBetweenControls;
 
             formControl.AddNumericUpDownToGroupBox(
                 leftSideSpokesGroupBox,
                 "leftSideSpokesNumericUpDown",
                 numericUpDownProperties,
-                leftSideComboBox.Size.Width,
-                leftSideComboBox.Size.Height,
+                leftSideSpokeCountComboBox.Size.Width,
+                leftSideSpokeCountComboBox.Size.Height,
                 leftSideSpokesCount,
                 stepBetweenControls,
-                leftSideComboBox.Location.X,
+                leftSideSpokeCountComboBox.Location.X,
                 indentFromComboBox
             );
 
@@ -156,8 +156,8 @@ namespace Wheel_Tension_Application
                 leftSideSpokesGroupBox,
                 "leftSideSpokesTextBox",
                 textBoxProperties,
-                leftSideComboBox.Size.Width,
-                leftSideComboBox.Size.Height,
+                leftSideSpokeCountComboBox.Size.Width,
+                leftSideSpokeCountComboBox.Size.Height,
                 leftSideSpokesCount,
                 stepBetweenControls,
                 tensionLeftSpokesLabel.Location.X,
@@ -167,23 +167,21 @@ namespace Wheel_Tension_Application
 
         private void rightSideSpokeCountComboBox_TextChanged(object sender, EventArgs e)
         {
-            var stepBetweenControls = 3;
-
             var formControl = new FormControls();
 
-            var rightSideSpokesCount = Int16.Parse(rightSideComboBox.GetItemText(rightSideComboBox.SelectedItem));
+            var rightSideSpokesCount = Int16.Parse(rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem));
 
-            int indentFromComboBox = formControl.GetOffsetFromControl(rightSideComboBox) + stepBetweenControls;
+            int indentFromComboBox = formControl.GetOffsetFromControl(rightSideSpokeCountComboBox) + stepBetweenControls;
 
             formControl.AddNumericUpDownToGroupBox(
                 rightSideSpokesGroupBox,
                 "rightSideSpokesNumericUpDown",
                 numericUpDownProperties,
-                rightSideComboBox.Size.Width,
-                rightSideComboBox.Size.Height,
+                rightSideSpokeCountComboBox.Size.Width,
+                rightSideSpokeCountComboBox.Size.Height,
                 rightSideSpokesCount,
                 stepBetweenControls,
-                rightSideComboBox.Location.X,
+                rightSideSpokeCountComboBox.Location.X,
                 indentFromComboBox
             );
 
@@ -191,8 +189,8 @@ namespace Wheel_Tension_Application
                 rightSideSpokesGroupBox,
                 "rightSideSpokesTextBox",
                 textBoxProperties,
-                rightSideComboBox.Size.Width,
-                rightSideComboBox.Size.Height,
+                rightSideSpokeCountComboBox.Size.Width,
+                rightSideSpokeCountComboBox.Size.Height,
                 rightSideSpokesCount,
                 stepBetweenControls,
                 tensionLeftSpokesLabel.Location.X,
@@ -202,15 +200,15 @@ namespace Wheel_Tension_Application
 
         private void calculateButton_Click(object sender, EventArgs e)
         {
-            var leftSideComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
-            var rightSideComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
+            var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
+            var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
 
-            List<float> leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(wheelTensionGroupBox, "leftSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
-            List<float> rightSideSpokesTm1 = formControl.GetValuesFromGroupControls(wheelTensionGroupBox, "rightSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
+            leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
+            rightSideSpokesTm1 = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
 
             spokeTensionChart.Series.Clear();
 
-            if (leftSideComboBoxSelected == String.Empty || rightSideComboBoxSelected == String.Empty)
+            if (leftSideSpokeCountComboBoxSelected == String.Empty || rightSideSpokeCountComboBoxSelected == String.Empty)
             {
                 MessageBox.Show("Number of spokes not selected!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -218,13 +216,13 @@ namespace Wheel_Tension_Application
             {
                 spokeTensionChart.ChartAreas["ChartArea"].AxisY.Maximum = new List<float> { leftSideSpokesTm1.Max(), rightSideSpokesTm1.Max() }.Max() * 2.0;
 
-                if (leftSideComboBoxSelected != rightSideComboBoxSelected)
+                if (leftSideSpokeCountComboBoxSelected != rightSideSpokeCountComboBoxSelected)
                 {
                     MessageBox.Show("Your wheel isn't symmetrical!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
-                List<float> leftSpokesAngles = parameterCalculations.CalculateSpokeAngles(leftSideSpokesTm1);
-                List<float> rightSpokesAngles = parameterCalculations.CalculateSpokeAngles(rightSideSpokesTm1);
+                leftSpokesAngles = parameterCalculations.CalculateSpokeAngles(leftSideSpokesTm1);
+                rightSpokesAngles = parameterCalculations.CalculateSpokeAngles(rightSideSpokesTm1);
 
                 tensionChart.DrawTension(spokeTensionChart, "Left Side Spokes", leftSpokesAngles, leftSideSpokesTm1);
                 tensionChart.DrawTension(spokeTensionChart, "Right Side Spokes", rightSpokesAngles, rightSideSpokesTm1);

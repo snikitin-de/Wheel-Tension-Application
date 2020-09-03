@@ -105,7 +105,6 @@ namespace Wheel_Tension_Application
         }
 
         public List<string> GetValuesFromGroupControls(GroupBox groupBox, string controlsName)
-
         {
             var values = new List<string>() { };
 
@@ -133,10 +132,6 @@ namespace Wheel_Tension_Application
                     index++;
                 }
             }
-
-        public int GetOffsetFromControl(Control control)
-        {
-            return control.Location.Y + control.Size.Height;
         }
 
         public void SetComboBoxValue(ComboBox comboBox, List<string> values, bool isAddRange, bool isEnabled)

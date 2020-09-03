@@ -207,7 +207,7 @@ namespace Wheel_Tension_Application
             this.conversionTableGridView.TabIndex = 0;
             // 
             // wheelTensionGroupBox
-            //
+            // 
             this.wheelTensionGroupBox.Controls.Add(this.rightSideSpokesGroupBox);
             this.wheelTensionGroupBox.Controls.Add(this.leftSideSpokesGroupBox);
             this.wheelTensionGroupBox.Location = new System.Drawing.Point(779, 27);
@@ -216,14 +216,14 @@ namespace Wheel_Tension_Application
             this.wheelTensionGroupBox.TabIndex = 4;
             this.wheelTensionGroupBox.TabStop = false;
             this.wheelTensionGroupBox.Text = "Wheel Tenion Balancing";
-            //
+            // 
             // rightSideSpokesGroupBox
             // 
             this.rightSideSpokesGroupBox.Controls.Add(this.tensionRightSpokesLabel);
             this.rightSideSpokesGroupBox.Controls.Add(this.rightSpokesLowerTensionLimitTextBox);
             this.rightSideSpokesGroupBox.Controls.Add(this.tm1ReadingRightSpokesLabel);
             this.rightSideSpokesGroupBox.Controls.Add(this.rightSpokesUpperTensionLimitTextBox);
-            this.rightSideSpokesGroupBox.Controls.Add(this.rightSideComboBox);
+            this.rightSideSpokesGroupBox.Controls.Add(this.rightSideSpokeCountComboBox);
             this.rightSideSpokesGroupBox.Controls.Add(this.standartDevRightSpokesTensionTextBox);
             this.rightSideSpokesGroupBox.Controls.Add(this.averageRightSpokesTensionTextBox);
             this.rightSideSpokesGroupBox.Controls.Add(this.rightSpokesLowerTensionLimitLabel);
@@ -270,10 +270,11 @@ namespace Wheel_Tension_Application
             this.rightSpokesUpperTensionLimitTextBox.Name = "rightSpokesUpperTensionLimitTextBox";
             this.rightSpokesUpperTensionLimitTextBox.Size = new System.Drawing.Size(55, 20);
             this.rightSpokesUpperTensionLimitTextBox.TabIndex = 7;
-			//
+            // 
             // rightSideSpokeCountComboBox
             // 
             this.rightSideSpokeCountComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rightSideSpokeCountComboBox.Enabled = false;
             this.rightSideSpokeCountComboBox.FormattingEnabled = true;
             this.rightSideSpokeCountComboBox.Items.AddRange(new object[] {
             "3",
@@ -363,7 +364,7 @@ namespace Wheel_Tension_Application
             this.leftSideSpokesGroupBox.Controls.Add(this.leftSpokesLowerTensionLimitTextBox);
             this.leftSideSpokesGroupBox.Controls.Add(this.leftSpokesUpperTensionLimitTextBox);
             this.leftSideSpokesGroupBox.Controls.Add(this.standartDevLeftSpokesTensionTextBox);
-            this.leftSideSpokesGroupBox.Controls.Add(this.leftSideComboBox);
+            this.leftSideSpokesGroupBox.Controls.Add(this.leftSideSpokeCountComboBox);
             this.leftSideSpokesGroupBox.Controls.Add(this.averageLeftSpokesTensionTextBox);
             this.leftSideSpokesGroupBox.Controls.Add(this.leftSpokesLowerTensionLimitLabel);
             this.leftSideSpokesGroupBox.Controls.Add(this.leftSpokesUpperTensionLimitLabel);
@@ -421,6 +422,7 @@ namespace Wheel_Tension_Application
             // leftSideSpokeCountComboBox
             // 
             this.leftSideSpokeCountComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.leftSideSpokeCountComboBox.Enabled = false;
             this.leftSideSpokeCountComboBox.FormattingEnabled = true;
             this.leftSideSpokeCountComboBox.Items.AddRange(new object[] {
             "3",

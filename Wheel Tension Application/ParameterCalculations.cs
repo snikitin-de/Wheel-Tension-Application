@@ -40,20 +40,20 @@ namespace Wheel_Tension_Application
         {
             var formControl = new FormControls();
 
+            var tensionKgf = new List<string>();
+
             List<string[]> dataGridViewValues = formControl.GetDataGridViewValues(dataGridView);
-            List<float> tensions = formControl.GetValuesFromGroupControls(groupBox, controlsNameTm1Reading);
+            List<string> tensions = formControl.GetValuesFromGroupControls(groupBox, controlsNameTm1Reading);
 
             tensions.Reverse();
 
-            var tensionKgf = new List<string>();
-
-            foreach (float tension in tensions)
+            foreach (string tension in tensions)
             {
                 bool isFound = false;
 
                 for (int j = 0; j < dataGridViewValues[0].Length; j++)
                 {
-                    if (tension == float.Parse(dataGridViewValues[0][j]))
+                    if (tension == dataGridViewValues[0][j])
                     {
                         isFound = true;
                         tensionKgf.Add(dataGridViewValues[1][j]);
