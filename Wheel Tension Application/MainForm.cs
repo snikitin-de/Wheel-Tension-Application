@@ -191,35 +191,37 @@ namespace Wheel_Tension_Application
             var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
             var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
 
-            List<float> leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
-            List<float> rightSideSpokesTm1 = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
-
-            spokeTensionChart.Series.Clear();
-
             if (leftSideSpokeCountComboBoxSelected == String.Empty || rightSideSpokeCountComboBoxSelected == String.Empty)
             {
                 MessageBox.Show("Number of spokes not selected!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
-                spokeTensionChart.ChartAreas["ChartArea"].AxisY.Maximum = new List<float> { leftSideSpokesTm1.Max(), rightSideSpokesTm1.Max() }.Max() * 2.0;
-
                 if (leftSideSpokeCountComboBoxSelected != rightSideSpokeCountComboBoxSelected)
                 {
                     MessageBox.Show("Your wheel isn't symmetrical!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
+                List<float> leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
+                List<float> rightSideSpokesTm1 = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
+                List<float> leftSpokesAngles = parameterCalculations.CalculateSpokeAngles(leftSideSpokesTm1);
+                List<float> rightSpokesAngles = parameterCalculations.CalculateSpokeAngles(rightSideSpokesTm1);
+
                 float[] leftSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(conversionTableGridView, leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown");
                 float[] rightSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(conversionTableGridView, rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown");
+
+                spokeTensionChart.Series.Clear();
+
+                spokeTensionChart.ChartAreas["ChartArea"].AxisY.Maximum = new List<float> { leftSideSpokesTm1.Max(), rightSideSpokesTm1.Max() }.Max() * 2.0;
 
                 formControl.SetValuesToGroupControls(leftSideSpokesGroupBox, "leftSideSpokesTextBox", leftSideSpokesTensionKgf.Select(x => x.ToString()).ToArray());
                 formControl.SetValuesToGroupControls(rightSideSpokesGroupBox, "rightSideSpokesTextBox", rightSideSpokesTensionKgf.Select(x => x.ToString()).ToArray());
 
-                List<float> leftSpokesAngles = parameterCalculations.CalculateSpokeAngles(leftSideSpokesTm1);
-                List<float> rightSpokesAngles = parameterCalculations.CalculateSpokeAngles(rightSideSpokesTm1);
-
                 tensionChart.DrawTension(spokeTensionChart, "Left Side Spokes", leftSpokesAngles, leftSideSpokesTm1);
                 tensionChart.DrawTension(spokeTensionChart, "Right Side Spokes", rightSpokesAngles, rightSideSpokesTm1);
+
+                averageLeftSpokesTensionTextBox.Text = leftSideSpokesTensionKgf.Where(x => x != 0).Average().ToString();
+                averageRightSpokesTensionTextBox.Text = rightSideSpokesTensionKgf.Where(x => x != 0).Average().ToString();
             }
         }
 
