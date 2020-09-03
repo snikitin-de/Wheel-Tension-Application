@@ -20,11 +20,6 @@ namespace Wheel_Tension_Application
         private readonly List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
         private readonly List<string> textBoxProperties = new List<string>() { "Enabled", "Size" };
 
-        List<float> leftSpokesAngles;
-        List<float> rightSpokesAngles;
-        List<float> leftSideSpokesTm1;
-        List<float> rightSideSpokesTm1;
-
         private Dictionary<string, string> parameters = new Dictionary<string, string>() { };
 
         private Database database = new Database();
@@ -203,8 +198,8 @@ namespace Wheel_Tension_Application
             var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
             var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
 
-            leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
-            rightSideSpokesTm1 = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
+            List<float> leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
+            List<float> rightSideSpokesTm1 = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
 
             spokeTensionChart.Series.Clear();
 
@@ -221,8 +216,8 @@ namespace Wheel_Tension_Application
                     MessageBox.Show("Your wheel isn't symmetrical!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
-                leftSpokesAngles = parameterCalculations.CalculateSpokeAngles(leftSideSpokesTm1);
-                rightSpokesAngles = parameterCalculations.CalculateSpokeAngles(rightSideSpokesTm1);
+                List<float> leftSpokesAngles = parameterCalculations.CalculateSpokeAngles(leftSideSpokesTm1);
+                List<float> rightSpokesAngles = parameterCalculations.CalculateSpokeAngles(rightSideSpokesTm1);
 
                 tensionChart.DrawTension(spokeTensionChart, "Left Side Spokes", leftSpokesAngles, leftSideSpokesTm1);
                 tensionChart.DrawTension(spokeTensionChart, "Right Side Spokes", rightSpokesAngles, rightSideSpokesTm1);
