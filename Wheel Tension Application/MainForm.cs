@@ -220,22 +220,11 @@ namespace Wheel_Tension_Application
                 tensionChart.DrawTension(spokeTensionChart, "Left Side Spokes", leftSpokesAngles, leftSideSpokesTm1);
                 tensionChart.DrawTension(spokeTensionChart, "Right Side Spokes", rightSpokesAngles, rightSideSpokesTm1);
 
-                try
-                {
-                    averageLeftSpokesTensionTextBox.Text = leftSideSpokesTensionKgf.Where(x => x != 0).Average().ToString();
-                } catch (InvalidOperationException)
-                {
-                    averageLeftSpokesTensionTextBox.Text = "0";
-                }
+                standartDevLeftSpokesTensionTextBox.Text = parameterCalculations.StdDev(leftSideSpokesTensionKgf.ToList()).ToString();
+                standartDevRightSpokesTensionTextBox.Text = parameterCalculations.StdDev(rightSideSpokesTensionKgf.ToList()).ToString();
 
-                try
-                {
-                    averageRightSpokesTensionTextBox.Text = rightSideSpokesTensionKgf.Where(x => x != 0).Average().ToString();
-                }
-                catch (InvalidOperationException)
-                {
-                    averageRightSpokesTensionTextBox.Text = "0";
-                }
+                averageLeftSpokesTensionTextBox.Text = leftSideSpokesTensionKgf.Average().ToString();
+                averageRightSpokesTensionTextBox.Text = rightSideSpokesTensionKgf.Average().ToString();
             }
         }
 

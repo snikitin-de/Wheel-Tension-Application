@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
@@ -70,6 +71,19 @@ namespace Wheel_Tension_Application
             }
 
             return tensionKgf.ToArray();
+        }
+
+        public double StdDev(List<float> values)
+        {
+            double mean = values.Sum() / values.Count();
+
+            var squares_query =
+                from float value in values
+                select (value - mean) * (value - mean);
+
+            double sum_of_squares = squares_query.Sum();
+
+            return Math.Sqrt(sum_of_squares / (values.Count() - 1));
         }
     }
 }
