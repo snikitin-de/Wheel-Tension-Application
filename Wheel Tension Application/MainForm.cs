@@ -266,7 +266,7 @@ namespace Wheel_Tension_Application
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AboutForm about = new AboutForm();
+            About about = new About();
             about.Show();
         }
 
