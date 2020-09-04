@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
@@ -31,6 +32,8 @@ namespace Wheel_Tension_Application
         public MainForm()
         {
             InitializeComponent();
+            this.Text = $"{Application.ProductName} {Application.ProductVersion}";
+            this.Update();
         }
 
         private void Form1_Load(object sender, EventArgs e)
