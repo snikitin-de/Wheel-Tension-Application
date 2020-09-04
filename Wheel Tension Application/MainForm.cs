@@ -243,28 +243,11 @@ namespace Wheel_Tension_Application
 
                 var leftSpokesLowerTensionLimit = double.Parse(leftSpokesLowerTensionLimitTextBox.Text);
                 var leftSpokesUpperTensionLimit = double.Parse(leftSpokesUpperTensionLimitTextBox.Text);
+                var rightSpokesLowerTensionLimit = double.Parse(rightSpokesLowerTensionLimitTextBox.Text);
+                var rightSpokesUpperTensionLimit = double.Parse(rightSpokesUpperTensionLimitTextBox.Text);
 
-                errorProviderTensionLimitError.Icon = icons.ErrorProviderError;
-
-                foreach (TextBox item in leftSideSpokesGroupBox.Controls.OfType<TextBox>().Reverse())
-                {
-                    if (item.Name.IndexOf("leftSideSpokesTextBox") > -1)
-                    {
-                        var tensionKgf = int.Parse(item.Text);
-                        var isWithinTensionLimit = parameterCalculations.isWithinTensionLimit(tensionKgf, leftSpokesLowerTensionLimit, leftSpokesUpperTensionLimit);
-
-                        
-                        errorProviderTensionLimitError.SetIconPadding(item, +(withinTensionLimitLeftSpokesLabel.Size.Width / 2));
-
-                        if (isWithinTensionLimit == false)
-                        {
-                            errorProviderTensionLimitError.SetError(item, "Outside limit");
-                        } else
-                        {
-                            errorProviderTensionLimitError.SetError(item, "");
-                        }
-                    }
-                }
+                parameterCalculations.SetWithinTensionLimit(leftSideSpokesGroupBox, withinTensionLimitLeftSpokesLabel, errorProviderTensionLimitError, "leftSideSpokesTextBox", leftSpokesLowerTensionLimit, leftSpokesUpperTensionLimit);
+                parameterCalculations.SetWithinTensionLimit(rightSideSpokesGroupBox, withinTensionLimitRightSpokesLabel, errorProviderTensionLimitError, "rightSideSpokesTextBox", rightSpokesLowerTensionLimit, rightSpokesUpperTensionLimit);
             }
         }
 

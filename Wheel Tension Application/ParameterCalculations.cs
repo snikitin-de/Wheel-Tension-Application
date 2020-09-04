@@ -114,5 +114,30 @@ namespace Wheel_Tension_Application
 
             return isWithinTensionLimit;
         }
+
+        public void SetWithinTensionLimit(GroupBox groupBox, Control controlOffset, ErrorProvider errorProvider, string controlsName, double lowerTensionLimit, double upperTensionLimit)
+        {
+            errorProvider.Icon = icons.ErrorProviderError;
+
+            foreach (TextBox item in groupBox.Controls.OfType<TextBox>().Reverse())
+            {
+                if (item.Name.IndexOf(controlsName) > -1)
+                {
+                    var tensionKgf = int.Parse(item.Text);
+                    var withinTensionLimit = isWithinTensionLimit(tensionKgf, lowerTensionLimit, upperTensionLimit);
+
+                    errorProvider.SetIconPadding(item, +(controlOffset.Size.Width / 2));
+
+                    if (withinTensionLimit == false)
+                    {
+                        errorProvider.SetError(item, "Outside limit");
+                    }
+                    else
+                    {
+                        errorProvider.SetError(item, "");
+                    }
+                }
+            }
+        }
     }
 }
