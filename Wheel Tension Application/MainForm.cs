@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
@@ -15,8 +14,8 @@ namespace Wheel_Tension_Application
     {
         private readonly int stepBetweenControls = 3;
 
-        private readonly string connectionString = "Data Source=" + Path.Combine(Path.GetDirectoryName(Directory.GetCurrentDirectory())) +
-        "\\wheel_tension.sqlite3;Version=3;";
+        private readonly string connectionString = "Data Source=" + Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\" +
+            Application.ProductName + "\\wheel_tension.sqlite3;Version=3;";
 
         private readonly List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
         private readonly List<string> textBoxProperties = new List<string>() { "Enabled", "Size" };
