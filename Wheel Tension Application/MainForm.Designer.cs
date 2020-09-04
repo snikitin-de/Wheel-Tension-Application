@@ -599,7 +599,7 @@ namespace Wheel_Tension_Application
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Wheel Tension Application v1.0.0";
+            this.Text = "Wheel Tension Application";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.spokeTensionChart)).EndInit();
             this.wheelSettingsGroupBox.ResumeLayout(false);
