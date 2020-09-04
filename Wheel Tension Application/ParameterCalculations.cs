@@ -85,5 +85,22 @@ namespace Wheel_Tension_Application
 
             return Math.Sqrt(sum_of_squares / (values.Count() - 1));
         }
+
+        public double TensionLimit(double averageSpokeTension, int variance, bool isLower)
+        {
+            double tensionLimit = 0;
+
+            switch (isLower)
+            {
+                case true:
+                    tensionLimit = averageSpokeTension - averageSpokeTension / 100 * variance;
+                    break;
+                case false:
+                    tensionLimit = averageSpokeTension + averageSpokeTension / 100 * variance;
+                    break;
+            }
+
+            return tensionLimit;
+        }
     }
 }

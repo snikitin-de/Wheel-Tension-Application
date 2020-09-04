@@ -43,6 +43,8 @@ namespace Wheel_Tension_Application
             List<string> materialsList = database.ExecuteSelectQuery(connectionString, materialsListCommand, parameters);
 
             formControl.SetComboBoxValue(materialComboBox, materialsList, true, true);
+
+            varianceComboBox.SelectedItem = "20%";
         }
 
         private void materialComboBox_TextChanged(object sender, EventArgs e)
@@ -122,6 +124,7 @@ namespace Wheel_Tension_Application
 
             leftSideSpokeCountComboBox.Enabled = true;
             rightSideSpokeCountComboBox.Enabled = true;
+            varianceComboBox.Enabled = true;
         }
 
         private void leftSideSpokeCountComboBox_TextChanged(object sender, EventArgs e)
@@ -225,7 +228,29 @@ namespace Wheel_Tension_Application
 
                 averageLeftSpokesTensionTextBox.Text = leftSideSpokesTensionKgf.Average().ToString();
                 averageRightSpokesTensionTextBox.Text = rightSideSpokesTensionKgf.Average().ToString();
+
+                var varianceComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(varianceComboBox.SelectedItem);
+
+                int variance = int.Parse(varianceComboBox.Text.Remove(varianceComboBox.Text.Length - 1, 1));
+
+                leftSpokesLowerTensionLimitTextBox.Text = parameterCalculations.TensionLimit(double.Parse(averageLeftSpokesTensionTextBox.Text), variance, true).ToString();
+                leftSpokesUpperTensionLimitTextBox.Text = parameterCalculations.TensionLimit(double.Parse(averageLeftSpokesTensionTextBox.Text), variance, false).ToString();
+
+                rightSpokesLowerTensionLimitTextBox.Text = parameterCalculations.TensionLimit(double.Parse(averageRightSpokesTensionTextBox.Text), variance, true).ToString();
+                rightSpokesUpperTensionLimitTextBox.Text = parameterCalculations.TensionLimit(double.Parse(averageRightSpokesTensionTextBox.Text), variance, false).ToString();
             }
+        }
+
+        private void varianceComboBox_TextChanged(object sender, EventArgs e)
+        {
+            var varianceComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(varianceComboBox.SelectedItem);
+
+            withinTensionLimitLeftSpokesLabel.Text = $"Within {varianceComboBoxSelected} limit";
+            withinTensionLimitRightSpokesLabel.Text = $"Within {varianceComboBoxSelected} limit";
+            leftSpokesUpperTensionLimitLabel.Text = $"+{varianceComboBoxSelected} Upper Tension Limit (kgf)";
+            rightSpokesUpperTensionLimitLabel.Text = $"+{varianceComboBoxSelected} Lower Tension Limit (kgf)";
+            leftSpokesLowerTensionLimitLabel.Text = $"-{varianceComboBoxSelected} Upper Tension Limit (kgf)";
+            rightSpokesLowerTensionLimitLabel.Text = $"-{varianceComboBoxSelected} Lower Tension Limit (kgf)";
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -233,6 +258,7 @@ namespace Wheel_Tension_Application
             AboutForm about = new AboutForm();
             about.Show();
         }
+
     }
 }
 
