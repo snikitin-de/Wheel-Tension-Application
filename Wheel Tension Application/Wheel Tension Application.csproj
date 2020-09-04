@@ -78,6 +78,11 @@
     </Compile>
     <Compile Include="Database.cs" />
     <Compile Include="FormControls.cs" />
+    <Compile Include="icons.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>icons.resx</DependentUpon>
+    </Compile>
     <Compile Include="ParameterCalculations.cs" />
     <Compile Include="TensionChart.cs" />
     <Compile Include="MainForm.cs">
@@ -90,6 +95,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>icons.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -119,6 +128,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bicycle.ico" />
+    <None Include="Resources\ErrorProviderOk.ico" />
+    <None Include="Resources\ErrorProviderError.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.113.1\build\net46\System.Data.SQLite.Core.targets')" />

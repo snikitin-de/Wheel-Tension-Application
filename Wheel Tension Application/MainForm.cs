@@ -4,6 +4,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -238,6 +240,31 @@ namespace Wheel_Tension_Application
 
                 rightSpokesLowerTensionLimitTextBox.Text = parameterCalculations.TensionLimit(double.Parse(averageRightSpokesTensionTextBox.Text), variance, true).ToString();
                 rightSpokesUpperTensionLimitTextBox.Text = parameterCalculations.TensionLimit(double.Parse(averageRightSpokesTensionTextBox.Text), variance, false).ToString();
+
+                var leftSpokesLowerTensionLimit = double.Parse(leftSpokesLowerTensionLimitTextBox.Text);
+                var leftSpokesUpperTensionLimit = double.Parse(leftSpokesUpperTensionLimitTextBox.Text);
+
+                errorProviderTensionLimitError.Icon = icons.ErrorProviderError;
+
+                foreach (TextBox item in leftSideSpokesGroupBox.Controls.OfType<TextBox>().Reverse())
+                {
+                    if (item.Name.IndexOf("leftSideSpokesTextBox") > -1)
+                    {
+                        var tensionKgf = int.Parse(item.Text);
+                        var isWithinTensionLimit = parameterCalculations.isWithinTensionLimit(tensionKgf, leftSpokesLowerTensionLimit, leftSpokesUpperTensionLimit);
+
+                        
+                        errorProviderTensionLimitError.SetIconPadding(item, +(withinTensionLimitLeftSpokesLabel.Size.Width / 2));
+
+                        if (isWithinTensionLimit == false)
+                        {
+                            errorProviderTensionLimitError.SetError(item, "Outside limit");
+                        } else
+                        {
+                            errorProviderTensionLimitError.SetError(item, "");
+                        }
+                    }
+                }
             }
         }
 

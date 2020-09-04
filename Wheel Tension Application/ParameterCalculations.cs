@@ -102,5 +102,17 @@ namespace Wheel_Tension_Application
 
             return tensionLimit;
         }
+
+        public bool isWithinTensionLimit(int tensionKgf, double lowerTensionLimit, double upperTensionLimit)
+        {
+            bool isWithinTensionLimit = false;
+
+            if (tensionKgf >= lowerTensionLimit && tensionKgf <= upperTensionLimit)
+            {
+                isWithinTensionLimit = true;
+            }
+
+            return isWithinTensionLimit;
+        }
     }
 }

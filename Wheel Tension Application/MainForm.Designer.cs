@@ -32,6 +32,7 @@ namespace Wheel_Tension_Application
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
@@ -77,6 +78,7 @@ namespace Wheel_Tension_Application
             this.varianceComboBox = new System.Windows.Forms.ComboBox();
             this.withinTensionLimitLeftSpokesLabel = new System.Windows.Forms.Label();
             this.withinTensionLimitRightSpokesLabel = new System.Windows.Forms.Label();
+            this.errorProviderTensionLimitError = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.spokeTensionChart)).BeginInit();
             this.wheelSettingsGroupBox.SuspendLayout();
             this.conversionTableGroupBox.SuspendLayout();
@@ -85,6 +87,7 @@ namespace Wheel_Tension_Application
             this.rightSideSpokesGroupBox.SuspendLayout();
             this.leftSideSpokesGroupBox.SuspendLayout();
             this.menuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderTensionLimitError)).BeginInit();
             this.SuspendLayout();
             // 
             // spokeTensionChart
@@ -566,6 +569,11 @@ namespace Wheel_Tension_Application
             this.withinTensionLimitRightSpokesLabel.TabIndex = 13;
             this.withinTensionLimitRightSpokesLabel.Text = "Within 20% limit";
             // 
+            // errorProviderTensionLimitError
+            // 
+            this.errorProviderTensionLimitError.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProviderTensionLimitError.ContainerControl = this;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -598,6 +606,7 @@ namespace Wheel_Tension_Application
             this.leftSideSpokesGroupBox.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderTensionLimitError)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -647,6 +656,7 @@ namespace Wheel_Tension_Application
         private System.Windows.Forms.Label varianceLabel;
         private System.Windows.Forms.Label withinTensionLimitLeftSpokesLabel;
         private System.Windows.Forms.Label withinTensionLimitRightSpokesLabel;
+        private System.Windows.Forms.ErrorProvider errorProviderTensionLimitError;
     }
 }
 
