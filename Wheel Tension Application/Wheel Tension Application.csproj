@@ -129,7 +129,6 @@
   <ItemGroup>
     <Content Include="bicycle.ico" />
     <None Include="Resources\about.png" />
-    <None Include="Resources\AboutImage.bmp" />
     <None Include="Resources\ErrorProviderError.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
