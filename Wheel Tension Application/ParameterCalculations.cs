@@ -2,7 +2,10 @@
 
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
 {
@@ -33,6 +36,108 @@ namespace Wheel_Tension_Application
             }
 
             return angles;
+        }
+
+        public float[] CalculateTensionKgf(DataGridView dataGridView, GroupBox groupBox, string controlsNameTm1Reading)
+        {
+            var formControl = new FormControls();
+
+            var tensionKgf = new List<float>();
+
+            List<string[]> dataGridViewValues = formControl.GetDataGridViewValues(dataGridView);
+            List<string> tensions = formControl.GetValuesFromGroupControls(groupBox, controlsNameTm1Reading);
+
+            tensions.Reverse();
+
+            foreach (string tension in tensions)
+            {
+                bool isFound = false;
+
+                for (int j = 0; j < dataGridViewValues[0].Length; j++)
+                {
+                    string tensionFromTable = dataGridViewValues[0][j];
+
+                    if (tension == tensionFromTable)
+                    {
+                        isFound = true;
+                        tensionKgf.Add(float.Parse(dataGridViewValues[1][j]));
+                    }
+                }
+
+                if (!isFound)
+                {
+                    tensionKgf.Add(0);
+                }
+            }
+
+            return tensionKgf.ToArray();
+        }
+
+        public double StdDev(List<float> values)
+        {
+            double mean = values.Sum() / values.Count();
+
+            var squares_query =
+                from float value in values
+                select (value - mean) * (value - mean);
+
+            double sum_of_squares = squares_query.Sum();
+
+            return Math.Sqrt(sum_of_squares / (values.Count() - 1));
+        }
+
+        public double TensionLimit(double averageSpokeTension, int variance, bool isLower)
+        {
+            double tensionLimit = 0;
+
+            switch (isLower)
+            {
+                case true:
+                    tensionLimit = averageSpokeTension - averageSpokeTension / 100 * variance;
+                    break;
+                case false:
+                    tensionLimit = averageSpokeTension + averageSpokeTension / 100 * variance;
+                    break;
+            }
+
+            return tensionLimit;
+        }
+
+        public bool isWithinTensionLimit(int tensionKgf, double lowerTensionLimit, double upperTensionLimit)
+        {
+            bool isWithinTensionLimit = false;
+
+            if (tensionKgf >= lowerTensionLimit && tensionKgf <= upperTensionLimit)
+            {
+                isWithinTensionLimit = true;
+            }
+
+            return isWithinTensionLimit;
+        }
+
+        public void SetWithinTensionLimit(GroupBox groupBox, Control controlOffset, ErrorProvider errorProvider, string controlsName, double lowerTensionLimit, double upperTensionLimit)
+        {
+            errorProvider.Icon = icons.ErrorProviderError;
+
+            foreach (TextBox item in groupBox.Controls.OfType<TextBox>().Reverse())
+            {
+                if (item.Name.IndexOf(controlsName) > -1)
+                {
+                    var tensionKgf = int.Parse(item.Text);
+                    var withinTensionLimit = isWithinTensionLimit(tensionKgf, lowerTensionLimit, upperTensionLimit);
+
+                    errorProvider.SetIconPadding(item, +(controlOffset.Size.Width / 2));
+
+                    if (withinTensionLimit == false)
+                    {
+                        errorProvider.SetError(item, "Outside limit");
+                    }
+                    else
+                    {
+                        errorProvider.SetError(item, "");
+                    }
+                }
+            }
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Wheel_Tension_Application
             {
                 Minimum = 0,
                 Maximum = 44,
-                DecimalPlaces = 1,
+                DecimalPlaces = 0,
                 Increment = 1M,
                 Size = new Size(controlWidth, controlHeight)
             };
@@ -77,6 +77,32 @@ namespace Wheel_Tension_Application
             );
         }
 
+        public void AddTextBoxToGroupBox(GroupBox groupBox, string controlName, List<string> controlProperties, int controlWidth, int controlHeight, int controlCount, int stepBetweenControls, int offsetX, int offsetY)
+        {
+            TextBox textBox = new TextBox()
+            {
+                Enabled = false,
+                Size = new Size(controlWidth, controlHeight)
+            };
+
+            AddGroupControlsToGroupBox(
+                groupBox,
+                textBox,
+                controlProperties,
+                controlName,
+                controlHeight,
+                controlCount,
+                stepBetweenControls,
+                offsetX,
+                offsetY
+            );
+        }
+
+        public int GetOffsetFromControl(Control control)
+        {
+            return control.Location.Y + control.Size.Height;
+        }
+
         public List<string> GetValuesFromGroupControls(GroupBox groupBox, string controlsName)
         {
             var values = new List<string>() { };
@@ -92,9 +118,19 @@ namespace Wheel_Tension_Application
             return values;
         }
 
-        public int GetOffsetFromControl(Control control)
+        public void SetValuesToGroupControls(GroupBox groupBox, string controlsName, string[] valuesForAdding)
         {
-            return control.Location.Y + control.Size.Height;
+            int index = 0;
+
+            foreach (TextBox item in groupBox.Controls.OfType<TextBox>())
+            {
+                if (item.Name.IndexOf(controlsName) > -1)
+                {
+                    item.Text = valuesForAdding[index];
+
+                    index++;
+                }
+            }
         }
 
         public void SetComboBoxValue(ComboBox comboBox, List<string> values, bool isAddRange, bool isEnabled)
@@ -107,6 +143,25 @@ namespace Wheel_Tension_Application
             }
 
             comboBox.Enabled = isEnabled;
+        }
+
+        public List<string[]> GetDataGridViewValues(DataGridView dataGridView)
+        {
+            var values = new List<string[]>();
+
+            for (var i = 0; i < dataGridView.Rows.Count; i++)
+            {
+                var columnValues = new string[dataGridView.Columns.Count];
+
+                for (var j = 0; j < dataGridView.Columns.Count; j++)
+                {
+                    columnValues[j] = dataGridView.Rows[i].Cells[j].Value.ToString();
+                }
+
+                values.Add(columnValues);
+            }
+
+            return values;
         }
 
         public void SetDataGridViewValues(DataGridView dataGridView, int columnCount, string[] rowHeaders, List<string[]> rows)
