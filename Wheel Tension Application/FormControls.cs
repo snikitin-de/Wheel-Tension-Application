@@ -83,8 +83,7 @@ namespace Wheel_Tension_Application
             TextBox textBox = new TextBox()
             {
                 Enabled = false,
-                Size = new Size(controlWidth, controlHeight),
-                Text = "0"
+                Size = new Size(controlWidth, controlHeight)
             };
 
             AddGroupControlsToGroupBox(
