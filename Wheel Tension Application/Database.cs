@@ -49,7 +49,7 @@ namespace Wheel_Tension_Application
             }
             catch (SQLiteException exception)
             {
-                MessageBox.Show(exception.Message, "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(exception.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return text;

@@ -183,7 +183,7 @@ namespace Wheel_Tension_Application
 
                 if (rows.Count != rowHeaders.Length)
                 {
-                    MessageBox.Show("Number of row headers must be equal number of rows!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Number of row headers must be equal number of rows!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
@@ -196,7 +196,7 @@ namespace Wheel_Tension_Application
             }
             catch (System.DivideByZeroException)
             {
-                MessageBox.Show("There are no such parameters in the database!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("There are no such parameters in the database!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

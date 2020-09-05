@@ -199,13 +199,13 @@ namespace Wheel_Tension_Application
 
             if (leftSideSpokeCountComboBoxSelected == String.Empty || rightSideSpokeCountComboBoxSelected == String.Empty)
             {
-                MessageBox.Show("Number of spokes not selected!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Number of spokes not selected!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
                 if (leftSideSpokeCountComboBoxSelected != rightSideSpokeCountComboBoxSelected)
                 {
-                    MessageBox.Show("Your wheel isn't symmetrical!", "Wheel Tension Application", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Your wheel isn't symmetrical!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 List<float> leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
