@@ -118,11 +118,11 @@ namespace Wheel_Tension_Application
             return values;
         }
 
-        public void SetValuesToGroupControls(GroupBox groupBox, string controlsName, string[] valuesForAdding)
+        public void SetValuesToGroupControlsText(GroupBox groupBox, string controlsName, string[] valuesForAdding)
         {
             int index = 0;
 
-            foreach (TextBox item in groupBox.Controls.OfType<TextBox>())
+            foreach (Control item in groupBox.Controls.OfType<Control>())
             {
                 if (item.Name.IndexOf(controlsName) > -1)
                 {
