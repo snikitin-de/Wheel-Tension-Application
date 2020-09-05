@@ -343,7 +343,6 @@ namespace Wheel_Tension_Application
                     materialComboBox.SelectedItem = appSettings.ReadSetting("materialComboBoxSelectedItem");
                     shapeComboBox.SelectedItem = appSettings.ReadSetting("shapeComboBoxSelectedItem");
                     thicknessComboBox.SelectedItem = appSettings.ReadSetting("thicknessComboBoxSelectedItem");
-
                     varianceComboBox.SelectedItem = appSettings.ReadSetting("varianceComboBoxSelectedItem");
                     leftSideSpokeCountComboBox.SelectedItem = appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem");
                     rightSideSpokeCountComboBox.SelectedItem = appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem");
