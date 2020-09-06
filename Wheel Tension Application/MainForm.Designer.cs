@@ -80,12 +80,12 @@ namespace Wheel_Tension_Application
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.errorProviderTensionLimitError = new System.Windows.Forms.ErrorProvider(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.spokeTensionChart)).BeginInit();
             this.wheelSettingsGroupBox.SuspendLayout();
             this.conversionTableGroupBox.SuspendLayout();
@@ -109,6 +109,7 @@ namespace Wheel_Tension_Application
             this.spokeTensionChart.Name = "spokeTensionChart";
             this.spokeTensionChart.Size = new System.Drawing.Size(767, 667);
             this.spokeTensionChart.TabIndex = 0;
+            this.spokeTensionChart.TabStop = false;
             this.spokeTensionChart.Text = "Wheel Tension Balancing";
             // 
             // calculateButton
@@ -117,6 +118,7 @@ namespace Wheel_Tension_Application
             this.calculateButton.Name = "calculateButton";
             this.calculateButton.Size = new System.Drawing.Size(263, 55);
             this.calculateButton.TabIndex = 1;
+            this.calculateButton.TabStop = false;
             this.calculateButton.Text = "Calculate";
             this.calculateButton.UseVisualStyleBackColor = true;
             this.calculateButton.Click += new System.EventHandler(this.calculateButton_Click);
@@ -145,6 +147,7 @@ namespace Wheel_Tension_Application
             this.thicknessComboBox.Name = "thicknessComboBox";
             this.thicknessComboBox.Size = new System.Drawing.Size(692, 21);
             this.thicknessComboBox.TabIndex = 5;
+            this.thicknessComboBox.TabStop = false;
             this.thicknessComboBox.TextChanged += new System.EventHandler(this.thicknessComboBox_TextChanged);
             // 
             // shapeComboBox
@@ -156,6 +159,7 @@ namespace Wheel_Tension_Application
             this.shapeComboBox.Name = "shapeComboBox";
             this.shapeComboBox.Size = new System.Drawing.Size(692, 21);
             this.shapeComboBox.TabIndex = 4;
+            this.shapeComboBox.TabStop = false;
             this.shapeComboBox.TextChanged += new System.EventHandler(this.shapeComboBox_TextChanged);
             // 
             // materialComboBox
@@ -166,6 +170,7 @@ namespace Wheel_Tension_Application
             this.materialComboBox.Name = "materialComboBox";
             this.materialComboBox.Size = new System.Drawing.Size(692, 21);
             this.materialComboBox.TabIndex = 3;
+            this.materialComboBox.TabStop = false;
             this.materialComboBox.TextChanged += new System.EventHandler(this.materialComboBox_TextChanged);
             // 
             // thicknessLabel
@@ -219,6 +224,7 @@ namespace Wheel_Tension_Application
             this.conversionTableGridView.ReadOnly = true;
             this.conversionTableGridView.Size = new System.Drawing.Size(754, 64);
             this.conversionTableGridView.TabIndex = 0;
+            this.conversionTableGridView.TabStop = false;
             // 
             // wheelTensionGroupBox
             // 
@@ -247,6 +253,7 @@ namespace Wheel_Tension_Application
             this.varianceComboBox.Name = "varianceComboBox";
             this.varianceComboBox.Size = new System.Drawing.Size(202, 21);
             this.varianceComboBox.TabIndex = 11;
+            this.varianceComboBox.TabStop = false;
             this.varianceComboBox.TextChanged += new System.EventHandler(this.varianceComboBox_TextChanged);
             // 
             // varianceLabel
@@ -356,6 +363,8 @@ namespace Wheel_Tension_Application
             this.rightSideSpokeCountComboBox.Name = "rightSideSpokeCountComboBox";
             this.rightSideSpokeCountComboBox.Size = new System.Drawing.Size(72, 21);
             this.rightSideSpokeCountComboBox.TabIndex = 3;
+            this.rightSideSpokeCountComboBox.TabStop = false;
+            this.rightSideSpokeCountComboBox.SelectedValueChanged += new System.EventHandler(this.rightSideSpokeCountComboBox_SelectedValueChanged);
             this.rightSideSpokeCountComboBox.TextChanged += new System.EventHandler(this.rightSideSpokeCountComboBox_TextChanged);
             // 
             // standartDevRightSpokesTensionTextBox
@@ -520,6 +529,8 @@ namespace Wheel_Tension_Application
             this.leftSideSpokeCountComboBox.Name = "leftSideSpokeCountComboBox";
             this.leftSideSpokeCountComboBox.Size = new System.Drawing.Size(72, 21);
             this.leftSideSpokeCountComboBox.TabIndex = 2;
+            this.leftSideSpokeCountComboBox.TabStop = false;
+            this.leftSideSpokeCountComboBox.SelectedValueChanged += new System.EventHandler(this.leftSideSpokeCountComboBox_SelectedValueChanged);
             this.leftSideSpokeCountComboBox.TextChanged += new System.EventHandler(this.leftSideSpokeCountComboBox_TextChanged);
             // 
             // averageLeftSpokesTensionTextBox
@@ -594,7 +605,7 @@ namespace Wheel_Tension_Application
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -602,9 +613,22 @@ namespace Wheel_Tension_Application
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(143, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -617,19 +641,6 @@ namespace Wheel_Tension_Application
             // 
             this.errorProviderTensionLimitError.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProviderTensionLimitError.ContainerControl = this;
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // MainForm
             // 
