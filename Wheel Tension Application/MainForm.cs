@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
@@ -375,6 +376,30 @@ namespace Wheel_Tension_Application
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void leftSideSpokeCountComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
+
+            if (leftSideSpokeCountComboBoxSelected != "")
+            {
+                leftSideSpokeCountComboBox_TextChanged(leftSideSpokeCountComboBox, e);
+            }
+
+            SendKeys.SendWait("{ENTER}");
+        }
+
+        private void rightSideSpokeCountComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
+
+            if (rightSideSpokeCountComboBoxSelected != "")
+            {
+                rightSideSpokeCountComboBox_TextChanged(rightSideSpokeCountComboBox, e);
+            }
+
+            SendKeys.SendWait("{ENTER}");
         }
     }
 }

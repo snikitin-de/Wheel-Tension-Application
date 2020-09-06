@@ -364,6 +364,7 @@ namespace Wheel_Tension_Application
             this.rightSideSpokeCountComboBox.Size = new System.Drawing.Size(72, 21);
             this.rightSideSpokeCountComboBox.TabIndex = 3;
             this.rightSideSpokeCountComboBox.TabStop = false;
+            this.rightSideSpokeCountComboBox.SelectedValueChanged += new System.EventHandler(this.rightSideSpokeCountComboBox_SelectedValueChanged);
             this.rightSideSpokeCountComboBox.TextChanged += new System.EventHandler(this.rightSideSpokeCountComboBox_TextChanged);
             // 
             // standartDevRightSpokesTensionTextBox
@@ -529,6 +530,7 @@ namespace Wheel_Tension_Application
             this.leftSideSpokeCountComboBox.Size = new System.Drawing.Size(72, 21);
             this.leftSideSpokeCountComboBox.TabIndex = 2;
             this.leftSideSpokeCountComboBox.TabStop = false;
+            this.leftSideSpokeCountComboBox.SelectedValueChanged += new System.EventHandler(this.leftSideSpokeCountComboBox_SelectedValueChanged);
             this.leftSideSpokeCountComboBox.TextChanged += new System.EventHandler(this.leftSideSpokeCountComboBox_TextChanged);
             // 
             // averageLeftSpokesTensionTextBox
