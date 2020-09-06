@@ -160,6 +160,22 @@ namespace Wheel_Tension_Application
                 tensionLeftSpokesLabel.Location.X,
                 indentFromComboBox
             );
+
+            foreach (NumericUpDown item in leftSideSpokesGroupBox.Controls.OfType<NumericUpDown>())
+            {
+                if (item.Name.IndexOf("leftSideSpokesNumericUpDown") > -1)
+                {
+                    item.Enter += new EventHandler(makeNumericUpDownSelection);
+                }
+            }
+        }
+
+        private void makeNumericUpDownSelection(object sender, EventArgs e)
+        {
+            NumericUpDown numericUpDown = sender as NumericUpDown;
+
+            int length = numericUpDown.Value.ToString().Length;
+            numericUpDown.Select(0, length);
         }
 
         private void rightSideSpokeCountComboBox_TextChanged(object sender, EventArgs e)
@@ -191,6 +207,14 @@ namespace Wheel_Tension_Application
                 tensionLeftSpokesLabel.Location.X,
                 indentFromComboBox
             );
+
+            foreach (NumericUpDown item in rightSideSpokesGroupBox.Controls.OfType<NumericUpDown>())
+            {
+                if (item.Name.IndexOf("rightSideSpokesNumericUpDown") > -1)
+                {
+                    item.Enter += new EventHandler(makeNumericUpDownSelection);
+                }
+            }
         }
 
         private void calculateButton_Click(object sender, EventArgs e)
