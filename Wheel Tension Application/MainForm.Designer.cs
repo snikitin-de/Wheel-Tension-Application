@@ -48,7 +48,6 @@ namespace Wheel_Tension_Application
             this.conversionTableGroupBox = new System.Windows.Forms.GroupBox();
             this.conversionTableGridView = new System.Windows.Forms.DataGridView();
             this.wheelTensionGroupBox = new System.Windows.Forms.GroupBox();
-            this.varianceComboBox = new System.Windows.Forms.ComboBox();
             this.varianceLabel = new System.Windows.Forms.Label();
             this.rightSideSpokesGroupBox = new System.Windows.Forms.GroupBox();
             this.withinTensionLimitRightSpokesLabel = new System.Windows.Forms.Label();
@@ -86,6 +85,8 @@ namespace Wheel_Tension_Application
             this.errorProviderTensionLimitError = new System.Windows.Forms.ErrorProvider(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.varianceTrackBar = new System.Windows.Forms.TrackBar();
+            this.varianceValueLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.spokeTensionChart)).BeginInit();
             this.wheelSettingsGroupBox.SuspendLayout();
             this.conversionTableGroupBox.SuspendLayout();
@@ -95,6 +96,7 @@ namespace Wheel_Tension_Application
             this.leftSideSpokesGroupBox.SuspendLayout();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderTensionLimitError)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.varianceTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // spokeTensionChart
@@ -228,7 +230,8 @@ namespace Wheel_Tension_Application
             // 
             // wheelTensionGroupBox
             // 
-            this.wheelTensionGroupBox.Controls.Add(this.varianceComboBox);
+            this.wheelTensionGroupBox.Controls.Add(this.varianceValueLabel);
+            this.wheelTensionGroupBox.Controls.Add(this.varianceTrackBar);
             this.wheelTensionGroupBox.Controls.Add(this.varianceLabel);
             this.wheelTensionGroupBox.Controls.Add(this.rightSideSpokesGroupBox);
             this.wheelTensionGroupBox.Controls.Add(this.leftSideSpokesGroupBox);
@@ -238,23 +241,6 @@ namespace Wheel_Tension_Application
             this.wheelTensionGroupBox.TabIndex = 4;
             this.wheelTensionGroupBox.TabStop = false;
             this.wheelTensionGroupBox.Text = "Wheel Tenion Balancing";
-            // 
-            // varianceComboBox
-            // 
-            this.varianceComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.varianceComboBox.Enabled = false;
-            this.varianceComboBox.FormattingEnabled = true;
-            this.varianceComboBox.Items.AddRange(new object[] {
-            "5%",
-            "10%",
-            "15%",
-            "20%"});
-            this.varianceComboBox.Location = new System.Drawing.Point(61, 19);
-            this.varianceComboBox.Name = "varianceComboBox";
-            this.varianceComboBox.Size = new System.Drawing.Size(202, 21);
-            this.varianceComboBox.TabIndex = 11;
-            this.varianceComboBox.TabStop = false;
-            this.varianceComboBox.TextChanged += new System.EventHandler(this.varianceComboBox_TextChanged);
             // 
             // varianceLabel
             // 
@@ -279,9 +265,9 @@ namespace Wheel_Tension_Application
             this.rightSideSpokesGroupBox.Controls.Add(this.rightSpokesUpperTensionLimitLabel);
             this.rightSideSpokesGroupBox.Controls.Add(this.standartDevRightSpokesTensionLabel);
             this.rightSideSpokesGroupBox.Controls.Add(this.averageRightSpokesTensionLabel);
-            this.rightSideSpokesGroupBox.Location = new System.Drawing.Point(269, 51);
+            this.rightSideSpokesGroupBox.Location = new System.Drawing.Point(269, 70);
             this.rightSideSpokesGroupBox.Name = "rightSideSpokesGroupBox";
-            this.rightSideSpokesGroupBox.Size = new System.Drawing.Size(257, 770);
+            this.rightSideSpokesGroupBox.Size = new System.Drawing.Size(257, 751);
             this.rightSideSpokesGroupBox.TabIndex = 9;
             this.rightSideSpokesGroupBox.TabStop = false;
             this.rightSideSpokesGroupBox.Text = "Right side spokes";
@@ -307,7 +293,7 @@ namespace Wheel_Tension_Application
             // rightSpokesLowerTensionLimitTextBox
             // 
             this.rightSpokesLowerTensionLimitTextBox.Enabled = false;
-            this.rightSpokesLowerTensionLimitTextBox.Location = new System.Drawing.Point(196, 739);
+            this.rightSpokesLowerTensionLimitTextBox.Location = new System.Drawing.Point(196, 725);
             this.rightSpokesLowerTensionLimitTextBox.Name = "rightSpokesLowerTensionLimitTextBox";
             this.rightSpokesLowerTensionLimitTextBox.Size = new System.Drawing.Size(55, 20);
             this.rightSpokesLowerTensionLimitTextBox.TabIndex = 8;
@@ -325,7 +311,7 @@ namespace Wheel_Tension_Application
             // rightSpokesUpperTensionLimitTextBox
             // 
             this.rightSpokesUpperTensionLimitTextBox.Enabled = false;
-            this.rightSpokesUpperTensionLimitTextBox.Location = new System.Drawing.Point(196, 713);
+            this.rightSpokesUpperTensionLimitTextBox.Location = new System.Drawing.Point(196, 699);
             this.rightSpokesUpperTensionLimitTextBox.Name = "rightSpokesUpperTensionLimitTextBox";
             this.rightSpokesUpperTensionLimitTextBox.Size = new System.Drawing.Size(55, 20);
             this.rightSpokesUpperTensionLimitTextBox.TabIndex = 7;
@@ -370,7 +356,7 @@ namespace Wheel_Tension_Application
             // standartDevRightSpokesTensionTextBox
             // 
             this.standartDevRightSpokesTensionTextBox.Enabled = false;
-            this.standartDevRightSpokesTensionTextBox.Location = new System.Drawing.Point(196, 687);
+            this.standartDevRightSpokesTensionTextBox.Location = new System.Drawing.Point(196, 673);
             this.standartDevRightSpokesTensionTextBox.Name = "standartDevRightSpokesTensionTextBox";
             this.standartDevRightSpokesTensionTextBox.Size = new System.Drawing.Size(55, 20);
             this.standartDevRightSpokesTensionTextBox.TabIndex = 6;
@@ -379,7 +365,7 @@ namespace Wheel_Tension_Application
             // averageRightSpokesTensionTextBox
             // 
             this.averageRightSpokesTensionTextBox.Enabled = false;
-            this.averageRightSpokesTensionTextBox.Location = new System.Drawing.Point(196, 661);
+            this.averageRightSpokesTensionTextBox.Location = new System.Drawing.Point(196, 647);
             this.averageRightSpokesTensionTextBox.Name = "averageRightSpokesTensionTextBox";
             this.averageRightSpokesTensionTextBox.Size = new System.Drawing.Size(55, 20);
             this.averageRightSpokesTensionTextBox.TabIndex = 5;
@@ -388,7 +374,7 @@ namespace Wheel_Tension_Application
             // rightSpokesLowerTensionLimitLabel
             // 
             this.rightSpokesLowerTensionLimitLabel.AutoSize = true;
-            this.rightSpokesLowerTensionLimitLabel.Location = new System.Drawing.Point(11, 742);
+            this.rightSpokesLowerTensionLimitLabel.Location = new System.Drawing.Point(11, 728);
             this.rightSpokesLowerTensionLimitLabel.Name = "rightSpokesLowerTensionLimitLabel";
             this.rightSpokesLowerTensionLimitLabel.Size = new System.Drawing.Size(154, 13);
             this.rightSpokesLowerTensionLimitLabel.TabIndex = 3;
@@ -397,7 +383,7 @@ namespace Wheel_Tension_Application
             // rightSpokesUpperTensionLimitLabel
             // 
             this.rightSpokesUpperTensionLimitLabel.AutoSize = true;
-            this.rightSpokesUpperTensionLimitLabel.Location = new System.Drawing.Point(11, 716);
+            this.rightSpokesUpperTensionLimitLabel.Location = new System.Drawing.Point(11, 702);
             this.rightSpokesUpperTensionLimitLabel.Name = "rightSpokesUpperTensionLimitLabel";
             this.rightSpokesUpperTensionLimitLabel.Size = new System.Drawing.Size(154, 13);
             this.rightSpokesUpperTensionLimitLabel.TabIndex = 2;
@@ -406,7 +392,7 @@ namespace Wheel_Tension_Application
             // standartDevRightSpokesTensionLabel
             // 
             this.standartDevRightSpokesTensionLabel.AutoSize = true;
-            this.standartDevRightSpokesTensionLabel.Location = new System.Drawing.Point(11, 690);
+            this.standartDevRightSpokesTensionLabel.Location = new System.Drawing.Point(11, 676);
             this.standartDevRightSpokesTensionLabel.Name = "standartDevRightSpokesTensionLabel";
             this.standartDevRightSpokesTensionLabel.Size = new System.Drawing.Size(175, 13);
             this.standartDevRightSpokesTensionLabel.TabIndex = 1;
@@ -415,7 +401,7 @@ namespace Wheel_Tension_Application
             // averageRightSpokesTensionLabel
             // 
             this.averageRightSpokesTensionLabel.AutoSize = true;
-            this.averageRightSpokesTensionLabel.Location = new System.Drawing.Point(11, 664);
+            this.averageRightSpokesTensionLabel.Location = new System.Drawing.Point(11, 650);
             this.averageRightSpokesTensionLabel.Name = "averageRightSpokesTensionLabel";
             this.averageRightSpokesTensionLabel.Size = new System.Drawing.Size(146, 13);
             this.averageRightSpokesTensionLabel.TabIndex = 0;
@@ -435,9 +421,9 @@ namespace Wheel_Tension_Application
             this.leftSideSpokesGroupBox.Controls.Add(this.leftSpokesUpperTensionLimitLabel);
             this.leftSideSpokesGroupBox.Controls.Add(this.standartDevLeftSpokesTensionLabel);
             this.leftSideSpokesGroupBox.Controls.Add(this.averageLeftSpokesTensionLabel);
-            this.leftSideSpokesGroupBox.Location = new System.Drawing.Point(6, 51);
+            this.leftSideSpokesGroupBox.Location = new System.Drawing.Point(6, 70);
             this.leftSideSpokesGroupBox.Name = "leftSideSpokesGroupBox";
-            this.leftSideSpokesGroupBox.Size = new System.Drawing.Size(257, 770);
+            this.leftSideSpokesGroupBox.Size = new System.Drawing.Size(257, 751);
             this.leftSideSpokesGroupBox.TabIndex = 4;
             this.leftSideSpokesGroupBox.TabStop = false;
             this.leftSideSpokesGroupBox.Text = "Left side spokes";
@@ -472,7 +458,7 @@ namespace Wheel_Tension_Application
             // leftSpokesLowerTensionLimitTextBox
             // 
             this.leftSpokesLowerTensionLimitTextBox.Enabled = false;
-            this.leftSpokesLowerTensionLimitTextBox.Location = new System.Drawing.Point(196, 739);
+            this.leftSpokesLowerTensionLimitTextBox.Location = new System.Drawing.Point(196, 725);
             this.leftSpokesLowerTensionLimitTextBox.Name = "leftSpokesLowerTensionLimitTextBox";
             this.leftSpokesLowerTensionLimitTextBox.Size = new System.Drawing.Size(55, 20);
             this.leftSpokesLowerTensionLimitTextBox.TabIndex = 8;
@@ -481,7 +467,7 @@ namespace Wheel_Tension_Application
             // leftSpokesUpperTensionLimitTextBox
             // 
             this.leftSpokesUpperTensionLimitTextBox.Enabled = false;
-            this.leftSpokesUpperTensionLimitTextBox.Location = new System.Drawing.Point(196, 713);
+            this.leftSpokesUpperTensionLimitTextBox.Location = new System.Drawing.Point(196, 699);
             this.leftSpokesUpperTensionLimitTextBox.Name = "leftSpokesUpperTensionLimitTextBox";
             this.leftSpokesUpperTensionLimitTextBox.Size = new System.Drawing.Size(55, 20);
             this.leftSpokesUpperTensionLimitTextBox.TabIndex = 7;
@@ -490,7 +476,7 @@ namespace Wheel_Tension_Application
             // standartDevLeftSpokesTensionTextBox
             // 
             this.standartDevLeftSpokesTensionTextBox.Enabled = false;
-            this.standartDevLeftSpokesTensionTextBox.Location = new System.Drawing.Point(196, 687);
+            this.standartDevLeftSpokesTensionTextBox.Location = new System.Drawing.Point(196, 673);
             this.standartDevLeftSpokesTensionTextBox.Name = "standartDevLeftSpokesTensionTextBox";
             this.standartDevLeftSpokesTensionTextBox.Size = new System.Drawing.Size(55, 20);
             this.standartDevLeftSpokesTensionTextBox.TabIndex = 6;
@@ -536,7 +522,7 @@ namespace Wheel_Tension_Application
             // averageLeftSpokesTensionTextBox
             // 
             this.averageLeftSpokesTensionTextBox.Enabled = false;
-            this.averageLeftSpokesTensionTextBox.Location = new System.Drawing.Point(196, 661);
+            this.averageLeftSpokesTensionTextBox.Location = new System.Drawing.Point(196, 647);
             this.averageLeftSpokesTensionTextBox.Name = "averageLeftSpokesTensionTextBox";
             this.averageLeftSpokesTensionTextBox.Size = new System.Drawing.Size(55, 20);
             this.averageLeftSpokesTensionTextBox.TabIndex = 5;
@@ -545,7 +531,7 @@ namespace Wheel_Tension_Application
             // leftSpokesLowerTensionLimitLabel
             // 
             this.leftSpokesLowerTensionLimitLabel.AutoSize = true;
-            this.leftSpokesLowerTensionLimitLabel.Location = new System.Drawing.Point(11, 742);
+            this.leftSpokesLowerTensionLimitLabel.Location = new System.Drawing.Point(11, 728);
             this.leftSpokesLowerTensionLimitLabel.Name = "leftSpokesLowerTensionLimitLabel";
             this.leftSpokesLowerTensionLimitLabel.Size = new System.Drawing.Size(154, 13);
             this.leftSpokesLowerTensionLimitLabel.TabIndex = 3;
@@ -554,7 +540,7 @@ namespace Wheel_Tension_Application
             // leftSpokesUpperTensionLimitLabel
             // 
             this.leftSpokesUpperTensionLimitLabel.AutoSize = true;
-            this.leftSpokesUpperTensionLimitLabel.Location = new System.Drawing.Point(11, 716);
+            this.leftSpokesUpperTensionLimitLabel.Location = new System.Drawing.Point(11, 702);
             this.leftSpokesUpperTensionLimitLabel.Name = "leftSpokesUpperTensionLimitLabel";
             this.leftSpokesUpperTensionLimitLabel.Size = new System.Drawing.Size(154, 13);
             this.leftSpokesUpperTensionLimitLabel.TabIndex = 2;
@@ -563,7 +549,7 @@ namespace Wheel_Tension_Application
             // standartDevLeftSpokesTensionLabel
             // 
             this.standartDevLeftSpokesTensionLabel.AutoSize = true;
-            this.standartDevLeftSpokesTensionLabel.Location = new System.Drawing.Point(11, 690);
+            this.standartDevLeftSpokesTensionLabel.Location = new System.Drawing.Point(11, 676);
             this.standartDevLeftSpokesTensionLabel.Name = "standartDevLeftSpokesTensionLabel";
             this.standartDevLeftSpokesTensionLabel.Size = new System.Drawing.Size(175, 13);
             this.standartDevLeftSpokesTensionLabel.TabIndex = 1;
@@ -572,7 +558,7 @@ namespace Wheel_Tension_Application
             // averageLeftSpokesTensionLabel
             // 
             this.averageLeftSpokesTensionLabel.AutoSize = true;
-            this.averageLeftSpokesTensionLabel.Location = new System.Drawing.Point(11, 664);
+            this.averageLeftSpokesTensionLabel.Location = new System.Drawing.Point(11, 650);
             this.averageLeftSpokesTensionLabel.Name = "averageLeftSpokesTensionLabel";
             this.averageLeftSpokesTensionLabel.Size = new System.Drawing.Size(146, 13);
             this.averageLeftSpokesTensionLabel.TabIndex = 0;
@@ -642,6 +628,26 @@ namespace Wheel_Tension_Application
             this.errorProviderTensionLimitError.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProviderTensionLimitError.ContainerControl = this;
             // 
+            // varianceTrackBar
+            // 
+            this.varianceTrackBar.Location = new System.Drawing.Point(59, 19);
+            this.varianceTrackBar.Maximum = 20;
+            this.varianceTrackBar.Minimum = 1;
+            this.varianceTrackBar.Name = "varianceTrackBar";
+            this.varianceTrackBar.Size = new System.Drawing.Size(171, 45);
+            this.varianceTrackBar.TabIndex = 12;
+            this.varianceTrackBar.Value = 20;
+            this.varianceTrackBar.ValueChanged += new System.EventHandler(this.varianceTrackBar_ValueChanged);
+            // 
+            // varianceValueLabel
+            // 
+            this.varianceValueLabel.AutoSize = true;
+            this.varianceValueLabel.Location = new System.Drawing.Point(236, 23);
+            this.varianceValueLabel.Name = "varianceValueLabel";
+            this.varianceValueLabel.Size = new System.Drawing.Size(27, 13);
+            this.varianceValueLabel.TabIndex = 13;
+            this.varianceValueLabel.Text = "20%";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -675,6 +681,7 @@ namespace Wheel_Tension_Application
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderTensionLimitError)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.varianceTrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -720,7 +727,6 @@ namespace Wheel_Tension_Application
         private System.Windows.Forms.Label tm1ReadingLeftSpokesLabel;
         private System.Windows.Forms.Label tensionRightSpokesLabel;
         private System.Windows.Forms.Label tm1ReadingRightSpokesLabel;
-        private System.Windows.Forms.ComboBox varianceComboBox;
         private System.Windows.Forms.Label varianceLabel;
         private System.Windows.Forms.Label withinTensionLimitLeftSpokesLabel;
         private System.Windows.Forms.Label withinTensionLimitRightSpokesLabel;
@@ -732,6 +738,8 @@ namespace Wheel_Tension_Application
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.TrackBar varianceTrackBar;
+        private System.Windows.Forms.Label varianceValueLabel;
     }
 }
 
