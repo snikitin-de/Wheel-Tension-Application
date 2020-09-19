@@ -357,8 +357,6 @@ namespace Wheel_Tension_Application
             if (appSettingPath != String.Empty)
             {
                 var appSettings = new AppSettings(appSettingPath);
-                var leftSideSpokesNumericUpDownValues = new List<string>();
-                var rightSideSpokesNumericUpDownValues = new List<string>();
                 var material = appSettings.ReadSetting("materialComboBoxSelectedItem");
                 var shape = appSettings.ReadSetting("shapeComboBoxSelectedItem");
                 var thickness = appSettings.ReadSetting("thicknessComboBoxSelectedItem");
@@ -372,27 +370,19 @@ namespace Wheel_Tension_Application
                     leftSideSpokeCountComboBox.SelectedItem = appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem");
                     rightSideSpokeCountComboBox.SelectedItem = appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem");
 
-                    for (int i = 0; i < int.Parse(appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem")); i++)
+                    if (!String.IsNullOrEmpty(appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem")))
                     {
-                        leftSideSpokesNumericUpDownValues.Add(appSettings.ReadSetting($"leftSideSpokesNumericUpDown{i + 1}"));
+                        formControl.loadGroupValuesFromFile(leftSideSpokesGroupBox, appSettings, "leftSideSpokesNumericUpDown", int.Parse(appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem")));
+                        
+                        calculateButton.PerformClick();
                     }
 
-                    for (int i = 0; i < int.Parse(appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem")); i++)
+                    if (!String.IsNullOrEmpty(appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem")))
                     {
-                        rightSideSpokesNumericUpDownValues.Add(appSettings.ReadSetting($"rightSideSpokesNumericUpDown{i + 1}"));
+                        formControl.loadGroupValuesFromFile(rightSideSpokesGroupBox, appSettings, "rightSideSpokesNumericUpDown", int.Parse(appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem")));
+                        
+                        calculateButton.PerformClick();
                     }
-
-                    if (leftSideSpokesNumericUpDownValues.All(value => value != null))
-                    {
-                        formControl.SetValuesToGroupControlsText(leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown", leftSideSpokesNumericUpDownValues.ToArray());
-                    }
-
-                    if (rightSideSpokesNumericUpDownValues.All(value => value != null))
-                    {
-                        formControl.SetValuesToGroupControlsText(rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown", rightSideSpokesNumericUpDownValues.ToArray());
-                    }
-
-                    calculateButton.PerformClick();
                 }
             }
         }
