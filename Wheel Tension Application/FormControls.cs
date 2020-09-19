@@ -199,5 +199,20 @@ namespace Wheel_Tension_Application
                 MessageBox.Show("There are no such parameters in the database!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        public void loadGroupValuesFromFile(GroupBox groupBox, AppSettings appSettings, string settingKey, int itemCount)
+        {
+            var values = new List<string>();
+
+            for (int i = 0; i < itemCount; i++)
+            {
+                values.Add(appSettings.ReadSetting($"{settingKey}{i + 1}"));
+            }
+
+            if (values.All(value => value != null))
+            {
+                SetValuesToGroupControlsText(groupBox, settingKey, values.ToArray());
+            }
+        }
     }
 }
