@@ -107,7 +107,7 @@ namespace Wheel_Tension_Application
         {
             var values = new List<string>() { };
 
-            foreach (Control item in groupBox.Controls.OfType<Control>().Reverse())
+            foreach (Control item in groupBox.Controls.OfType<Control>())
             {
                 if (item.Name.IndexOf(controlsName) > -1)
                 {
