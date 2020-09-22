@@ -222,7 +222,7 @@ namespace Wheel_Tension_Application
             var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
             var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
 
-            if (leftSideSpokeCountComboBoxSelected == String.Empty || rightSideSpokeCountComboBoxSelected == String.Empty)
+            if (String.IsNullOrEmpty(leftSideSpokeCountComboBoxSelected) || String.IsNullOrEmpty(rightSideSpokeCountComboBoxSelected))
             {
                 MessageBox.Show("Number of spokes not selected!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -308,7 +308,7 @@ namespace Wheel_Tension_Application
 
             var appSettingPath = saveFileDialog.FileName;
 
-            if (appSettingPath != String.Empty)
+            if (!String.IsNullOrEmpty(appSettingPath))
             {
                 var appSettings = new AppSettings(appSettingPath);
 
@@ -354,14 +354,14 @@ namespace Wheel_Tension_Application
 
             var appSettingPath = openFileDialog.FileName;
 
-            if (appSettingPath != String.Empty)
+            if (!String.IsNullOrEmpty(appSettingPath))
             {
                 var appSettings = new AppSettings(appSettingPath);
                 var material = appSettings.ReadSetting("materialComboBoxSelectedItem");
                 var shape = appSettings.ReadSetting("shapeComboBoxSelectedItem");
                 var thickness = appSettings.ReadSetting("thicknessComboBoxSelectedItem");
 
-                if (material != null && shape != null && thickness != null)
+                if (!String.IsNullOrEmpty(material) && !String.IsNullOrEmpty(shape) && !String.IsNullOrEmpty(thickness))
                 {
                     materialComboBox.SelectedItem = appSettings.ReadSetting("materialComboBoxSelectedItem");
                     shapeComboBox.SelectedItem = appSettings.ReadSetting("shapeComboBoxSelectedItem");
@@ -396,7 +396,7 @@ namespace Wheel_Tension_Application
         {
             var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
 
-            if (leftSideSpokeCountComboBoxSelected != "")
+            if (!String.IsNullOrEmpty(leftSideSpokeCountComboBoxSelected))
             {
                 leftSideSpokeCountComboBox_TextChanged(leftSideSpokeCountComboBox, e);
             }
@@ -408,7 +408,7 @@ namespace Wheel_Tension_Application
         {
             var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
 
-            if (rightSideSpokeCountComboBoxSelected != "")
+            if (!String.IsNullOrEmpty(rightSideSpokeCountComboBoxSelected))
             {
                 rightSideSpokeCountComboBox_TextChanged(rightSideSpokeCountComboBox, e);
             }
