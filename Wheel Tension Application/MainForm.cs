@@ -147,7 +147,7 @@ namespace Wheel_Tension_Application
 
             formControl.AddNumericUpDownToGroupBox(
                 leftSideSpokesGroupBox,
-                "leftSideSpokesNumericUpDown",
+                "leftSideSpokesTm1ReadingNumericUpDown",
                 numericUpDownProperties,
                 leftSideSpokeCountComboBox.Size.Width,
                 leftSideSpokeCountComboBox.Size.Height,
@@ -159,7 +159,7 @@ namespace Wheel_Tension_Application
 
             formControl.AddTextBoxToGroupBox(
                 leftSideSpokesGroupBox,
-                "leftSideSpokesTextBox",
+                "leftSideSpokesTensionTextBox",
                 textBoxProperties,
                 leftSideSpokeCountComboBox.Size.Width,
                 leftSideSpokeCountComboBox.Size.Height,
@@ -171,7 +171,7 @@ namespace Wheel_Tension_Application
 
             foreach (NumericUpDown item in leftSideSpokesGroupBox.Controls.OfType<NumericUpDown>())
             {
-                if (item.Name.IndexOf("leftSideSpokesNumericUpDown") > -1)
+                if (item.Name.IndexOf("leftSideSpokesTm1ReadingNumericUpDown") > -1)
                 {
                     item.Enter += new EventHandler(makeNumericUpDownSelection);
                 }
@@ -194,7 +194,7 @@ namespace Wheel_Tension_Application
 
             formControl.AddNumericUpDownToGroupBox(
                 rightSideSpokesGroupBox,
-                "rightSideSpokesNumericUpDown",
+                "rightSideSpokesTm1ReadingNumericUpDown",
                 numericUpDownProperties,
                 rightSideSpokeCountComboBox.Size.Width,
                 rightSideSpokeCountComboBox.Size.Height,
@@ -206,7 +206,7 @@ namespace Wheel_Tension_Application
 
             formControl.AddTextBoxToGroupBox(
                 rightSideSpokesGroupBox,
-                "rightSideSpokesTextBox",
+                "rightSideSpokesTensionTextBox",
                 textBoxProperties,
                 rightSideSpokeCountComboBox.Size.Width,
                 rightSideSpokeCountComboBox.Size.Height,
@@ -218,7 +218,7 @@ namespace Wheel_Tension_Application
 
             foreach (NumericUpDown item in rightSideSpokesGroupBox.Controls.OfType<NumericUpDown>())
             {
-                if (item.Name.IndexOf("rightSideSpokesNumericUpDown") > -1)
+                if (item.Name.IndexOf("rightSideSpokesTm1ReadingNumericUpDown") > -1)
                 {
                     item.Enter += new EventHandler(makeNumericUpDownSelection);
                 }
@@ -241,20 +241,20 @@ namespace Wheel_Tension_Application
                     MessageBox.Show("Your wheel isn't symmetrical!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
-                List<float> leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
-                List<float> rightSideSpokesTm1 = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown").Select(x => float.Parse(x)).ToList();
+                List<float> leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesTm1ReadingNumericUpDown").Select(x => float.Parse(x)).ToList();
+                List<float> rightSideSpokesTm1 = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesTm1ReadingNumericUpDown").Select(x => float.Parse(x)).ToList();
                 List<float> leftSpokesAngles = parameterCalculations.CalculateSpokeAngles(leftSideSpokesTm1);
                 List<float> rightSpokesAngles = parameterCalculations.CalculateSpokeAngles(rightSideSpokesTm1);
 
-                float[] leftSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(conversionTableGridView, leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown");
-                float[] rightSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(conversionTableGridView, rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown");
+                float[] leftSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(conversionTableGridView, leftSideSpokesGroupBox, "leftSideSpokesTm1ReadingNumericUpDown");
+                float[] rightSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(conversionTableGridView, rightSideSpokesGroupBox, "rightSideSpokesTm1ReadingNumericUpDown");
 
                 spokeTensionChart.Series.Clear();
 
                 spokeTensionChart.ChartAreas["ChartArea"].AxisY.Maximum = new List<float> { leftSideSpokesTm1.Max(), rightSideSpokesTm1.Max() }.Max() * 2.0;
 
-                formControl.SetValuesToGroupControlsText(leftSideSpokesGroupBox, "leftSideSpokesTextBox", leftSideSpokesTensionKgf.Select(x => x.ToString()).ToArray());
-                formControl.SetValuesToGroupControlsText(rightSideSpokesGroupBox, "rightSideSpokesTextBox", rightSideSpokesTensionKgf.Select(x => x.ToString()).ToArray());
+                formControl.SetValuesToGroupControlsText(leftSideSpokesGroupBox, "leftSideSpokesTensionTextBox", leftSideSpokesTensionKgf.Select(x => x.ToString()).ToArray());
+                formControl.SetValuesToGroupControlsText(rightSideSpokesGroupBox, "rightSideSpokesTensionTextBox", rightSideSpokesTensionKgf.Select(x => x.ToString()).ToArray());
 
                 tensionChart.DrawTension(spokeTensionChart, "Left Side Spokes", leftSpokesAngles, leftSideSpokesTm1);
                 tensionChart.DrawTension(spokeTensionChart, "Right Side Spokes", rightSpokesAngles, rightSideSpokesTm1);
@@ -280,8 +280,8 @@ namespace Wheel_Tension_Application
                 var rightSpokesLowerTensionLimit = double.Parse(rightSpokesLowerTensionLimitTextBox.Text);
                 var rightSpokesUpperTensionLimit = double.Parse(rightSpokesUpperTensionLimitTextBox.Text);
 
-                parameterCalculations.SetWithinTensionLimit(leftSideSpokesGroupBox, withinTensionLimitLeftSpokesLabel, errorProviderTensionLimitError, "leftSideSpokesTextBox", leftSpokesLowerTensionLimit, leftSpokesUpperTensionLimit);
-                parameterCalculations.SetWithinTensionLimit(rightSideSpokesGroupBox, withinTensionLimitRightSpokesLabel, errorProviderTensionLimitError, "rightSideSpokesTextBox", rightSpokesLowerTensionLimit, rightSpokesUpperTensionLimit);
+                parameterCalculations.SetWithinTensionLimit(leftSideSpokesGroupBox, withinTensionLimitLeftSpokesLabel, errorProviderTensionLimitError, "leftSideSpokesTensionTextBox", leftSpokesLowerTensionLimit, leftSpokesUpperTensionLimit);
+                parameterCalculations.SetWithinTensionLimit(rightSideSpokesGroupBox, withinTensionLimitRightSpokesLabel, errorProviderTensionLimitError, "rightSideSpokesTensionTextBox", rightSpokesLowerTensionLimit, rightSpokesUpperTensionLimit);
             }
         }
 
@@ -327,8 +327,8 @@ namespace Wheel_Tension_Application
                 var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
                 var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
 
-                List<string> leftSideSpokesNumericUpDownValues = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesNumericUpDown");
-                List<string> rightSideSpokesNumericUpDownValues = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesNumericUpDown");
+                List<string> leftSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesTm1ReadingNumericUpDown");
+                List<string> rightSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesTm1ReadingNumericUpDown");
 
                 appSettings.AddUpdateAppSettings("materialComboBoxSelectedItem", materialComboBoxSelected);
                 appSettings.AddUpdateAppSettings("shapeComboBoxSelectedItem", shapeComboBoxSelected);
@@ -337,14 +337,14 @@ namespace Wheel_Tension_Application
                 appSettings.AddUpdateAppSettings("leftSideSpokeCountComboBoxSelectedItem", leftSideSpokeCountComboBoxSelected);
                 appSettings.AddUpdateAppSettings("rightSideSpokeCountComboBoxSelectedItem", rightSideSpokeCountComboBoxSelected);
 
-                for (int i = 0; i < leftSideSpokesNumericUpDownValues.Count; i++)
+                for (int i = 0; i < leftSideSpokesTm1ReadingNumericUpDownValues.Count; i++)
                 {
-                    appSettings.AddUpdateAppSettings($"leftSideSpokesNumericUpDown{i + 1}", leftSideSpokesNumericUpDownValues[i]);
+                    appSettings.AddUpdateAppSettings($"leftSideSpokesTm1ReadingNumericUpDown{i + 1}", leftSideSpokesTm1ReadingNumericUpDownValues[i]);
                 }
 
-                for (int i = 0; i < rightSideSpokesNumericUpDownValues.Count; i++)
+                for (int i = 0; i < rightSideSpokesTm1ReadingNumericUpDownValues.Count; i++)
                 {
-                    appSettings.AddUpdateAppSettings($"rightSideSpokesNumericUpDown{i + 1}", rightSideSpokesNumericUpDownValues[i]);
+                    appSettings.AddUpdateAppSettings($"rightSideSpokesTm1ReadingNumericUpDown{i + 1}", rightSideSpokesTm1ReadingNumericUpDownValues[i]);
                 }
             }
         }
@@ -380,14 +380,14 @@ namespace Wheel_Tension_Application
 
                     if (!String.IsNullOrEmpty(appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem")))
                     {
-                        formControl.loadGroupValuesFromFile(leftSideSpokesGroupBox, appSettings, "leftSideSpokesNumericUpDown", int.Parse(appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem")));
+                        formControl.loadGroupValuesFromFile(leftSideSpokesGroupBox, appSettings, "leftSideSpokesTm1ReadingNumericUpDown", int.Parse(appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem")));
                         
                         calculateButton.PerformClick();
                     }
 
                     if (!String.IsNullOrEmpty(appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem")))
                     {
-                        formControl.loadGroupValuesFromFile(rightSideSpokesGroupBox, appSettings, "rightSideSpokesNumericUpDown", int.Parse(appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem")));
+                        formControl.loadGroupValuesFromFile(rightSideSpokesGroupBox, appSettings, "rightSideSpokesTm1ReadingNumericUpDown", int.Parse(appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem")));
                         
                         calculateButton.PerformClick();
                     }
