@@ -2,7 +2,9 @@
 
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 using System.Configuration;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
@@ -38,7 +40,19 @@ namespace Wheel_Tension_Application
 					value = settings[key].Value;
 				} else
                 {
-					MessageBox.Show($"Error reading app settings!\nValue for key {key} not found!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					if (key.Contains("SideSpokesTm1ReadingNumericUpDown"))
+					{
+						Regex regex = new Regex(@"(.*)SideSpokesTm1ReadingNumericUpDown(\d+)");
+						Match match = regex.Match(key);
+
+						string side = match.Groups[1].Value;
+						string number = match.Groups[2].Value;
+
+						value = settings[$"{side}SideSpokesNumericUpDown{number}"].Value;
+					} else
+                    {
+						MessageBox.Show($"Error reading app settings!\nValue for key {key} not found!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					}
 				}
 			}
 			catch (ConfigurationErrorsException)
