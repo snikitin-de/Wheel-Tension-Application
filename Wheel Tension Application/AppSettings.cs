@@ -131,5 +131,13 @@ namespace Wheel_Tension_Application
 
 			return settings;
 		}
+
+		public void SaveSettings(string appSettingPath, Dictionary<string, string> settings)
+		{
+            foreach (KeyValuePair<string, string> setting in settings)
+			{
+				AddUpdateAppSettings(setting.Key, setting.Value);
+			}
+		}
 	}
 }
