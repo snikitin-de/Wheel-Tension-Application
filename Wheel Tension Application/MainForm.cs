@@ -359,7 +359,6 @@ namespace Wheel_Tension_Application
             };
 
             openFileDialog.ShowDialog();
-
             
             var appSettingPath = openFileDialog.FileName;
             var appSettings = new AppSettings(appSettingPath);
