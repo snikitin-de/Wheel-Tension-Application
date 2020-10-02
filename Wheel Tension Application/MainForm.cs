@@ -361,66 +361,71 @@ namespace Wheel_Tension_Application
             openFileDialog.ShowDialog();
             
             var appSettingPath = openFileDialog.FileName;
-            var appSettings = new AppSettings(appSettingPath);
 
-            var settings = appSettings.LoadSettings(appSettingPath);
-
-            try
+            if (!String.IsNullOrEmpty(appSettingPath))
             {
-                var leftSideSpokesTm1ReadingNumericUpDownValues = new List<string>();
-                var rightSideSpokesTm1ReadingNumericUpDownValues = new List<string>();
+                var appSettings = new AppSettings(appSettingPath);
 
-                materialComboBox.SelectedItem = settings["materialComboBoxSelectedItem"];
-                shapeComboBox.SelectedItem = settings["shapeComboBoxSelectedItem"];
-                thicknessComboBox.SelectedItem = settings["thicknessComboBoxSelectedItem"];
-                varianceComboBox.SelectedItem = settings["varianceComboBoxSelectedItem"];
-                leftSideSpokeCountComboBox.SelectedItem = settings["leftSideSpokeCountComboBoxSelectedItem"];
-                rightSideSpokeCountComboBox.SelectedItem = settings["rightSideSpokeCountComboBoxSelectedItem"];
+                var settings = appSettings.LoadSettings(appSettingPath);
 
-                if (!String.IsNullOrEmpty(settings["leftSideSpokeCountComboBoxSelectedItem"]))
+                try
                 {
-                    for (int i = 0; i < int.Parse(settings["leftSideSpokeCountComboBoxSelectedItem"]); i++)
-                    {
-                        var key = $"leftSideSpokesTm1ReadingNumericUpDown{i + 1}";
+                    var leftSideSpokesTm1ReadingNumericUpDownValues = new List<string>();
+                    var rightSideSpokesTm1ReadingNumericUpDownValues = new List<string>();
 
-                        if (!String.IsNullOrEmpty(settings[key]))
+                    materialComboBox.SelectedItem = settings["materialComboBoxSelectedItem"];
+                    shapeComboBox.SelectedItem = settings["shapeComboBoxSelectedItem"];
+                    thicknessComboBox.SelectedItem = settings["thicknessComboBoxSelectedItem"];
+                    varianceComboBox.SelectedItem = settings["varianceComboBoxSelectedItem"];
+                    leftSideSpokeCountComboBox.SelectedItem = settings["leftSideSpokeCountComboBoxSelectedItem"];
+                    rightSideSpokeCountComboBox.SelectedItem = settings["rightSideSpokeCountComboBoxSelectedItem"];
+
+                    if (!String.IsNullOrEmpty(settings["leftSideSpokeCountComboBoxSelectedItem"]))
+                    {
+                        for (int i = 0; i < int.Parse(settings["leftSideSpokeCountComboBoxSelectedItem"]); i++)
                         {
-                            leftSideSpokesTm1ReadingNumericUpDownValues.Add(settings[key]);
+                            var key = $"leftSideSpokesTm1ReadingNumericUpDown{i + 1}";
+
+                            if (!String.IsNullOrEmpty(settings[key]))
+                            {
+                                leftSideSpokesTm1ReadingNumericUpDownValues.Add(settings[key]);
+                            }
                         }
+
+                        formControl.SetValuesToGroupControlsText(
+                            leftSideSpokesGroupBox,
+                            "leftSideSpokesTm1ReadingNumericUpDown",
+                            leftSideSpokesTm1ReadingNumericUpDownValues.ToArray());
                     }
 
-                    formControl.SetValuesToGroupControlsText(
-                        leftSideSpokesGroupBox, 
-                        "leftSideSpokesTm1ReadingNumericUpDown",
-                        leftSideSpokesTm1ReadingNumericUpDownValues.ToArray());
-                }
-
-                if (!String.IsNullOrEmpty(settings["rightSideSpokeCountComboBoxSelectedItem"]))
-                {
-                    for (int i = 0; i < int.Parse(settings["rightSideSpokeCountComboBoxSelectedItem"]); i++)
+                    if (!String.IsNullOrEmpty(settings["rightSideSpokeCountComboBoxSelectedItem"]))
                     {
-                        var key = $"rightSideSpokesTm1ReadingNumericUpDown{i + 1}";
-
-                        if (!String.IsNullOrEmpty(settings[key]))
+                        for (int i = 0; i < int.Parse(settings["rightSideSpokeCountComboBoxSelectedItem"]); i++)
                         {
-                            rightSideSpokesTm1ReadingNumericUpDownValues.Add(settings[key]);
+                            var key = $"rightSideSpokesTm1ReadingNumericUpDown{i + 1}";
+
+                            if (!String.IsNullOrEmpty(settings[key]))
+                            {
+                                rightSideSpokesTm1ReadingNumericUpDownValues.Add(settings[key]);
+                            }
                         }
+
+                        formControl.SetValuesToGroupControlsText(
+                            rightSideSpokesGroupBox,
+                            "rightSideSpokesTm1ReadingNumericUpDown",
+                            rightSideSpokesTm1ReadingNumericUpDownValues.ToArray());
                     }
 
-                    formControl.SetValuesToGroupControlsText(
-                        rightSideSpokesGroupBox, 
-                        "rightSideSpokesTm1ReadingNumericUpDown", 
-                        rightSideSpokesTm1ReadingNumericUpDownValues.ToArray());
+                    if (!String.IsNullOrEmpty(settings["leftSideSpokeCountComboBoxSelectedItem"]) &&
+                        !String.IsNullOrEmpty(settings["rightSideSpokeCountComboBoxSelectedItem"]))
+                    {
+                        calculateButton.PerformClick();
+                    }
                 }
-
-                if (!String.IsNullOrEmpty(settings["leftSideSpokeCountComboBoxSelectedItem"]) && 
-                    !String.IsNullOrEmpty(settings["rightSideSpokeCountComboBoxSelectedItem"]))
+                catch (KeyNotFoundException)
                 {
-                    calculateButton.PerformClick();
+                    MessageBox.Show($"The settings hasn't been loaded!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-            } catch (KeyNotFoundException)
-            {
-                MessageBox.Show($"The settings hasn't been loaded!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
