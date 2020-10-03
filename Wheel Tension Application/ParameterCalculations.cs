@@ -113,7 +113,13 @@ namespace Wheel_Tension_Application
             return isWithinTensionLimit;
         }
 
-        public void SetWithinTensionLimit(GroupBox groupBox, Control controlOffset, ErrorProvider errorProvider, string controlsName, double lowerTensionLimit, double upperTensionLimit)
+        public void SetWithinTensionLimit(
+            GroupBox groupBox,
+            Control controlOffset,
+            ErrorProvider errorProvider,
+            string controlsName,
+            double lowerTensionLimit,
+            double upperTensionLimit)
         {
             errorProvider.Icon = icons.ErrorProviderError;
 

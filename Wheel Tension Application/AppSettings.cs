@@ -54,7 +54,11 @@ namespace Wheel_Tension_Application
 					}
 					else
 					{
-						MessageBox.Show($"Error reading app settings!\nValue for key {key} not found!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						MessageBox.Show(
+							$"Error reading app settings!\nValue for key {key} not found!",
+							Application.ProductName,
+							MessageBoxButtons.OK,
+							MessageBoxIcon.Warning);
 					}
 				}
 			}

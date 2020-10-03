@@ -241,20 +241,40 @@ namespace Wheel_Tension_Application
                     MessageBox.Show("Your wheel isn't symmetrical!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
-                List<float> leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesTm1ReadingNumericUpDown").Select(x => float.Parse(x)).ToList();
-                List<float> rightSideSpokesTm1 = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesTm1ReadingNumericUpDown").Select(x => float.Parse(x)).ToList();
+                List<float> leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(
+                    leftSideSpokesGroupBox,
+                    "leftSideSpokesTm1ReadingNumericUpDown").Select(x => float.Parse(x)).ToList();
+
+                List<float> rightSideSpokesTm1 = formControl.GetValuesFromGroupControls(
+                    rightSideSpokesGroupBox,
+                    "rightSideSpokesTm1ReadingNumericUpDown").Select(x => float.Parse(x)).ToList();
+
                 List<float> leftSpokesAngles = parameterCalculations.CalculateSpokeAngles(leftSideSpokesTm1);
                 List<float> rightSpokesAngles = parameterCalculations.CalculateSpokeAngles(rightSideSpokesTm1);
 
-                float[] leftSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(conversionTableGridView, leftSideSpokesGroupBox, "leftSideSpokesTm1ReadingNumericUpDown");
-                float[] rightSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(conversionTableGridView, rightSideSpokesGroupBox, "rightSideSpokesTm1ReadingNumericUpDown");
+                float[] leftSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(
+                    conversionTableGridView,
+                    leftSideSpokesGroupBox,
+                    "leftSideSpokesTm1ReadingNumericUpDown");
+
+                float[] rightSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(
+                    conversionTableGridView,
+                    rightSideSpokesGroupBox,
+                    "rightSideSpokesTm1ReadingNumericUpDown");
 
                 spokeTensionChart.Series.Clear();
 
                 spokeTensionChart.ChartAreas["ChartArea"].AxisY.Maximum = new List<float> { leftSideSpokesTm1.Max(), rightSideSpokesTm1.Max() }.Max() * 2.0;
 
-                formControl.SetValuesToGroupControlsText(leftSideSpokesGroupBox, "leftSideSpokesTensionTextBox", leftSideSpokesTensionKgf.Select(x => x.ToString()).ToArray());
-                formControl.SetValuesToGroupControlsText(rightSideSpokesGroupBox, "rightSideSpokesTensionTextBox", rightSideSpokesTensionKgf.Select(x => x.ToString()).ToArray());
+                formControl.SetValuesToGroupControlsText(
+                    leftSideSpokesGroupBox,
+                    "leftSideSpokesTensionTextBox",
+                    leftSideSpokesTensionKgf.Select(x => x.ToString()).ToArray());
+
+                formControl.SetValuesToGroupControlsText(
+                    rightSideSpokesGroupBox,
+                    "rightSideSpokesTensionTextBox",
+                    rightSideSpokesTensionKgf.Select(x => x.ToString()).ToArray());
 
                 tensionChart.DrawTension(spokeTensionChart, "Left Side Spokes", leftSpokesAngles, leftSideSpokesTm1);
                 tensionChart.DrawTension(spokeTensionChart, "Right Side Spokes", rightSpokesAngles, rightSideSpokesTm1);
@@ -269,19 +289,38 @@ namespace Wheel_Tension_Application
 
                 int variance = int.Parse(varianceComboBox.Text.Remove(varianceComboBox.Text.Length - 1, 1));
 
-                leftSpokesLowerTensionLimitTextBox.Text = parameterCalculations.TensionLimit(double.Parse(averageLeftSpokesTensionTextBox.Text), variance, true).ToString();
-                leftSpokesUpperTensionLimitTextBox.Text = parameterCalculations.TensionLimit(double.Parse(averageLeftSpokesTensionTextBox.Text), variance, false).ToString();
+                leftSpokesLowerTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
+                    double.Parse(averageLeftSpokesTensionTextBox.Text), variance, true).ToString();
 
-                rightSpokesLowerTensionLimitTextBox.Text = parameterCalculations.TensionLimit(double.Parse(averageRightSpokesTensionTextBox.Text), variance, true).ToString();
-                rightSpokesUpperTensionLimitTextBox.Text = parameterCalculations.TensionLimit(double.Parse(averageRightSpokesTensionTextBox.Text), variance, false).ToString();
+                leftSpokesUpperTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
+                    double.Parse(averageLeftSpokesTensionTextBox.Text), variance, false).ToString();
+
+                rightSpokesLowerTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
+                    double.Parse(averageRightSpokesTensionTextBox.Text), variance, true).ToString();
+
+                rightSpokesUpperTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
+                    double.Parse(averageRightSpokesTensionTextBox.Text), variance, false).ToString();
 
                 var leftSpokesLowerTensionLimit = double.Parse(leftSpokesLowerTensionLimitTextBox.Text);
                 var leftSpokesUpperTensionLimit = double.Parse(leftSpokesUpperTensionLimitTextBox.Text);
                 var rightSpokesLowerTensionLimit = double.Parse(rightSpokesLowerTensionLimitTextBox.Text);
                 var rightSpokesUpperTensionLimit = double.Parse(rightSpokesUpperTensionLimitTextBox.Text);
 
-                parameterCalculations.SetWithinTensionLimit(leftSideSpokesGroupBox, withinTensionLimitLeftSpokesLabel, errorProviderTensionLimitError, "leftSideSpokesTensionTextBox", leftSpokesLowerTensionLimit, leftSpokesUpperTensionLimit);
-                parameterCalculations.SetWithinTensionLimit(rightSideSpokesGroupBox, withinTensionLimitRightSpokesLabel, errorProviderTensionLimitError, "rightSideSpokesTensionTextBox", rightSpokesLowerTensionLimit, rightSpokesUpperTensionLimit);
+                parameterCalculations.SetWithinTensionLimit(
+                    leftSideSpokesGroupBox,
+                    withinTensionLimitLeftSpokesLabel,
+                    errorProviderTensionLimitError,
+                    "leftSideSpokesTensionTextBox",
+                    leftSpokesLowerTensionLimit,
+                    leftSpokesUpperTensionLimit);
+
+                parameterCalculations.SetWithinTensionLimit(
+                    rightSideSpokesGroupBox,
+                    withinTensionLimitRightSpokesLabel,
+                    errorProviderTensionLimitError,
+                    "rightSideSpokesTensionTextBox",
+                    rightSpokesLowerTensionLimit,
+                    rightSpokesUpperTensionLimit);
             }
         }
 
@@ -448,8 +487,13 @@ namespace Wheel_Tension_Application
                 var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
                 var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
 
-                List<string> leftSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesTm1ReadingNumericUpDown");
-                List<string> rightSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesTm1ReadingNumericUpDown");
+                List<string> leftSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(
+                    leftSideSpokesGroupBox,
+                    "leftSideSpokesTm1ReadingNumericUpDown");
+
+                List<string> rightSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(
+                    rightSideSpokesGroupBox,
+                    "rightSideSpokesTm1ReadingNumericUpDown");
 
                 settings.Add("materialComboBoxSelectedItem", materialComboBoxSelected);
                 settings.Add("shapeComboBoxSelectedItem", shapeComboBoxSelected);
