@@ -316,41 +316,7 @@ namespace Wheel_Tension_Application
 
             var appSettingPath = saveFileDialog.FileName;
 
-            if (!String.IsNullOrEmpty(appSettingPath))
-            {
-                var appSettings = new AppSettings(appSettingPath);
-
-                var settings = new Dictionary<string, string>();
-
-                var materialComboBoxSelected = materialComboBox.GetItemText(materialComboBox.SelectedItem);
-                var shapeComboBoxSelected = shapeComboBox.GetItemText(shapeComboBox.SelectedItem);
-                var thicknessComboBoxSelected = thicknessComboBox.GetItemText(thicknessComboBox.SelectedItem);
-                var varianceComboBoxSelected = varianceComboBox.GetItemText(varianceComboBox.SelectedItem);
-                var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
-                var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
-
-                List<string> leftSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesTm1ReadingNumericUpDown");
-                List<string> rightSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesTm1ReadingNumericUpDown");
-
-                settings.Add("materialComboBoxSelectedItem", materialComboBoxSelected);
-                settings.Add("shapeComboBoxSelectedItem", shapeComboBoxSelected);
-                settings.Add("thicknessComboBoxSelectedItem", thicknessComboBoxSelected);
-                settings.Add("varianceComboBoxSelectedItem", varianceComboBoxSelected);
-                settings.Add("leftSideSpokeCountComboBoxSelectedItem", leftSideSpokeCountComboBoxSelected);
-                settings.Add("rightSideSpokeCountComboBoxSelectedItem", rightSideSpokeCountComboBoxSelected);
-
-                for (int i = 0; i < leftSideSpokesTm1ReadingNumericUpDownValues.Count; i++)
-                {
-                    settings.Add($"leftSideSpokesTm1ReadingNumericUpDown{i + 1}", leftSideSpokesTm1ReadingNumericUpDownValues[i]);
-                }
-
-                for (int i = 0; i < rightSideSpokesTm1ReadingNumericUpDownValues.Count; i++)
-                {
-                    settings.Add($"rightSideSpokesTm1ReadingNumericUpDown{i + 1}", rightSideSpokesTm1ReadingNumericUpDownValues[i]);
-                }
-
-                appSettings.SaveSettings(appSettingPath, settings);
-            }
+            SaveSettings(appSettingPath);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -366,6 +332,40 @@ namespace Wheel_Tension_Application
             
             var appSettingPath = openFileDialog.FileName;
 
+            LoadSettings(appSettingPath);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void leftSideSpokeCountComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
+
+            if (!String.IsNullOrEmpty(leftSideSpokeCountComboBoxSelected))
+            {
+                leftSideSpokeCountComboBox_TextChanged(leftSideSpokeCountComboBox, e);
+            }
+
+            SendKeys.SendWait("{ENTER}");
+        }
+
+        private void rightSideSpokeCountComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
+
+            if (!String.IsNullOrEmpty(rightSideSpokeCountComboBoxSelected))
+            {
+                rightSideSpokeCountComboBox_TextChanged(rightSideSpokeCountComboBox, e);
+            }
+
+            SendKeys.SendWait("{ENTER}");
+        }
+
+        private void LoadSettings(string appSettingPath)
+        {
             if (!String.IsNullOrEmpty(appSettingPath))
             {
                 var appSettings = new AppSettings(appSettingPath);
@@ -433,33 +433,43 @@ namespace Wheel_Tension_Application
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveSettings(string appSettingPath)
         {
-            Application.Exit();
-        }
-
-        private void leftSideSpokeCountComboBox_SelectedValueChanged(object sender, EventArgs e)
-        {
-            var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
-
-            if (!String.IsNullOrEmpty(leftSideSpokeCountComboBoxSelected))
+            if (!String.IsNullOrEmpty(appSettingPath))
             {
-                leftSideSpokeCountComboBox_TextChanged(leftSideSpokeCountComboBox, e);
+                var appSettings = new AppSettings(appSettingPath);
+
+                var settings = new Dictionary<string, string>();
+
+                var materialComboBoxSelected = materialComboBox.GetItemText(materialComboBox.SelectedItem);
+                var shapeComboBoxSelected = shapeComboBox.GetItemText(shapeComboBox.SelectedItem);
+                var thicknessComboBoxSelected = thicknessComboBox.GetItemText(thicknessComboBox.SelectedItem);
+                var varianceComboBoxSelected = varianceComboBox.GetItemText(varianceComboBox.SelectedItem);
+                var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
+                var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
+
+                List<string> leftSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(leftSideSpokesGroupBox, "leftSideSpokesTm1ReadingNumericUpDown");
+                List<string> rightSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(rightSideSpokesGroupBox, "rightSideSpokesTm1ReadingNumericUpDown");
+
+                settings.Add("materialComboBoxSelectedItem", materialComboBoxSelected);
+                settings.Add("shapeComboBoxSelectedItem", shapeComboBoxSelected);
+                settings.Add("thicknessComboBoxSelectedItem", thicknessComboBoxSelected);
+                settings.Add("varianceComboBoxSelectedItem", varianceComboBoxSelected);
+                settings.Add("leftSideSpokeCountComboBoxSelectedItem", leftSideSpokeCountComboBoxSelected);
+                settings.Add("rightSideSpokeCountComboBoxSelectedItem", rightSideSpokeCountComboBoxSelected);
+
+                for (int i = 0; i < leftSideSpokesTm1ReadingNumericUpDownValues.Count; i++)
+                {
+                    settings.Add($"leftSideSpokesTm1ReadingNumericUpDown{i + 1}", leftSideSpokesTm1ReadingNumericUpDownValues[i]);
+                }
+
+                for (int i = 0; i < rightSideSpokesTm1ReadingNumericUpDownValues.Count; i++)
+                {
+                    settings.Add($"rightSideSpokesTm1ReadingNumericUpDown{i + 1}", rightSideSpokesTm1ReadingNumericUpDownValues[i]);
+                }
+
+                appSettings.SaveSettings(appSettingPath, settings);
             }
-
-            SendKeys.SendWait("{ENTER}");
-        }
-
-        private void rightSideSpokeCountComboBox_SelectedValueChanged(object sender, EventArgs e)
-        {
-            var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
-
-            if (!String.IsNullOrEmpty(rightSideSpokeCountComboBoxSelected))
-            {
-                rightSideSpokeCountComboBox_TextChanged(rightSideSpokeCountComboBox, e);
-            }
-
-            SendKeys.SendWait("{ENTER}");
         }
     }
 }
