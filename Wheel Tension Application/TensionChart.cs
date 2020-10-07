@@ -36,8 +36,12 @@ namespace Wheel_Tension_Application
                 tm1 = tm1Reading[i];
 
                 chart.Series[SeriesName].Points.AddXY(angle, tm1);
-                chart.Series[SeriesName].Points[i].ToolTip = $"TM-1 Reading: #VALY \nAngle: #VALX \nSpoke: {spoke}";
-                chart.Series[SeriesName].Points[i].Label = spoke.ToString();
+
+                if (i != spokesAngles.Count - 1)
+                {
+                    chart.Series[SeriesName].Points[i].ToolTip = $"TM-1 Reading: #VALY \nAngle: #VALX \nSpoke: {spoke}";
+                    chart.Series[SeriesName].Points[i].Label = spoke.ToString();
+                }
             }
 
             for (var i = 0; i < spokesAngles.Count; i++)

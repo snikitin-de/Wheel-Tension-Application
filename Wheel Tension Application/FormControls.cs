@@ -13,7 +13,16 @@ namespace Wheel_Tension_Application
 {
     class FormControls
     {
-        public void AddGroupControlsToGroupBox(GroupBox groupBox, Control controlForAdding, List<string> controlProperties, string controlName, int controlHeight, int controlCount, int stepBetweenControls, int offsetX, int offsetY)
+        public void AddGroupControlsToGroupBox(
+            GroupBox groupBox,
+            Control controlForAdding,
+            List<string> controlProperties,
+            string controlName,
+            int controlHeight,
+            int controlCount,
+            int stepBetweenControls,
+            int offsetX,
+            int offsetY)
         {
             var itemsCount = groupBox.Controls.OfType<Control>().Count();
 
@@ -53,7 +62,16 @@ namespace Wheel_Tension_Application
             }
         }
 
-        public void AddNumericUpDownToGroupBox(GroupBox groupBox, string controlName, List<string> controlProperties, int controlWidth, int controlHeight, int controlCount, int stepBetweenControls, int offsetX, int offsetY)
+        public void AddNumericUpDownToGroupBox(
+            GroupBox groupBox,
+            string controlName,
+            List<string> controlProperties,
+            int controlWidth,
+            int controlHeight,
+            int controlCount,
+            int stepBetweenControls,
+            int offsetX,
+            int offsetY)
         {
             NumericUpDown numericUpDown = new NumericUpDown()
             {
@@ -77,7 +95,16 @@ namespace Wheel_Tension_Application
             );
         }
 
-        public void AddTextBoxToGroupBox(GroupBox groupBox, string controlName, List<string> controlProperties, int controlWidth, int controlHeight, int controlCount, int stepBetweenControls, int offsetX, int offsetY)
+        public void AddTextBoxToGroupBox(
+            GroupBox groupBox,
+            string controlName,
+            List<string> controlProperties,
+            int controlWidth,
+            int controlHeight,
+            int controlCount,
+            int stepBetweenControls,
+            int offsetX,
+            int offsetY)
         {
             TextBox textBox = new TextBox()
             {
@@ -107,7 +134,7 @@ namespace Wheel_Tension_Application
         {
             var values = new List<string>() { };
 
-            foreach (Control item in groupBox.Controls.OfType<Control>().Reverse())
+            foreach (Control item in groupBox.Controls.OfType<Control>())
             {
                 if (item.Name.IndexOf(controlsName) > -1)
                 {

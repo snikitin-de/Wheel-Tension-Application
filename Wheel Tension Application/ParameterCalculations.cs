@@ -47,8 +47,6 @@ namespace Wheel_Tension_Application
             List<string[]> dataGridViewValues = formControl.GetDataGridViewValues(dataGridView);
             List<string> tensions = formControl.GetValuesFromGroupControls(groupBox, controlsNameTm1Reading);
 
-            tensions.Reverse();
-
             foreach (string tension in tensions)
             {
                 bool isFound = false;
@@ -115,11 +113,17 @@ namespace Wheel_Tension_Application
             return isWithinTensionLimit;
         }
 
-        public void SetWithinTensionLimit(GroupBox groupBox, Control controlOffset, ErrorProvider errorProvider, string controlsName, double lowerTensionLimit, double upperTensionLimit)
+        public void SetWithinTensionLimit(
+            GroupBox groupBox,
+            Control controlOffset,
+            ErrorProvider errorProvider,
+            string controlsName,
+            double lowerTensionLimit,
+            double upperTensionLimit)
         {
             errorProvider.Icon = icons.ErrorProviderError;
 
-            foreach (TextBox item in groupBox.Controls.OfType<TextBox>().Reverse())
+            foreach (TextBox item in groupBox.Controls.OfType<TextBox>())
             {
                 if (item.Name.IndexOf(controlsName) > -1)
                 {

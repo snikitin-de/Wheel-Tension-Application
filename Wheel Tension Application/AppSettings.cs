@@ -1,4 +1,11 @@
-﻿using System.Configuration;
+﻿// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
@@ -13,7 +20,7 @@ namespace Wheel_Tension_Application
 		}
 
 		private Configuration GetConfig()
-        {
+		{
 			var map = new ExeConfigurationFileMap { ExeConfigFilename = configPath };
 			var configFile = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
 
@@ -30,11 +37,29 @@ namespace Wheel_Tension_Application
 				var settings = configFile.AppSettings.Settings;
 
 				if (settings[key] != null)
-                {
+				{
 					value = settings[key].Value;
-				} else
-                {
-					MessageBox.Show($"Error reading app settings!\nValue for key {key} not found!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
+				else
+				{
+					if (key.Contains("SideSpokesTm1ReadingNumericUpDown"))
+					{
+						Regex regex = new Regex(@"(.*)SideSpokesTm1ReadingNumericUpDown(\d+)");
+						Match match = regex.Match(key);
+
+						string side = match.Groups[1].Value;
+						string number = match.Groups[2].Value;
+
+						value = settings[$"{side}SideSpokesNumericUpDown{number}"].Value;
+					}
+					else
+					{
+						MessageBox.Show(
+							$"Error reading app settings!\nValue for key {key} not found!",
+							Application.ProductName,
+							MessageBoxButtons.OK,
+							MessageBoxIcon.Warning);
+					}
 				}
 			}
 			catch (ConfigurationErrorsException)
@@ -67,6 +92,55 @@ namespace Wheel_Tension_Application
 			catch (ConfigurationErrorsException)
 			{
 				MessageBox.Show("Error writing app settings!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+
+		public Dictionary<string, string> LoadSettings(string appSettingPath)
+		{
+			var settings = new Dictionary<string, string>();
+
+			if (!String.IsNullOrEmpty(appSettingPath))
+			{
+				var appSettings = new AppSettings(appSettingPath);
+
+				settings.Add("materialComboBoxSelectedItem", ReadSetting("materialComboBoxSelectedItem"));
+				settings.Add("shapeComboBoxSelectedItem", ReadSetting("shapeComboBoxSelectedItem"));
+				settings.Add("thicknessComboBoxSelectedItem", ReadSetting("thicknessComboBoxSelectedItem"));
+				settings.Add("varianceComboBoxSelectedItem", ReadSetting("varianceComboBoxSelectedItem"));
+				settings.Add("leftSideSpokeCountComboBoxSelectedItem", ReadSetting("leftSideSpokeCountComboBoxSelectedItem"));
+				settings.Add("rightSideSpokeCountComboBoxSelectedItem", ReadSetting("rightSideSpokeCountComboBoxSelectedItem"));
+
+				if (!String.IsNullOrEmpty(appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem")))
+				{
+					var itemCount = int.Parse(appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem"));
+
+					for (int i = 0; i < itemCount; i++)
+					{
+						var key = $"leftSideSpokesTm1ReadingNumericUpDown{i + 1}";
+						settings.Add(key, appSettings.ReadSetting(key));
+					}
+				}
+
+				if (!String.IsNullOrEmpty(appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem")))
+				{
+					var itemCount = int.Parse(appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem"));
+
+					for (int i = 0; i < itemCount; i++)
+					{
+						var key = $"rightSideSpokesTm1ReadingNumericUpDown{i + 1}";
+						settings.Add(key, appSettings.ReadSetting(key));
+					}
+				}
+			}
+
+			return settings;
+		}
+
+		public void SaveSettings(string appSettingPath, Dictionary<string, string> settings)
+		{
+            foreach (KeyValuePair<string, string> setting in settings)
+			{
+				AddUpdateAppSettings(setting.Key, setting.Value);
 			}
 		}
 	}
