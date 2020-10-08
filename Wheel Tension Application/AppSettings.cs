@@ -52,6 +52,11 @@ namespace Wheel_Tension_Application
 
 						value = settings[$"{side}SideSpokesNumericUpDown{number}"].Value;
 					}
+					else if (key == "varianceTrackBarValue")
+					{
+						value = settings["varianceComboBoxSelectedItem"].Value;
+						value = value.Remove(value.Length - 1);
+					}
 					else
 					{
 						MessageBox.Show(
@@ -106,7 +111,7 @@ namespace Wheel_Tension_Application
 				settings.Add("materialComboBoxSelectedItem", ReadSetting("materialComboBoxSelectedItem"));
 				settings.Add("shapeComboBoxSelectedItem", ReadSetting("shapeComboBoxSelectedItem"));
 				settings.Add("thicknessComboBoxSelectedItem", ReadSetting("thicknessComboBoxSelectedItem"));
-				settings.Add("varianceComboBoxSelectedItem", ReadSetting("varianceComboBoxSelectedItem"));
+				settings.Add("varianceTrackBarValue", ReadSetting("varianceTrackBarValue"));
 				settings.Add("leftSideSpokeCountComboBoxSelectedItem", ReadSetting("leftSideSpokeCountComboBoxSelectedItem"));
 				settings.Add("rightSideSpokeCountComboBoxSelectedItem", ReadSetting("rightSideSpokeCountComboBoxSelectedItem"));
 

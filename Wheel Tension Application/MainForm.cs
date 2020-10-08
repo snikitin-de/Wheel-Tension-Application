@@ -55,8 +55,6 @@ namespace Wheel_Tension_Application
             List<string> materialsList = database.ExecuteSelectQuery(connectionString, materialsListCommand, parameters);
 
             formControl.SetComboBoxValue(materialComboBox, materialsList, true, true);
-
-            varianceComboBox.SelectedItem = "20%";
         }
 
         private void materialComboBox_TextChanged(object sender, EventArgs e)
@@ -136,7 +134,7 @@ namespace Wheel_Tension_Application
 
             leftSideSpokeCountComboBox.Enabled = true;
             rightSideSpokeCountComboBox.Enabled = true;
-            varianceComboBox.Enabled = true;
+            varianceTrackBar.Enabled = true;
         }
 
         private void leftSideSpokeCountComboBox_TextChanged(object sender, EventArgs e)
@@ -285,9 +283,7 @@ namespace Wheel_Tension_Application
                 averageLeftSpokesTensionTextBox.Text = leftSideSpokesTensionKgf.Average().ToString();
                 averageRightSpokesTensionTextBox.Text = rightSideSpokesTensionKgf.Average().ToString();
 
-                var varianceComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(varianceComboBox.SelectedItem);
-
-                int variance = int.Parse(varianceComboBox.Text.Remove(varianceComboBox.Text.Length - 1, 1));
+                int variance = varianceTrackBar.Value;
 
                 leftSpokesLowerTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
                     double.Parse(averageLeftSpokesTensionTextBox.Text), variance, true).ToString();
@@ -322,18 +318,6 @@ namespace Wheel_Tension_Application
                     rightSpokesLowerTensionLimit,
                     rightSpokesUpperTensionLimit);
             }
-        }
-
-        private void varianceComboBox_TextChanged(object sender, EventArgs e)
-        {
-            var varianceComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(varianceComboBox.SelectedItem);
-
-            withinTensionLimitLeftSpokesLabel.Text = $"Within {varianceComboBoxSelected} limit";
-            withinTensionLimitRightSpokesLabel.Text = $"Within {varianceComboBoxSelected} limit";
-            leftSpokesUpperTensionLimitLabel.Text = $"+{varianceComboBoxSelected} Upper Tension Limit (kgf)";
-            rightSpokesUpperTensionLimitLabel.Text = $"+{varianceComboBoxSelected} Lower Tension Limit (kgf)";
-            leftSpokesLowerTensionLimitLabel.Text = $"-{varianceComboBoxSelected} Upper Tension Limit (kgf)";
-            rightSpokesLowerTensionLimitLabel.Text = $"-{varianceComboBoxSelected} Lower Tension Limit (kgf)";
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -403,6 +387,21 @@ namespace Wheel_Tension_Application
             SendKeys.SendWait("{ENTER}");
         }
 
+
+        private void varianceTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            var varianceTrackBarValue = varianceTrackBar.Value;
+
+            varianceValueLabel.Text = $"{varianceTrackBarValue}%";
+
+            withinTensionLimitLeftSpokesLabel.Text = $"Within {varianceTrackBarValue}% limit";
+            withinTensionLimitRightSpokesLabel.Text = $"Within {varianceTrackBarValue}% limit";
+            leftSpokesUpperTensionLimitLabel.Text = $"+{varianceTrackBarValue}% Upper Tension Limit (kgf)";
+            rightSpokesUpperTensionLimitLabel.Text = $"+{varianceTrackBarValue}% Lower Tension Limit (kgf)";
+            leftSpokesLowerTensionLimitLabel.Text = $"-{varianceTrackBarValue}% Upper Tension Limit (kgf)";
+            rightSpokesLowerTensionLimitLabel.Text = $"-{varianceTrackBarValue}% Lower Tension Limit (kgf)";
+        }
+ 
         private void LoadSettings(string appSettingPath)
         {
             if (!String.IsNullOrEmpty(appSettingPath))
@@ -419,7 +418,7 @@ namespace Wheel_Tension_Application
                     materialComboBox.SelectedItem = settings["materialComboBoxSelectedItem"];
                     shapeComboBox.SelectedItem = settings["shapeComboBoxSelectedItem"];
                     thicknessComboBox.SelectedItem = settings["thicknessComboBoxSelectedItem"];
-                    varianceComboBox.SelectedItem = settings["varianceComboBoxSelectedItem"];
+                    varianceTrackBar.Value = int.Parse(settings["varianceTrackBarValue"]);
                     leftSideSpokeCountComboBox.SelectedItem = settings["leftSideSpokeCountComboBoxSelectedItem"];
                     rightSideSpokeCountComboBox.SelectedItem = settings["rightSideSpokeCountComboBoxSelectedItem"];
 
@@ -483,7 +482,7 @@ namespace Wheel_Tension_Application
                 var materialComboBoxSelected = materialComboBox.GetItemText(materialComboBox.SelectedItem);
                 var shapeComboBoxSelected = shapeComboBox.GetItemText(shapeComboBox.SelectedItem);
                 var thicknessComboBoxSelected = thicknessComboBox.GetItemText(thicknessComboBox.SelectedItem);
-                var varianceComboBoxSelected = varianceComboBox.GetItemText(varianceComboBox.SelectedItem);
+                var varianceTrackBarValue = varianceTrackBar.Value.ToString();
                 var leftSideSpokeCountComboBoxSelected = leftSideSpokeCountComboBox.GetItemText(leftSideSpokeCountComboBox.SelectedItem);
                 var rightSideSpokeCountComboBoxSelected = rightSideSpokeCountComboBox.GetItemText(rightSideSpokeCountComboBox.SelectedItem);
 
@@ -498,7 +497,7 @@ namespace Wheel_Tension_Application
                 settings.Add("materialComboBoxSelectedItem", materialComboBoxSelected);
                 settings.Add("shapeComboBoxSelectedItem", shapeComboBoxSelected);
                 settings.Add("thicknessComboBoxSelectedItem", thicknessComboBoxSelected);
-                settings.Add("varianceComboBoxSelectedItem", varianceComboBoxSelected);
+                settings.Add("varianceTrackBarValue", varianceTrackBarValue);
                 settings.Add("leftSideSpokeCountComboBoxSelectedItem", leftSideSpokeCountComboBoxSelected);
                 settings.Add("rightSideSpokeCountComboBoxSelectedItem", rightSideSpokeCountComboBoxSelected);
 
