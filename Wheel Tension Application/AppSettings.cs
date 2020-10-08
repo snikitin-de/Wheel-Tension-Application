@@ -52,6 +52,11 @@ namespace Wheel_Tension_Application
 
 						value = settings[$"{side}SideSpokesNumericUpDown{number}"].Value;
 					}
+					else if (key == "varianceTrackBarValue")
+					{
+						value = settings["varianceComboBoxSelectedItem"].Value;
+						value = value.Remove(value.Length - 1);
+					}
 					else
 					{
 						MessageBox.Show(
