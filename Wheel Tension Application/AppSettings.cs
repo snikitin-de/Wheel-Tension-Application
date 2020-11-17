@@ -10,6 +10,16 @@ using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
 {
+	/*
+     * Класс AppSettings для работы с конфигурационными файлами настроек программы
+     * Этот класс позволяет сохранять и загружать настройки программы из конфигурационных файлов
+     */
+	/// <summary>
+	/// Класс <c>AppSettings</c> для работы с конфигурационными файлами настроек программы.
+	/// </summary>
+	/// <remarks>
+	/// Этот класс позволяет сохранять и загружать настройки программы из конфигурационных файлов.
+	/// </remarks>
 	class AppSettings
 	{
 		private string configPath;
@@ -19,6 +29,11 @@ namespace Wheel_Tension_Application
 			configPath = appSettingsPath;
 		}
 
+		// Получение конфигурационного файла
+		/// <summary>
+		/// Получение конфигурационного файла.
+		/// </summary>
+		/// <returns>Конфигурационный файл.</returns>
 		private Configuration GetConfig()
 		{
 			var map = new ExeConfigurationFileMap { ExeConfigFilename = configPath };
@@ -27,6 +42,17 @@ namespace Wheel_Tension_Application
 			return configFile;
 		}
 
+		// Чтение настройки из конфигурационного файла
+		/// <summary>
+		/// Чтение настройки из конфигурационного файла.
+		/// </summary>
+		/// <param name="key">Идентификатор настройки.</param>
+		/// <returns>Значение настройки по указанному ключу.</returns>
+		/// <example>
+		/// <code>
+		/// ReadSetting("materialComboBoxSelectedItem")
+		/// </code>
+		/// </example>
 		public string ReadSetting(string key)
 		{
 			string value = null;
@@ -42,6 +68,7 @@ namespace Wheel_Tension_Application
 				}
 				else
 				{
+					// Конвертер настроек со старых версий
 					if (key.Contains("SideSpokesTm1ReadingNumericUpDown"))
 					{
 						Regex regex = new Regex(@"(.*)SideSpokesTm1ReadingNumericUpDown(\d+)");
@@ -75,6 +102,17 @@ namespace Wheel_Tension_Application
 			return value;
 		}
 
+		// Добавление или обновление настройки в конфигурационном файле
+		/// <summary>
+		///Добавление или обновление настройки в конфигурационном файле.
+		/// </summary>
+		/// <param name="key">Идентификатор настройки.</param>
+		/// <param name="value">Значение настройки.</param>
+		/// <example>
+		/// <code>
+		/// AddUpdateAppSettings("varianceTrackBarValue", "10");
+		/// </code>
+		/// </example>
 		public void AddUpdateAppSettings(string key, string value)
 		{
 			try
@@ -100,6 +138,18 @@ namespace Wheel_Tension_Application
 			}
 		}
 
+		// Загрузка настроек из конфигурационного файла
+		/// <summary>
+		/// Загрузка настроек из конфигурационного файла.
+		/// </summary>
+		/// <param name="appSettingPath">Путь к конфигурационному файлу.</param>
+		/// <returns>Словарь настроек программы в формате настройка-значение настройки, загруженных из конфигурационного файла.</returns>
+		/// <example>
+		/// <code>
+		/// var appSettingPath = saveFileDialog.FileName;
+		/// LoadSettings(appSettingPath)
+		/// </code>
+		/// </example>
 		public Dictionary<string, string> LoadSettings(string appSettingPath)
 		{
 			var settings = new Dictionary<string, string>();
@@ -108,6 +158,7 @@ namespace Wheel_Tension_Application
 			{
 				var appSettings = new AppSettings(appSettingPath);
 
+				// Чтение настроек программы
 				settings.Add("materialComboBoxSelectedItem", ReadSetting("materialComboBoxSelectedItem"));
 				settings.Add("shapeComboBoxSelectedItem", ReadSetting("shapeComboBoxSelectedItem"));
 				settings.Add("thicknessComboBoxSelectedItem", ReadSetting("thicknessComboBoxSelectedItem"));
@@ -141,8 +192,23 @@ namespace Wheel_Tension_Application
 			return settings;
 		}
 
+		// Сохранение настроек в конфигурационный файл
+		/// <summary>
+		/// Сохранение настроек в конфигурационный файл.
+		/// </summary>
+		/// <param name="appSettingPath">Путь к конфигурационному файлу.</param>
+		/// <param name="settings">Словарь настроек в формате настройка-значение.</param>
+		/// <example>
+		/// <code>
+		/// var appSettingPath = saveFileDialog.FileName;
+		/// var settings = new Dictionary<string, string>();
+		/// settings.Add("materialComboBoxSelectedItem", materialComboBoxSelected);
+		/// SaveSettings(appSettingPath, settings)
+		/// </code>
+		/// </example>
 		public void SaveSettings(string appSettingPath, Dictionary<string, string> settings)
 		{
+			// Добавление или обновление настроек программы
             foreach (KeyValuePair<string, string> setting in settings)
 			{
 				AddUpdateAppSettings(setting.Key, setting.Value);
