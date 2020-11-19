@@ -45,7 +45,7 @@ namespace Wheel_Tension_Application
             var tensionKgf = new List<float>();
 
             List<string[]> dataGridViewValues = formControl.GetDataGridViewValues(dataGridView);
-            List<string> tensions = formControl.GetValuesFromGroupControls(groupBox, controlsNameTm1Reading);
+            List<string> tensions = formControl.GetValuesFromGroupControls(groupBox, controlsNameTm1Reading).Values.ToList();
 
             foreach (string tension in tensions)
             {
@@ -123,24 +123,25 @@ namespace Wheel_Tension_Application
         {
             errorProvider.Icon = icons.ErrorProviderError;
 
-            foreach (TextBox item in groupBox.Controls.OfType<TextBox>())
+            FormControls formControl = new FormControls();
+            Dictionary<Control, string> tensionsKgf = formControl.GetValuesFromGroupControls(groupBox, controlsName);
+
+            errorProvider.Icon = icons.ErrorProviderError;
+
+            foreach (KeyValuePair<Control, string> tensionKgf in tensionsKgf)
             {
-                if (item.Name.IndexOf(controlsName) > -1)
+                var withinTensionLimit = isWithinTensionLimit(int.Parse(tensionKgf.Value), lowerTensionLimit, upperTensionLimit);
+
+                errorProvider.SetIconPadding(tensionKgf.Key, +(controlOffset.Size.Width / 2));
+
+                var errorMessage = "";
+
+                if (withinTensionLimit == true)
                 {
-                    var tensionKgf = int.Parse(item.Text);
-                    var withinTensionLimit = isWithinTensionLimit(tensionKgf, lowerTensionLimit, upperTensionLimit);
-
-                    errorProvider.SetIconPadding(item, +(controlOffset.Size.Width / 2));
-
-                    if (withinTensionLimit == false)
-                    {
-                        errorProvider.SetError(item, "Outside limit");
-                    }
-                    else
-                    {
-                        errorProvider.SetError(item, "");
-                    }
+                    errorMessage = "Outside limit";
                 }
+
+                errorProvider.SetError(tensionKgf.Key, errorMessage);
             }
         }
     }

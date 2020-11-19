@@ -241,11 +241,11 @@ namespace Wheel_Tension_Application
 
                 List<float> leftSideSpokesTm1 = formControl.GetValuesFromGroupControls(
                     leftSideSpokesGroupBox,
-                    "leftSideSpokesTm1ReadingNumericUpDown").Select(x => float.Parse(x)).ToList();
+                    "leftSideSpokesTm1ReadingNumericUpDown").Select(x => float.Parse(x.Value)).ToList();
 
                 List<float> rightSideSpokesTm1 = formControl.GetValuesFromGroupControls(
                     rightSideSpokesGroupBox,
-                    "rightSideSpokesTm1ReadingNumericUpDown").Select(x => float.Parse(x)).ToList();
+                    "rightSideSpokesTm1ReadingNumericUpDown").Select(x => float.Parse(x.Value)).ToList();
 
                 List<float> leftSpokesAngles = parameterCalculations.CalculateSpokeAngles(leftSideSpokesTm1);
                 List<float> rightSpokesAngles = parameterCalculations.CalculateSpokeAngles(rightSideSpokesTm1);
@@ -488,11 +488,11 @@ namespace Wheel_Tension_Application
 
                 List<string> leftSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(
                     leftSideSpokesGroupBox,
-                    "leftSideSpokesTm1ReadingNumericUpDown");
+                    "leftSideSpokesTm1ReadingNumericUpDown").Values.ToList(); ;
 
                 List<string> rightSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(
                     rightSideSpokesGroupBox,
-                    "rightSideSpokesTm1ReadingNumericUpDown");
+                    "rightSideSpokesTm1ReadingNumericUpDown").Values.ToList(); ;
 
                 settings.Add("materialComboBoxSelectedItem", materialComboBoxSelected);
                 settings.Add("shapeComboBoxSelectedItem", shapeComboBoxSelected);
