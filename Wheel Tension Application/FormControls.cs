@@ -130,15 +130,15 @@ namespace Wheel_Tension_Application
             return control.Location.Y + control.Size.Height;
         }
 
-        public List<string> GetValuesFromGroupControls(GroupBox groupBox, string controlsName)
+        public Dictionary<Control, string> GetValuesFromGroupControls(GroupBox groupBox, string controlsName)
         {
-            var values = new List<string>() { };
+            var values = new Dictionary<Control, string>() { };
 
             foreach (Control item in groupBox.Controls.OfType<Control>())
             {
                 if (item.Name.IndexOf(controlsName) > -1)
                 {
-                    values.Add(item.Text);
+                    values.Add(item, item.Text);
                 }
             }
 
