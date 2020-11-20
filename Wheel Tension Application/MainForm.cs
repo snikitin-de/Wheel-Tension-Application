@@ -17,6 +17,9 @@ namespace Wheel_Tension_Application
         private readonly string connectionString = "Data Source=" + Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\" +
             Application.ProductName + "\\wheel_tension.sqlite3;Version=3;";
 
+        private bool isTrackbarMouseDown = false;
+        private bool isTrackbarScrolling = false;
+
         private readonly List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
         private readonly List<string> textBoxProperties = new List<string>() { "Enabled", "Size" };
 
@@ -26,7 +29,6 @@ namespace Wheel_Tension_Application
         private FormControls formControl = new FormControls();
         private TensionChart tensionChart = new TensionChart();
         private ParameterCalculations parameterCalculations = new ParameterCalculations();
-
 
         public MainForm()
         {
@@ -352,7 +354,7 @@ namespace Wheel_Tension_Application
             };
 
             openFileDialog.ShowDialog();
-            
+
             var appSettingPath = openFileDialog.FileName;
 
             LoadSettings(appSettingPath);
@@ -387,21 +389,6 @@ namespace Wheel_Tension_Application
             SendKeys.SendWait("{ENTER}");
         }
 
-
-        private void varianceTrackBar_ValueChanged(object sender, EventArgs e)
-        {
-            var varianceTrackBarValue = varianceTrackBar.Value;
-
-            varianceValueLabel.Text = $"{varianceTrackBarValue}%";
-
-            withinTensionLimitLeftSpokesLabel.Text = $"Within {varianceTrackBarValue}% limit";
-            withinTensionLimitRightSpokesLabel.Text = $"Within {varianceTrackBarValue}% limit";
-            leftSpokesUpperTensionLimitLabel.Text = $"+{varianceTrackBarValue}% Upper Tension Limit (kgf)";
-            rightSpokesUpperTensionLimitLabel.Text = $"+{varianceTrackBarValue}% Lower Tension Limit (kgf)";
-            leftSpokesLowerTensionLimitLabel.Text = $"-{varianceTrackBarValue}% Upper Tension Limit (kgf)";
-            rightSpokesLowerTensionLimitLabel.Text = $"-{varianceTrackBarValue}% Lower Tension Limit (kgf)";
-        }
- 
         private void LoadSettings(string appSettingPath)
         {
             if (!String.IsNullOrEmpty(appSettingPath))
@@ -488,11 +475,11 @@ namespace Wheel_Tension_Application
 
                 List<string> leftSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(
                     leftSideSpokesGroupBox,
-                    "leftSideSpokesTm1ReadingNumericUpDown").Values.ToList(); ;
+                    "leftSideSpokesTm1ReadingNumericUpDown").Values.ToList();
 
                 List<string> rightSideSpokesTm1ReadingNumericUpDownValues = formControl.GetValuesFromGroupControls(
                     rightSideSpokesGroupBox,
-                    "rightSideSpokesTm1ReadingNumericUpDown").Values.ToList(); ;
+                    "rightSideSpokesTm1ReadingNumericUpDown").Values.ToList();
 
                 settings.Add("materialComboBoxSelectedItem", materialComboBoxSelected);
                 settings.Add("shapeComboBoxSelectedItem", shapeComboBoxSelected);
@@ -513,6 +500,75 @@ namespace Wheel_Tension_Application
 
                 appSettings.SaveSettings(appSettingPath, settings);
             }
+        }
+
+        private void varianceTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            var varianceTrackBarValue = varianceTrackBar.Value;
+
+            varianceValueLabel.Text = $"{varianceTrackBarValue}%";
+        }
+
+        private void varianceTrackBar_Scroll(object sender, EventArgs e)
+        {
+            isTrackbarScrolling = true;
+        }
+
+        private void varianceTrackBar_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (isTrackbarMouseDown == true && isTrackbarScrolling == true)
+            {
+                var varianceTrackBarValue = varianceTrackBar.Value;
+
+                withinTensionLimitLeftSpokesLabel.Text = $"Within {varianceTrackBarValue}% limit";
+                withinTensionLimitRightSpokesLabel.Text = $"Within {varianceTrackBarValue}% limit";
+                leftSpokesUpperTensionLimitLabel.Text = $"+{varianceTrackBarValue}% Upper Tension Limit (kgf)";
+                rightSpokesUpperTensionLimitLabel.Text = $"+{varianceTrackBarValue}% Lower Tension Limit (kgf)";
+                leftSpokesLowerTensionLimitLabel.Text = $"-{varianceTrackBarValue}% Upper Tension Limit (kgf)";
+                rightSpokesLowerTensionLimitLabel.Text = $"-{varianceTrackBarValue}% Lower Tension Limit (kgf)";
+
+                leftSpokesLowerTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
+                        double.Parse(averageLeftSpokesTensionTextBox.Text), varianceTrackBarValue, true).ToString();
+
+                leftSpokesUpperTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
+                    double.Parse(averageLeftSpokesTensionTextBox.Text), varianceTrackBarValue, false).ToString();
+
+                rightSpokesLowerTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
+                    double.Parse(averageRightSpokesTensionTextBox.Text), varianceTrackBarValue, true).ToString();
+
+                rightSpokesUpperTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
+                    double.Parse(averageRightSpokesTensionTextBox.Text), varianceTrackBarValue, false).ToString();
+
+                var leftSpokesLowerTensionLimit = double.Parse(leftSpokesLowerTensionLimitTextBox.Text);
+                var leftSpokesUpperTensionLimit = double.Parse(leftSpokesUpperTensionLimitTextBox.Text);
+                var rightSpokesLowerTensionLimit = double.Parse(rightSpokesLowerTensionLimitTextBox.Text);
+                var rightSpokesUpperTensionLimit = double.Parse(rightSpokesUpperTensionLimitTextBox.Text);
+
+                parameterCalculations.SetWithinTensionLimit(
+                    leftSideSpokesGroupBox,
+                    withinTensionLimitLeftSpokesLabel,
+                    errorProviderTensionLimitError,
+                    "leftSideSpokesTensionTextBox",
+                    leftSpokesLowerTensionLimit,
+                    leftSpokesUpperTensionLimit);
+
+                parameterCalculations.SetWithinTensionLimit(
+                    rightSideSpokesGroupBox,
+                    withinTensionLimitRightSpokesLabel,
+                    errorProviderTensionLimitError,
+                    "rightSideSpokesTensionTextBox",
+                    rightSpokesLowerTensionLimit,
+                    rightSpokesUpperTensionLimit);
+
+            }
+
+            isTrackbarMouseDown = false;
+            isTrackbarScrolling = false;
+        }
+
+        private void varianceTrackBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            isTrackbarMouseDown = true;
         }
     }
 }
