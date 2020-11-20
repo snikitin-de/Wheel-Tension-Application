@@ -48,6 +48,8 @@ namespace Wheel_Tension_Application
             this.conversionTableGroupBox = new System.Windows.Forms.GroupBox();
             this.conversionTableGridView = new System.Windows.Forms.DataGridView();
             this.wheelTensionGroupBox = new System.Windows.Forms.GroupBox();
+            this.varianceValueLabel = new System.Windows.Forms.Label();
+            this.varianceTrackBar = new System.Windows.Forms.TrackBar();
             this.varianceLabel = new System.Windows.Forms.Label();
             this.rightSideSpokesGroupBox = new System.Windows.Forms.GroupBox();
             this.withinTensionLimitRightSpokesLabel = new System.Windows.Forms.Label();
@@ -85,18 +87,16 @@ namespace Wheel_Tension_Application
             this.errorProviderTensionLimitError = new System.Windows.Forms.ErrorProvider(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.varianceTrackBar = new System.Windows.Forms.TrackBar();
-            this.varianceValueLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.spokeTensionChart)).BeginInit();
             this.wheelSettingsGroupBox.SuspendLayout();
             this.conversionTableGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.conversionTableGridView)).BeginInit();
             this.wheelTensionGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.varianceTrackBar)).BeginInit();
             this.rightSideSpokesGroupBox.SuspendLayout();
             this.leftSideSpokesGroupBox.SuspendLayout();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderTensionLimitError)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.varianceTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // spokeTensionChart
@@ -241,6 +241,29 @@ namespace Wheel_Tension_Application
             this.wheelTensionGroupBox.TabIndex = 4;
             this.wheelTensionGroupBox.TabStop = false;
             this.wheelTensionGroupBox.Text = "Wheel Tenion Balancing";
+            // 
+            // varianceValueLabel
+            // 
+            this.varianceValueLabel.AutoSize = true;
+            this.varianceValueLabel.Location = new System.Drawing.Point(236, 23);
+            this.varianceValueLabel.Name = "varianceValueLabel";
+            this.varianceValueLabel.Size = new System.Drawing.Size(27, 13);
+            this.varianceValueLabel.TabIndex = 13;
+            this.varianceValueLabel.Text = "20%";
+            // 
+            // varianceTrackBar
+            // 
+            this.varianceTrackBar.Location = new System.Drawing.Point(59, 19);
+            this.varianceTrackBar.Maximum = 20;
+            this.varianceTrackBar.Minimum = 1;
+            this.varianceTrackBar.Name = "varianceTrackBar";
+            this.varianceTrackBar.Size = new System.Drawing.Size(171, 45);
+            this.varianceTrackBar.TabIndex = 12;
+            this.varianceTrackBar.Value = 20;
+            this.varianceTrackBar.Scroll += new System.EventHandler(this.varianceTrackBar_Scroll);
+            this.varianceTrackBar.ValueChanged += new System.EventHandler(this.varianceTrackBar_ValueChanged);
+            this.varianceTrackBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.varianceTrackBar_MouseDown);
+            this.varianceTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.varianceTrackBar_MouseUp);
             // 
             // varianceLabel
             // 
@@ -628,26 +651,6 @@ namespace Wheel_Tension_Application
             this.errorProviderTensionLimitError.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProviderTensionLimitError.ContainerControl = this;
             // 
-            // varianceTrackBar
-            // 
-            this.varianceTrackBar.Location = new System.Drawing.Point(59, 19);
-            this.varianceTrackBar.Maximum = 20;
-            this.varianceTrackBar.Minimum = 1;
-            this.varianceTrackBar.Name = "varianceTrackBar";
-            this.varianceTrackBar.Size = new System.Drawing.Size(171, 45);
-            this.varianceTrackBar.TabIndex = 12;
-            this.varianceTrackBar.Value = 20;
-            this.varianceTrackBar.ValueChanged += new System.EventHandler(this.varianceTrackBar_ValueChanged);
-            // 
-            // varianceValueLabel
-            // 
-            this.varianceValueLabel.AutoSize = true;
-            this.varianceValueLabel.Location = new System.Drawing.Point(236, 23);
-            this.varianceValueLabel.Name = "varianceValueLabel";
-            this.varianceValueLabel.Size = new System.Drawing.Size(27, 13);
-            this.varianceValueLabel.TabIndex = 13;
-            this.varianceValueLabel.Text = "20%";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -674,6 +677,7 @@ namespace Wheel_Tension_Application
             ((System.ComponentModel.ISupportInitialize)(this.conversionTableGridView)).EndInit();
             this.wheelTensionGroupBox.ResumeLayout(false);
             this.wheelTensionGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.varianceTrackBar)).EndInit();
             this.rightSideSpokesGroupBox.ResumeLayout(false);
             this.rightSideSpokesGroupBox.PerformLayout();
             this.leftSideSpokesGroupBox.ResumeLayout(false);
@@ -681,7 +685,6 @@ namespace Wheel_Tension_Application
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderTensionLimitError)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.varianceTrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
