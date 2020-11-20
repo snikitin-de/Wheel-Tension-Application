@@ -136,7 +136,7 @@ namespace Wheel_Tension_Application
 
                 var errorMessage = "";
 
-                if (withinTensionLimit == true)
+                if (!withinTensionLimit)
                 {
                     errorMessage = "Outside limit";
                 }
