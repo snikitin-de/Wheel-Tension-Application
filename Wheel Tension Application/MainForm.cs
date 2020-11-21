@@ -405,7 +405,7 @@ namespace Wheel_Tension_Application
                     materialComboBox.SelectedItem = settings["materialComboBoxSelectedItem"];
                     shapeComboBox.SelectedItem = settings["shapeComboBoxSelectedItem"];
                     thicknessComboBox.SelectedItem = settings["thicknessComboBoxSelectedItem"];
-                    varianceTrackBar.Value = int.Parse(settings["varianceTrackBarValue"]);
+                    varianceTrackBar.Value = int.Parse(settings["varianceTrackBarValue"].Remove(settings["varianceTrackBarValue"].Length - 1));
                     leftSideSpokeCountComboBox.SelectedItem = settings["leftSideSpokeCountComboBoxSelectedItem"];
                     rightSideSpokeCountComboBox.SelectedItem = settings["rightSideSpokeCountComboBoxSelectedItem"];
 

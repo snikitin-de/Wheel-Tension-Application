@@ -27,6 +27,28 @@ namespace Wheel_Tension_Application
 			return configFile;
 		}
 
+		private string ConverterSetting(string key)
+		{
+			string newKey = key;
+
+			if (key.Contains("SideSpokesTm1ReadingNumericUpDown"))
+			{
+				Regex regex = new Regex(@"(.*)SideSpokesTm1ReadingNumericUpDown(\d+)");
+				Match match = regex.Match(key);
+
+				string side = match.Groups[1].Value;
+				string number = match.Groups[2].Value;
+
+				newKey = $"{side}SideSpokesNumericUpDown{number}";
+			}
+			else if (key == "varianceTrackBarValue")
+			{
+				newKey = "varianceComboBoxSelectedItem";
+			}
+
+			return newKey;
+		}
+
 		public string ReadSetting(string key)
 		{
 			string value = null;
@@ -42,29 +64,7 @@ namespace Wheel_Tension_Application
 				}
 				else
 				{
-					if (key.Contains("SideSpokesTm1ReadingNumericUpDown"))
-					{
-						Regex regex = new Regex(@"(.*)SideSpokesTm1ReadingNumericUpDown(\d+)");
-						Match match = regex.Match(key);
-
-						string side = match.Groups[1].Value;
-						string number = match.Groups[2].Value;
-
-						value = settings[$"{side}SideSpokesNumericUpDown{number}"].Value;
-					}
-					else if (key == "varianceTrackBarValue")
-					{
-						value = settings["varianceComboBoxSelectedItem"].Value;
-						value = value.Remove(value.Length - 1);
-					}
-					else
-					{
-						MessageBox.Show(
-							$"Error reading app settings!\nValue for key {key} not found!",
-							Application.ProductName,
-							MessageBoxButtons.OK,
-							MessageBoxIcon.Warning);
-					}
+					value = settings[ConverterSetting(key)].Value;
 				}
 			}
 			catch (ConfigurationErrorsException)
