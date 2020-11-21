@@ -75,7 +75,7 @@ namespace Wheel_Tension_Application
 			return value;
 		}
 
-		public void AddAppSettings(string key, string value)
+		public void AddSetting(string key, string value)
 		{
 			try
 			{
@@ -92,7 +92,7 @@ namespace Wheel_Tension_Application
 			}
 		}
 
-		public void UpdateAppSettings(string key, string value)
+		public void UpdateSetting(string key, string value)
 		{
 			try
 			{
@@ -164,10 +164,10 @@ namespace Wheel_Tension_Application
 
 				if (configSettings[setting.Key] == null)
 				{
-					AddAppSettings(setting.Key, setting.Value);
+					AddSetting(setting.Key, setting.Value);
 				} else
                 {
-					UpdateAppSettings(setting.Key, setting.Value);
+					UpdateSetting(setting.Key, setting.Value);
 				}
 			}
 		}
