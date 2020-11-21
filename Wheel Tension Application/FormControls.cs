@@ -198,12 +198,9 @@ namespace Wheel_Tension_Application
 
             try
             {
-                int columnsWidth = (dataGridView.Width - dataGridView.RowHeadersWidth) / dataGridView.ColumnCount;
-
                 for (var i = 0; i < columnCount; i++)
                 {
                     dataGridView.Columns[i].Name = "";
-                    dataGridView.Columns[i].Width = columnsWidth;
                 }
 
                 dataGridView.Rows.Clear();
