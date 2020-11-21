@@ -395,7 +395,7 @@ namespace Wheel_Tension_Application
             {
                 var appSettings = new AppSettings(appSettingPath);
 
-                var settings = appSettings.LoadSettings(appSettingPath);
+                var settings = appSettings.LoadSettings();
 
                 try
                 {

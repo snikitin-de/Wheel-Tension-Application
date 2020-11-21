@@ -114,14 +114,12 @@ namespace Wheel_Tension_Application
 			ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
 		}
 
-		public Dictionary<string, string> LoadSettings(string appSettingPath)
+		public Dictionary<string, string> LoadSettings()
 		{
 			var settings = new Dictionary<string, string>();
 
-			if (!String.IsNullOrEmpty(appSettingPath))
+			if (!String.IsNullOrEmpty(configPath))
 			{
-				var appSettings = new AppSettings(appSettingPath);
-
 				settings.Add("materialComboBoxSelectedItem", ReadSetting("materialComboBoxSelectedItem"));
 				settings.Add("shapeComboBoxSelectedItem", ReadSetting("shapeComboBoxSelectedItem"));
 				settings.Add("thicknessComboBoxSelectedItem", ReadSetting("thicknessComboBoxSelectedItem"));
@@ -129,25 +127,25 @@ namespace Wheel_Tension_Application
 				settings.Add("leftSideSpokeCountComboBoxSelectedItem", ReadSetting("leftSideSpokeCountComboBoxSelectedItem"));
 				settings.Add("rightSideSpokeCountComboBoxSelectedItem", ReadSetting("rightSideSpokeCountComboBoxSelectedItem"));
 
-				if (!String.IsNullOrEmpty(appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem")))
+				if (!String.IsNullOrEmpty(ReadSetting("leftSideSpokeCountComboBoxSelectedItem")))
 				{
-					var itemCount = int.Parse(appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem"));
+					var itemCount = int.Parse(ReadSetting("leftSideSpokeCountComboBoxSelectedItem"));
 
 					for (int i = 0; i < itemCount; i++)
 					{
 						var key = $"leftSideSpokesTm1ReadingNumericUpDown{i + 1}";
-						settings.Add(key, appSettings.ReadSetting(key));
+						settings.Add(key, ReadSetting(key));
 					}
 				}
 
-				if (!String.IsNullOrEmpty(appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem")))
+				if (!String.IsNullOrEmpty(ReadSetting("rightSideSpokeCountComboBoxSelectedItem")))
 				{
-					var itemCount = int.Parse(appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem"));
+					var itemCount = int.Parse(ReadSetting("rightSideSpokeCountComboBoxSelectedItem"));
 
 					for (int i = 0; i < itemCount; i++)
 					{
 						var key = $"rightSideSpokesTm1ReadingNumericUpDown{i + 1}";
-						settings.Add(key, appSettings.ReadSetting(key));
+						settings.Add(key, ReadSetting(key));
 					}
 				}
 			}
