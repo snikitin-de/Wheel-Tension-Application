@@ -84,8 +84,7 @@ namespace Wheel_Tension_Application
 
 				settings.Add(key, value);
 
-				configFile.Save(ConfigurationSaveMode.Modified);
-				ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+				SaveSetting(configFile);
 			}
 			catch (ConfigurationErrorsException)
 			{
@@ -102,13 +101,17 @@ namespace Wheel_Tension_Application
 
 				settings[key].Value = value;
 
-				configFile.Save(ConfigurationSaveMode.Modified);
-				ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+				SaveSetting(configFile);
 			}
 			catch (ConfigurationErrorsException)
 			{
 				MessageBox.Show("Error writing app settings!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
+		}
+		public void SaveSetting(Configuration configFile)
+		{
+			configFile.Save(ConfigurationSaveMode.Modified);
+			ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
 		}
 
 		public Dictionary<string, string> LoadSettings(string appSettingPath)
