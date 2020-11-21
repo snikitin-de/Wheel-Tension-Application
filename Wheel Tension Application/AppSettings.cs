@@ -75,21 +75,32 @@ namespace Wheel_Tension_Application
 			return value;
 		}
 
-		public void AddUpdateAppSettings(string key, string value)
+		public void AddAppSettings(string key, string value)
 		{
 			try
 			{
 				var configFile = GetConfig();
 				var settings = configFile.AppSettings.Settings;
 
-				if (settings[key] == null)
-				{
-					settings.Add(key, value);
-				}
-				else
-				{
-					settings[key].Value = value;
-				}
+				settings.Add(key, value);
+
+				configFile.Save(ConfigurationSaveMode.Modified);
+				ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+			}
+			catch (ConfigurationErrorsException)
+			{
+				MessageBox.Show("Error writing app settings!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+
+		public void UpdateAppSettings(string key, string value)
+		{
+			try
+			{
+				var configFile = GetConfig();
+				var settings = configFile.AppSettings.Settings;
+
+				settings[key].Value = value;
 
 				configFile.Save(ConfigurationSaveMode.Modified);
 				ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
@@ -145,7 +156,16 @@ namespace Wheel_Tension_Application
 		{
             foreach (KeyValuePair<string, string> setting in settings)
 			{
-				AddUpdateAppSettings(setting.Key, setting.Value);
+				var configFile = GetConfig();
+				var configSettings = configFile.AppSettings.Settings;
+
+				if (configSettings[setting.Key] == null)
+				{
+					AddAppSettings(setting.Key, setting.Value);
+				} else
+                {
+					UpdateAppSettings(setting.Key, setting.Value);
+				}
 			}
 		}
 	}
