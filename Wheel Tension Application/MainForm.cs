@@ -498,7 +498,7 @@ namespace Wheel_Tension_Application
                     settings.Add($"rightSideSpokesTm1ReadingNumericUpDown{i + 1}", rightSideSpokesTm1ReadingNumericUpDownValues[i]);
                 }
 
-                appSettings.SaveSettings(appSettingPath, settings);
+                appSettings.SaveSettings(settings);
             }
         }
 
