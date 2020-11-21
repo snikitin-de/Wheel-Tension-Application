@@ -27,19 +27,13 @@ namespace Wheel_Tension_Application
 			return configFile;
 		}
 
-		private string ConverterSetting(string key)
+		private string ConverterReadSetting(string key)
 		{
 			string newKey = key;
 
 			if (key.Contains("SideSpokesTm1ReadingNumericUpDown"))
 			{
-				Regex regex = new Regex(@"(.*)SideSpokesTm1ReadingNumericUpDown(\d+)");
-				Match match = regex.Match(key);
-
-				string side = match.Groups[1].Value;
-				string number = match.Groups[2].Value;
-
-				newKey = $"{side}SideSpokesNumericUpDown{number}";
+				newKey = key.Replace("SideSpokesTm1ReadingNumericUpDown", "SideSpokesNumericUpDown");
 			}
 			else if (key == "varianceTrackBarValue")
 			{
@@ -81,7 +75,7 @@ namespace Wheel_Tension_Application
 				}
 				else
 				{
-					value = settings[ConverterSetting(key)].Value;
+					value = settings[ConverterReadSetting(key)].Value;
 				}
 			}
 			catch (ConfigurationErrorsException)
