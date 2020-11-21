@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
