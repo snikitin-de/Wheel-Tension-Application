@@ -49,6 +49,23 @@ namespace Wheel_Tension_Application
 			return newKey;
 		}
 
+		private string ConverterLoadSetting(string key)
+        {
+			string newKey = key;
+
+			if (key.Contains("SideSpokesNumericUpDown"))
+			{
+				newKey = key.Replace("SideSpokesNumericUpDown", "SideSpokesTm1ReadingNumericUpDown");
+			}
+
+			if (key.Contains("varianceComboBoxSelectedItem"))
+			{
+				newKey = key.Replace("varianceComboBoxSelectedItem", "varianceTrackBarValue");
+			}
+
+			return newKey;
+		}
+
 		public string ReadSetting(string key)
 		{
 			string value = null;
@@ -117,36 +134,14 @@ namespace Wheel_Tension_Application
 		public Dictionary<string, string> LoadSettings()
 		{
 			var settings = new Dictionary<string, string>();
+			var configFile = GetConfig();
+			var configSettings = configFile.AppSettings.Settings;
 
 			if (!String.IsNullOrEmpty(configPath))
 			{
-				settings.Add("materialComboBoxSelectedItem", ReadSetting("materialComboBoxSelectedItem"));
-				settings.Add("shapeComboBoxSelectedItem", ReadSetting("shapeComboBoxSelectedItem"));
-				settings.Add("thicknessComboBoxSelectedItem", ReadSetting("thicknessComboBoxSelectedItem"));
-				settings.Add("varianceTrackBarValue", ReadSetting("varianceTrackBarValue"));
-				settings.Add("leftSideSpokeCountComboBoxSelectedItem", ReadSetting("leftSideSpokeCountComboBoxSelectedItem"));
-				settings.Add("rightSideSpokeCountComboBoxSelectedItem", ReadSetting("rightSideSpokeCountComboBoxSelectedItem"));
-
-				if (!String.IsNullOrEmpty(ReadSetting("leftSideSpokeCountComboBoxSelectedItem")))
-				{
-					var itemCount = int.Parse(ReadSetting("leftSideSpokeCountComboBoxSelectedItem"));
-
-					for (int i = 0; i < itemCount; i++)
-					{
-						var key = $"leftSideSpokesTm1ReadingNumericUpDown{i + 1}";
-						settings.Add(key, ReadSetting(key));
-					}
-				}
-
-				if (!String.IsNullOrEmpty(ReadSetting("rightSideSpokeCountComboBoxSelectedItem")))
-				{
-					var itemCount = int.Parse(ReadSetting("rightSideSpokeCountComboBoxSelectedItem"));
-
-					for (int i = 0; i < itemCount; i++)
-					{
-						var key = $"rightSideSpokesTm1ReadingNumericUpDown{i + 1}";
-						settings.Add(key, ReadSetting(key));
-					}
+                foreach (var key in configSettings.AllKeys)
+                {
+					settings.Add(ConverterLoadSetting(key), ReadSetting(key));
 				}
 			}
 
