@@ -507,6 +507,12 @@ namespace Wheel_Tension_Application
             var varianceTrackBarValue = varianceTrackBar.Value;
 
             varianceValueLabel.Text = $"{varianceTrackBarValue}%";
+            withinTensionLimitLeftSpokesLabel.Text = $"Within {varianceTrackBarValue}% limit";
+            withinTensionLimitRightSpokesLabel.Text = $"Within {varianceTrackBarValue}% limit";
+            leftSpokesUpperTensionLimitLabel.Text = $"+{varianceTrackBarValue}% Upper Tension Limit (kgf)";
+            rightSpokesUpperTensionLimitLabel.Text = $"+{varianceTrackBarValue}% Lower Tension Limit (kgf)";
+            leftSpokesLowerTensionLimitLabel.Text = $"-{varianceTrackBarValue}% Upper Tension Limit (kgf)";
+            rightSpokesLowerTensionLimitLabel.Text = $"-{varianceTrackBarValue}% Lower Tension Limit (kgf)";
         }
 
         private void varianceTrackBar_Scroll(object sender, EventArgs e)
