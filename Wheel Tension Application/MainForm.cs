@@ -343,11 +343,11 @@ namespace Wheel_Tension_Application
                 {
                     File.Delete(saveFileDialog.FileName);
                 }
+
+                var appSettingPath = saveFileDialog.FileName;
+
+                SaveSettings(appSettingPath);
             }
-
-            var appSettingPath = saveFileDialog.FileName;
-
-            SaveSettings(appSettingPath);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
