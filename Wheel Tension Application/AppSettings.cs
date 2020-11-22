@@ -43,6 +43,18 @@ namespace Wheel_Tension_Application
 			return newKey;
 		}
 
+		private string ConverterValue(string value)
+		{
+			var newValue = value;
+
+			if (value.Contains("%"))
+            {
+				newValue = value.Replace("%", "");
+			}
+
+			return newValue;
+		}
+
 		public string ReadSetting(string key)
 		{
 			string value = null;
@@ -122,7 +134,7 @@ namespace Wheel_Tension_Application
 			{
                 foreach (var key in configSettings.AllKeys)
                 {
-					settings.Add(ConverterSetting(key), ReadSetting(key));
+					settings.Add(ConverterSetting(key), ConverterValue(ReadSetting(key)));
 				}
 			}
 
