@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
@@ -27,6 +26,35 @@ namespace Wheel_Tension_Application
 			return configFile;
 		}
 
+		private string ConverterSetting(string key)
+        {
+			string newKey = key;
+
+			if (key.Contains("SideSpokesNumericUpDown"))
+			{
+				newKey = key.Replace("SideSpokesNumericUpDown", "SideSpokesTm1ReadingNumericUpDown");
+			}
+
+			if (key.Contains("varianceComboBoxSelectedItem"))
+			{
+				newKey = key.Replace("varianceComboBoxSelectedItem", "varianceTrackBarValue");
+			}
+
+			return newKey;
+		}
+
+		private string ConverterValue(string value)
+		{
+			var newValue = value;
+
+			if (value.Contains("%"))
+            {
+				newValue = value.Replace("%", "");
+			}
+
+			return newValue;
+		}
+
 		public string ReadSetting(string key)
 		{
 			string value = null;
@@ -42,29 +70,11 @@ namespace Wheel_Tension_Application
 				}
 				else
 				{
-					if (key.Contains("SideSpokesTm1ReadingNumericUpDown"))
-					{
-						Regex regex = new Regex(@"(.*)SideSpokesTm1ReadingNumericUpDown(\d+)");
-						Match match = regex.Match(key);
-
-						string side = match.Groups[1].Value;
-						string number = match.Groups[2].Value;
-
-						value = settings[$"{side}SideSpokesNumericUpDown{number}"].Value;
-					}
-					else if (key == "varianceTrackBarValue")
-					{
-						value = settings["varianceComboBoxSelectedItem"].Value;
-						value = value.Remove(value.Length - 1);
-					}
-					else
-					{
-						MessageBox.Show(
-							$"Error reading app settings!\nValue for key {key} not found!",
-							Application.ProductName,
-							MessageBoxButtons.OK,
-							MessageBoxIcon.Warning);
-					}
+					MessageBox.Show(
+					   $"Error reading app settings!\nValue for key {key} not found!",
+					   Application.ProductName,
+					   MessageBoxButtons.OK,
+					   MessageBoxIcon.Warning);
 				}
 			}
 			catch (ConfigurationErrorsException)
@@ -75,24 +85,16 @@ namespace Wheel_Tension_Application
 			return value;
 		}
 
-		public void AddUpdateAppSettings(string key, string value)
+		public void AddSetting(string key, string value)
 		{
 			try
 			{
 				var configFile = GetConfig();
 				var settings = configFile.AppSettings.Settings;
 
-				if (settings[key] == null)
-				{
-					settings.Add(key, value);
-				}
-				else
-				{
-					settings[key].Value = value;
-				}
+				settings.Add(key, value);
 
-				configFile.Save(ConfigurationSaveMode.Modified);
-				ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+				SaveSetting(configFile);
 			}
 			catch (ConfigurationErrorsException)
 			{
@@ -100,52 +102,59 @@ namespace Wheel_Tension_Application
 			}
 		}
 
-		public Dictionary<string, string> LoadSettings(string appSettingPath)
+		public void UpdateSetting(string key, string value)
+		{
+			try
+			{
+				var configFile = GetConfig();
+				var settings = configFile.AppSettings.Settings;
+
+				settings[key].Value = value;
+
+				SaveSetting(configFile);
+			}
+			catch (ConfigurationErrorsException)
+			{
+				MessageBox.Show("Error writing app settings!", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+		public void SaveSetting(Configuration configFile)
+		{
+			configFile.Save(ConfigurationSaveMode.Modified);
+			ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+		}
+
+		public Dictionary<string, string> LoadSettings()
 		{
 			var settings = new Dictionary<string, string>();
+			var configFile = GetConfig();
+			var configSettings = configFile.AppSettings.Settings;
 
-			if (!String.IsNullOrEmpty(appSettingPath))
+			if (!String.IsNullOrEmpty(configPath))
 			{
-				var appSettings = new AppSettings(appSettingPath);
-
-				settings.Add("materialComboBoxSelectedItem", ReadSetting("materialComboBoxSelectedItem"));
-				settings.Add("shapeComboBoxSelectedItem", ReadSetting("shapeComboBoxSelectedItem"));
-				settings.Add("thicknessComboBoxSelectedItem", ReadSetting("thicknessComboBoxSelectedItem"));
-				settings.Add("varianceTrackBarValue", ReadSetting("varianceTrackBarValue"));
-				settings.Add("leftSideSpokeCountComboBoxSelectedItem", ReadSetting("leftSideSpokeCountComboBoxSelectedItem"));
-				settings.Add("rightSideSpokeCountComboBoxSelectedItem", ReadSetting("rightSideSpokeCountComboBoxSelectedItem"));
-
-				if (!String.IsNullOrEmpty(appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem")))
-				{
-					var itemCount = int.Parse(appSettings.ReadSetting("leftSideSpokeCountComboBoxSelectedItem"));
-
-					for (int i = 0; i < itemCount; i++)
-					{
-						var key = $"leftSideSpokesTm1ReadingNumericUpDown{i + 1}";
-						settings.Add(key, appSettings.ReadSetting(key));
-					}
-				}
-
-				if (!String.IsNullOrEmpty(appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem")))
-				{
-					var itemCount = int.Parse(appSettings.ReadSetting("rightSideSpokeCountComboBoxSelectedItem"));
-
-					for (int i = 0; i < itemCount; i++)
-					{
-						var key = $"rightSideSpokesTm1ReadingNumericUpDown{i + 1}";
-						settings.Add(key, appSettings.ReadSetting(key));
-					}
+                foreach (var key in configSettings.AllKeys)
+                {
+					settings.Add(ConverterSetting(key), ConverterValue(ReadSetting(key)));
 				}
 			}
 
 			return settings;
 		}
 
-		public void SaveSettings(string appSettingPath, Dictionary<string, string> settings)
+		public void SaveSettings(Dictionary<string, string> settings)
 		{
             foreach (KeyValuePair<string, string> setting in settings)
 			{
-				AddUpdateAppSettings(setting.Key, setting.Value);
+				var configFile = GetConfig();
+				var configSettings = configFile.AppSettings.Settings;
+
+				if (configSettings[setting.Key] == null)
+				{
+					AddSetting(setting.Key, setting.Value);
+				} else
+                {
+					UpdateSetting(setting.Key, setting.Value);
+				}
 			}
 		}
 	}

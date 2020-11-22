@@ -337,11 +337,17 @@ namespace Wheel_Tension_Application
                 RestoreDirectory = true
             };
 
-            saveFileDialog.ShowDialog();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(saveFileDialog.FileName))
+                {
+                    File.Delete(saveFileDialog.FileName);
+                }
 
-            var appSettingPath = saveFileDialog.FileName;
+                var appSettingPath = saveFileDialog.FileName;
 
-            SaveSettings(appSettingPath);
+                SaveSettings(appSettingPath);
+            }
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -395,7 +401,7 @@ namespace Wheel_Tension_Application
             {
                 var appSettings = new AppSettings(appSettingPath);
 
-                var settings = appSettings.LoadSettings(appSettingPath);
+                var settings = appSettings.LoadSettings();
 
                 try
                 {
@@ -498,7 +504,7 @@ namespace Wheel_Tension_Application
                     settings.Add($"rightSideSpokesTm1ReadingNumericUpDown{i + 1}", rightSideSpokesTm1ReadingNumericUpDownValues[i]);
                 }
 
-                appSettings.SaveSettings(appSettingPath, settings);
+                appSettings.SaveSettings(settings);
             }
         }
 
@@ -507,6 +513,12 @@ namespace Wheel_Tension_Application
             var varianceTrackBarValue = varianceTrackBar.Value;
 
             varianceValueLabel.Text = $"{varianceTrackBarValue}%";
+            withinTensionLimitLeftSpokesLabel.Text = $"Within {varianceTrackBarValue}% limit";
+            withinTensionLimitRightSpokesLabel.Text = $"Within {varianceTrackBarValue}% limit";
+            leftSpokesUpperTensionLimitLabel.Text = $"+{varianceTrackBarValue}% Upper Tension Limit (kgf)";
+            rightSpokesUpperTensionLimitLabel.Text = $"+{varianceTrackBarValue}% Lower Tension Limit (kgf)";
+            leftSpokesLowerTensionLimitLabel.Text = $"-{varianceTrackBarValue}% Upper Tension Limit (kgf)";
+            rightSpokesLowerTensionLimitLabel.Text = $"-{varianceTrackBarValue}% Lower Tension Limit (kgf)";
         }
 
         private void varianceTrackBar_Scroll(object sender, EventArgs e)
