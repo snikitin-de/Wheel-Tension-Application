@@ -26,23 +26,7 @@ namespace Wheel_Tension_Application
 			return configFile;
 		}
 
-		private string ConverterReadSetting(string key)
-		{
-			string newKey = key;
-
-			if (key.Contains("SideSpokesTm1ReadingNumericUpDown"))
-			{
-				newKey = key.Replace("SideSpokesTm1ReadingNumericUpDown", "SideSpokesNumericUpDown");
-			}
-			else if (key == "varianceTrackBarValue")
-			{
-				newKey = "varianceComboBoxSelectedItem";
-			}
-
-			return newKey;
-		}
-
-		private string ConverterLoadSetting(string key)
+		private string ConverterSetting(string key)
         {
 			string newKey = key;
 
@@ -74,7 +58,11 @@ namespace Wheel_Tension_Application
 				}
 				else
 				{
-					value = settings[ConverterReadSetting(key)].Value;
+					MessageBox.Show(
+					   $"Error reading app settings!\nValue for key {key} not found!",
+					   Application.ProductName,
+					   MessageBoxButtons.OK,
+					   MessageBoxIcon.Warning);
 				}
 			}
 			catch (ConfigurationErrorsException)
@@ -134,7 +122,7 @@ namespace Wheel_Tension_Application
 			{
                 foreach (var key in configSettings.AllKeys)
                 {
-					settings.Add(ConverterLoadSetting(key), ReadSetting(key));
+					settings.Add(ConverterSetting(key), ReadSetting(key));
 				}
 			}
 
