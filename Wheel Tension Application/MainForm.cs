@@ -337,7 +337,13 @@ namespace Wheel_Tension_Application
                 RestoreDirectory = true
             };
 
-            saveFileDialog.ShowDialog();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(saveFileDialog.FileName))
+                {
+                    File.Delete(saveFileDialog.FileName);
+                }
+            }
 
             var appSettingPath = saveFileDialog.FileName;
 
