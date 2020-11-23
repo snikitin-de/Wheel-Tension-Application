@@ -1,0 +1,42 @@
+name: Application
+
+on:
+  push
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: windows-latest
+
+    env:
+      project_name: Wheel Tension Application
+      solution_name: Wheel Tension Application.sln
+      path_to_build: Wheel Tension Application\bin\${{ matrix.configuration }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Nuget
+      uses: nuget/setup-nuget@v1
+    - name: Restore Nuget packages
+      run: nuget restore $env:solution_name
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Build with MSBuild
+      run: msbuild $env:solution_name -p:Configuration=${{ matrix.configuration }}
+    - name: Create build artifacts
+      run: |
+        mkdir "artifacts"
+        xcopy /e "${{ env.path_to_build }}\*.*" "artifacts\${{ env.project_name }}\bin\${{ matrix.configuration }}\*.*"
+        xcopy /e "${{ env.project_name }}\wheel_tension.sqlite3" "artifacts\${{ env.project_name }}"
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.project_name }}-${{ matrix.configuration }}
+        path: "artifacts"
+        retention-days: 3
