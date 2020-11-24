@@ -10,8 +10,8 @@ using System.Windows.Forms;
 namespace Wheel_Tension_Application
 {
 	/*
-     * Класс AppSettings для работы с конфигурационными файлами настроек программы
-     * Этот класс позволяет сохранять и загружать настройки программы из конфигурационных файлов
+     * Класс AppSettings для работы с конфигурационными файлами настроек программы.
+     * Этот класс позволяет сохранять и загружать настройки программы из конфигурационных файлов.
      */
 	/// <summary>
 	/// Класс <c>AppSettings</c> для работы с конфигурационными файлами настроек программы.
@@ -28,19 +28,31 @@ namespace Wheel_Tension_Application
 			configPath = appSettingsPath;
 		}
 
-		// Получение конфигурационного файла
+		// Получение конфигурационного файла.
 		/// <summary>
 		/// Получение конфигурационного файла.
 		/// </summary>
 		/// <returns>Конфигурационный файл.</returns>
 		private Configuration GetConfig()
 		{
+			// Определение пользовательской иерархии файлов конфигурации для EXE-приложения.
 			var map = new ExeConfigurationFileMap { ExeConfigFilename = configPath };
 			var configFile = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
 
 			return configFile;
 		}
 
+		// Конвертация ключей старого конфигурационного файла в новый формат.
+		/// <summary>
+		/// Конвертация ключей старого конфигурационного файла в новый формат.
+		/// </summary>
+		/// <param name="key">Идентификатор настройки.</param>
+		/// <returns>Сконвертированный ключ настройки в новый формат.</returns>
+		/// <example>
+		/// <code>
+		/// ConverterSetting("varianceComboBoxSelectedItem");
+		/// </code>
+		/// </example>
 		private string ConverterSetting(string key)
         {
 			string newKey = key;
@@ -58,6 +70,17 @@ namespace Wheel_Tension_Application
 			return newKey;
 		}
 
+		// Конвертация значения из старого конфигурационного файла в новый формат.
+		/// <summary>
+		/// Конвертация значения из старого конфигурационного файла в новый формат.
+		/// </summary>
+		/// <param name="value">Значение настройки.</param>
+		/// <returns>Сконвертированное значение настройки в новый формат.</returns>
+		/// <example>
+		/// <code>
+		/// ConverterValue("20%");
+		/// </code>
+		/// </example>
 		private string ConverterValue(string value)
 		{
 			var newValue = value;
@@ -70,7 +93,7 @@ namespace Wheel_Tension_Application
 			return newValue;
 		}
 
-		// Чтение настройки из конфигурационного файла
+		// Чтение настройки из конфигурационного файла.
 		/// <summary>
 		/// Чтение настройки из конфигурационного файла.
 		/// </summary>
@@ -78,18 +101,21 @@ namespace Wheel_Tension_Application
 		/// <returns>Значение настройки по указанному ключу.</returns>
 		/// <example>
 		/// <code>
-		/// ReadSetting("varianceTrackBarValue")
+		/// ReadSetting("varianceTrackBarValue");
 		/// </code>
 		/// </example>
 		public string ReadSetting(string key)
 		{
+			// Считанное значение настройки из конфигурационного файла.
 			string value = null;
 
 			try
 			{
+				// Конфигурационный файл.
 				var configFile = GetConfig();
 				var settings = configFile.AppSettings.Settings;
 
+				// Если настройка с указанным ключом есть в конфигурационном файле, то получааем ее.
 				if (settings[key] != null)
 				{
 					value = settings[key].Value;
@@ -111,9 +137,9 @@ namespace Wheel_Tension_Application
 			return value;
 		}
 
-		// Добавление настройки в конфигурационный файл
+		// Добавление настройки в конфигурационный файл.
 		/// <summary>
-		///Добавление настройки в конфигурационный файл.
+		/// Добавление настройки в конфигурационный файл.
 		/// </summary>
 		/// <param name="key">Идентификатор настройки.</param>
 		/// <param name="value">Значение настройки.</param>
@@ -126,9 +152,11 @@ namespace Wheel_Tension_Application
 		{
 			try
 			{
+				// Конфигурационный файл.
 				var configFile = GetConfig();
 				var settings = configFile.AppSettings.Settings;
 
+				// Добавление настройки в конфигурационный файл.
 				settings.Add(key, value);
 
 				SaveSetting(configFile);
@@ -139,9 +167,9 @@ namespace Wheel_Tension_Application
 			}
 		}
 
-		// Обновление настройки в конфигурационном файле
+		// Обновление настройки в конфигурационном файле.
 		/// <summary>
-		///Обновление настройки в конфигурационном файле.
+		/// Обновление настройки в конфигурационном файле.
 		/// </summary>
 		/// <param name="key">Идентификатор настройки.</param>
 		/// <param name="value">Значение настройки.</param>
@@ -154,9 +182,11 @@ namespace Wheel_Tension_Application
 		{
 			try
 			{
+				// Конфигурационный файл.
 				var configFile = GetConfig();
 				var settings = configFile.AppSettings.Settings;
 
+				// Обновление существующей настройки в конфигурационном файле.
 				settings[key].Value = value;
 
 				SaveSetting(configFile);
@@ -167,31 +197,45 @@ namespace Wheel_Tension_Application
 			}
 		}
 
+		// Сохранение настройки в конфигурационный файл.
+		/// <summary>
+		/// Сохранение настройки в конфигурационный файл.
+		/// </summary>
+		/// <param name="configFile">Конфигурационный файл.</param>
+		/// <example>
+		/// <code>
+		/// var configFile = GetConfig();
+		/// SaveSetting(configFile);
+		/// </code>
+		/// </example>
 		public void SaveSetting(Configuration configFile)
 		{
 			configFile.Save(ConfigurationSaveMode.Modified);
 			ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
 		}
 
-		// Загрузка настроек из конфигурационного файла
+		// Загрузка настроек из конфигурационного файла.
 		/// <summary>
 		/// Загрузка настроек из конфигурационного файла.
 		/// </summary>
 		/// <returns>Словарь настроек программы в формате настройка-значение настройки, загруженных из конфигурационного файла.</returns>
 		/// <example>
 		/// <code>
-		/// var appSettingPath = saveFileDialog.FileName;
-		/// LoadSettings(appSettingPath)
+		/// LoadSettings();
 		/// </code>
 		/// </example>
 		public Dictionary<string, string> LoadSettings()
 		{
+			// Настройки программы в формате ключ-значение.
 			var settings = new Dictionary<string, string>();
+
+			// Конфигурационный файл.
 			var configFile = GetConfig();
 			var configSettings = configFile.AppSettings.Settings;
 
 			if (!String.IsNullOrEmpty(configPath))
 			{
+				// Добавляем все настройки из конфигурационного файла в словарь.
                 foreach (var key in configSettings.AllKeys)
                 {
 					settings.Add(ConverterSetting(key), ConverterValue(ReadSetting(key)));
@@ -201,7 +245,7 @@ namespace Wheel_Tension_Application
 			return settings;
 		}
 
-		// Сохранение настроек в конфигурационный файл
+		// Сохранение настроек в конфигурационный файл.
 		/// <summary>
 		/// Сохранение настроек в конфигурационный файл.
 		/// </summary>
@@ -217,9 +261,11 @@ namespace Wheel_Tension_Application
 		{
             foreach (KeyValuePair<string, string> setting in settings)
 			{
+				// Конфигурационный файл.
 				var configFile = GetConfig();
 				var configSettings = configFile.AppSettings.Settings;
 
+				// Если настройки нет в конфигурационном файле, то добавляем ее, иначе обновляем.
 				if (configSettings[setting.Key] == null)
 				{
 					AddSetting(setting.Key, setting.Value);
