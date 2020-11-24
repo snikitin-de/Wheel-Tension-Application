@@ -51,35 +51,45 @@ namespace Wheel_Tension_Application
 
             try
             {
+                // Создание объекта подключения к SQLite.
                 using (var objConnection = new SQLiteConnection(connectionString))
                 {
+                    // Создание команды.
                     using (SQLiteCommand objCommand = objConnection.CreateCommand())
                     {
+                        // Открытие соединения с SQLite.
                         objConnection.Open();
+                        // SQL команда.
                         objCommand.CommandText = command;
 
                         // Если число параметров больше 0, то добавляем их в объект подключения.
                         if (parameters.Count > 0)
                         {
+                            // Добавление параметров в команду.
                             foreach (KeyValuePair<string, string> parameter in parameters)
                             {
+                                // Создание параметра команды.
                                 var param = new SQLiteParameter(parameter.Key) { Value = parameter.Value };
 
+                                // Добавление параметра в команду.
                                 objCommand.Parameters.Add(param);
                             }
                         }
 
                         using (SQLiteDataReader reader = objCommand.ExecuteReader())
                         {
+                            // Чтение ответа от SQLite.
                             while (reader.Read())
                             {
                                 // Получаем значение только первого поля из SQL запроса.
                                 var row = reader.GetValue(0).ToString();
 
+                                // Добавление прочитанного значения в результирующий список значений.
                                 text.Add(row);
                             }
                         }
 
+                        // Закрытие соединение с SQLite.
                         objConnection.Close();
                     }
                 }

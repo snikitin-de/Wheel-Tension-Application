@@ -46,8 +46,10 @@ namespace Wheel_Tension_Application
             // Отрисовка натяжения спиц.
             for (var i = 0; i < spokesAngles.Count; i++)
             {
+                // Номер спицы (начинается с 1).
                 int spoke = i + 1;
 
+                // Текущее значение угла и tm1 reading.
                 angle = spokesAngles[i];
                 tm1 = tm1Reading[i];
 
@@ -67,9 +69,11 @@ namespace Wheel_Tension_Application
             // Отрисовка "спиц".
             for (var i = 0; i < spokesAngles.Count; i++)
             {
+                // Текущее значение угла и tm1 reading.
                 angle = spokesAngles[i];
                 tm1 = tm1Reading[i];
 
+                // Добавление точки на диаграмму.
                 chart.Series[SeriesName].Points.AddXY(0, 0);
                 chart.Series[SeriesName].Points.AddXY(angle, tm1);
             }

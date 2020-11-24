@@ -111,7 +111,7 @@ namespace Wheel_Tension_Application
 
 			try
 			{
-				// Конфигурационный файл.
+				// Конфигурационный файл и настройки программы.
 				var configFile = GetConfig();
 				var settings = configFile.AppSettings.Settings;
 
@@ -152,13 +152,14 @@ namespace Wheel_Tension_Application
 		{
 			try
 			{
-				// Конфигурационный файл.
+				// Конфигурационный файл и настройки программы.
 				var configFile = GetConfig();
 				var settings = configFile.AppSettings.Settings;
 
 				// Добавление настройки в конфигурационный файл.
 				settings.Add(key, value);
 
+				// Сохранение конфигурационного файла.
 				SaveSetting(configFile);
 			}
 			catch (ConfigurationErrorsException)
@@ -182,13 +183,14 @@ namespace Wheel_Tension_Application
 		{
 			try
 			{
-				// Конфигурационный файл.
+				// Конфигурационный файл и настройки программы.
 				var configFile = GetConfig();
 				var settings = configFile.AppSettings.Settings;
 
 				// Обновление существующей настройки в конфигурационном файле.
 				settings[key].Value = value;
 
+				// Сохранение конфигурационного файла.
 				SaveSetting(configFile);
 			}
 			catch (ConfigurationErrorsException)
@@ -197,9 +199,9 @@ namespace Wheel_Tension_Application
 			}
 		}
 
-		// Сохранение настройки в конфигурационный файл.
+		// Сохранение конфигурационного файла.
 		/// <summary>
-		/// Сохранение настройки в конфигурационный файл.
+		/// Сохранение конфигурационного файла.
 		/// </summary>
 		/// <param name="configFile">Конфигурационный файл.</param>
 		/// <example>
@@ -210,7 +212,9 @@ namespace Wheel_Tension_Application
 		/// </example>
 		public void SaveSetting(Configuration configFile)
 		{
+			// Сохранение конфигурационного файла.
 			configFile.Save(ConfigurationSaveMode.Modified);
+			// Обновляние раздела с заданным именем, чтобы при следующем извлечении он повторно считывался с диска.
 			ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
 		}
 
@@ -229,10 +233,11 @@ namespace Wheel_Tension_Application
 			// Настройки программы в формате ключ-значение.
 			var settings = new Dictionary<string, string>();
 
-			// Конфигурационный файл.
+			// Конфигурационный файл и настройки программы.
 			var configFile = GetConfig();
 			var configSettings = configFile.AppSettings.Settings;
 
+			// Проверка, что путь к конфигурационному файлу не пустой.
 			if (!String.IsNullOrEmpty(configPath))
 			{
 				// Добавляем все настройки из конфигурационного файла в словарь.
@@ -259,18 +264,21 @@ namespace Wheel_Tension_Application
 		/// </example>
 		public void SaveSettings(Dictionary<string, string> settings)
 		{
+			// Считывание настроек и их значений из словаря.
             foreach (KeyValuePair<string, string> setting in settings)
 			{
-				// Конфигурационный файл.
+				// Конфигурационный файл и настройки программы.
 				var configFile = GetConfig();
 				var configSettings = configFile.AppSettings.Settings;
 
 				// Если настройки нет в конфигурационном файле, то добавляем ее, иначе обновляем.
 				if (configSettings[setting.Key] == null)
 				{
+					// Добавление настройки в конфигурационный файл.
 					AddSetting(setting.Key, setting.Value);
 				} else
                 {
+					// Обновление настройки в конфигурационном файле.
 					UpdateSetting(setting.Key, setting.Value);
 				}
 			}
