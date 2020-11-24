@@ -9,8 +9,8 @@ using System.Windows.Forms;
 namespace Wheel_Tension_Application
 {
     /*
-     * Класс Database для работы с БД SQLite
-     * Этот класс позволяет выполнять SQL запросы к БД SQLite
+     * Класс Database для работы с БД SQLite.
+     * Этот класс позволяет выполнять SQL запросы к БД SQLite.
      */
     /// <summary>
     /// Класс <c>Database</c> для работы с БД SQLite.
@@ -20,7 +20,7 @@ namespace Wheel_Tension_Application
     /// </remarks>
     class Database
     {
-        // Выполнение SQL запроса к БД SQLite
+        // Выполнение SQL запроса к БД SQLite.
         /// <summary>
         /// Выполнение SQL запроса к БД SQLite.
         /// </summary>
@@ -46,7 +46,7 @@ namespace Wheel_Tension_Application
         /// </example>
         public List<string> ExecuteSelectQuery(string connectionString, string command, Dictionary<string, string> parameters)
         {
-            // Список значений первого столбца из SQL запроса
+            // Список значений первого столбца из SQL запроса.
             var text = new List<string>();
 
             try
@@ -58,7 +58,7 @@ namespace Wheel_Tension_Application
                         objConnection.Open();
                         objCommand.CommandText = command;
 
-                        // Если число параметров больше 0, то добавляем их в объект подключения
+                        // Если число параметров больше 0, то добавляем их в объект подключения.
                         if (parameters.Count > 0)
                         {
                             foreach (KeyValuePair<string, string> parameter in parameters)
@@ -73,7 +73,7 @@ namespace Wheel_Tension_Application
                         {
                             while (reader.Read())
                             {
-                                // Получаем значение только первого поля из SQL запроса
+                                // Получаем значение только первого поля из SQL запроса.
                                 var row = reader.GetValue(0).ToString();
 
                                 text.Add(row);

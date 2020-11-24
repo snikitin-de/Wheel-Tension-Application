@@ -9,14 +9,14 @@ using System.Drawing;
 namespace Wheel_Tension_Application
 {
     /*
-     * Класс TensionChart для построение диаграммы натяжения спиц
+     * Класс TensionChart для построение диаграммы натяжения спиц.
      */
     /// <summary>
     /// Класс <c>TensionChart</c> для построение диаграммы натяжения спиц.
     /// </summary>
     class TensionChart
     {
-        // Отрисовка диаграммы натяжения спиц
+        // Отрисовка диаграммы натяжения спиц.
         /// <summary>
         /// Отрисовка диаграммы натяжения спиц.
         /// </summary>
@@ -29,11 +29,11 @@ namespace Wheel_Tension_Application
             float angle;
             float tm1;
 
-            // Добавление конечных значений углов и tm1Reading для создания замкнутой диаграммы
+            // Добавление конечных значений углов и tm1Reading для создания замкнутой диаграммы.
             spokesAngles.Add(360);
             tm1Reading.Add(tm1Reading[0]);
 
-            // Установка параметров диаграммы
+            // Установка параметров диаграммы.
             chart.ChartAreas["ChartArea"].BackColor = ColorTranslator.FromHtml("#E5ECF6");
             chart.ChartAreas["ChartArea"].AxisX.MajorGrid.LineColor = Color.White;
             chart.ChartAreas["ChartArea"].AxisY.MajorGrid.LineColor = Color.White;
@@ -43,7 +43,7 @@ namespace Wheel_Tension_Application
             chart.Series[SeriesName].MarkerStyle = MarkerStyle.Circle;
             chart.Series[SeriesName].MarkerSize = 5;
 
-            // Отрисовка натяжения спиц
+            // Отрисовка натяжения спиц.
             for (var i = 0; i < spokesAngles.Count; i++)
             {
                 int spoke = i + 1;
@@ -51,11 +51,11 @@ namespace Wheel_Tension_Application
                 angle = spokesAngles[i];
                 tm1 = tm1Reading[i];
 
-                // Добавление точки на диаграмму
+                // Добавление точки на диаграмму.
                 chart.Series[SeriesName].Points.AddXY(angle, tm1);
 
-                /* Если спица не последняя, то добавляется номер спицы и всплывающую подсказку
-                 * Для последней спицы подсказка не добавляется, т.к. она дублирует первую спицу
+                /* Если спица не последняя, то добавляется номер спицы и всплывающую подсказку.
+                 * Для последней спицы подсказка не добавляется, т.к. она дублирует первую спицу.
                  */
                 if (i != spokesAngles.Count - 1)
                 {
@@ -64,7 +64,7 @@ namespace Wheel_Tension_Application
                 }
             }
 
-            // Отрисовка "спиц"
+            // Отрисовка "спиц".
             for (var i = 0; i < spokesAngles.Count; i++)
             {
                 angle = spokesAngles[i];
