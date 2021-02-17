@@ -11,24 +11,16 @@ namespace Wheel_Tension_Application
 {
     class ParameterCalculations
     {
-        public List<float> CalculateSpokeAngles(List<float> tm1Reading)
+        public List<float> CalculateSpokeAngles(byte spokeCount)
         {
-            var tm1ReadingLength = tm1Reading.Count;
-            var angles = new List<float>(tm1ReadingLength);
+            var angles = new List<float>(spokeCount);
 
             float angle = 0;
             float angleStep;
 
-            if (tm1Reading.Count > 0)
-            {
-                angleStep = (float)360 / tm1ReadingLength;
-            }
-            else
-            {
-                angleStep = (float)360 / 24;
-            }
+            angleStep = (float)360 / spokeCount;
 
-            for (int i = 0; i < tm1ReadingLength; i++)
+            for (int i = 0; i < spokeCount; i++)
             {
                 angles.Add(angle);
 

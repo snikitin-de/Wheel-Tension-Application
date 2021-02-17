@@ -249,8 +249,8 @@ namespace Wheel_Tension_Application
                     rightSideSpokesGroupBox,
                     "rightSideSpokesTm1ReadingNumericUpDown").Select(x => float.Parse(x.Value)).ToList();
 
-                List<float> leftSpokesAngles = parameterCalculations.CalculateSpokeAngles(leftSideSpokesTm1);
-                List<float> rightSpokesAngles = parameterCalculations.CalculateSpokeAngles(rightSideSpokesTm1);
+                List<float> leftSpokesAngles = parameterCalculations.CalculateSpokeAngles(byte.Parse(leftSideSpokeCountComboBox.Text));
+                List<float> rightSpokesAngles = parameterCalculations.CalculateSpokeAngles(byte.Parse(rightSideSpokeCountComboBox.Text));
 
                 float[] leftSideSpokesTensionKgf = parameterCalculations.CalculateTensionKgf(
                     conversionTableGridView,
