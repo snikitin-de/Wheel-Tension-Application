@@ -11,8 +11,31 @@ using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
 {
+    /*
+     * Класс FormControls для работы с элементами управления формы.
+     * Этот класс позволяет работать с элементами управления формы.
+     */
+    /// <summary>
+    /// Класс <c>FormControls</c> для работы с элементами управления формы.
+    /// </summary>
+    /// <remarks>
+    /// Этот класс позволяет работать с элементами управления формы.
+    /// </remarks>
     class FormControls
     {
+        // Добавление группы элементов управления формы в GroupBox.
+        /// <summary>
+        /// Добавление группы элементов управления формы в GroupBox.
+        /// </summary>
+        /// <param name="groupBox">GroupBox на который будут добавлены элементы управления формы.</param>
+        /// <param name="controlForAdding">Элемент управления формы, который будет добавлен в GroupBox.</param>
+        /// <param name="controlProperties">Свойства добавляемого элемента управления формы.</param>
+        /// <param name="controlName">Имя добавляемого элемента управления формы.</param>
+        /// <param name="controlHeight">Высота добавляемого элемента управления формы.</param>
+        /// <param name="controlCount">Количество добавляемых элементов управления формы.</param>
+        /// <param name="stepBetweenControls">Отступ между добавляемыми элементами управления формы.</param>
+        /// <param name="offsetX">Отступ по горизонтали от элемента управления формы.</param>
+        /// <param name="offsetY">Отступ по вертикали от элемента управления формы.</param>
         public void AddGroupControlsToGroupBox(
             GroupBox groupBox,
             Control controlForAdding,
@@ -50,6 +73,7 @@ namespace Wheel_Tension_Application
                 newControl.Name = controlName + indexAdd;
                 newControl.Location = new Point(offsetX, indent);
 
+                // Установка свойств добавляемого элемента управления формы из указанного элемента с заданными свойствами
                 foreach (string property in controlProperties)
                 {
                     PropertyInfo propertyInfo = controlForAdding.GetType().GetProperty(property);
@@ -62,6 +86,18 @@ namespace Wheel_Tension_Application
             }
         }
 
+        // Добавление группы NumericUpDown в GroupBox.
+        /// <summary>
+        /// Добавление группы NumericUpDown в GroupBox.
+        /// </summary>
+        /// <param name="groupBox">GroupBox на который будут добавлены NumericUpDown.</param>
+        /// <param name="controlName">Имя добавляемых NumericUpDown.</param>
+        /// <param name="controlProperties">Свойства добавляемого NumericUpDown.</param>
+        /// <param name="controlHeight">Высота добавляемого NumericUpDown.</param>
+        /// <param name="controlCount">Количество добавляемых NumericUpDown.</param>
+        /// <param name="stepBetweenControls">Отступ между добавляемыми NumericUpDown.</param>
+        /// <param name="offsetX">Отступ по горизонтали от элемента управления формы до NumericUpDown.</param>
+        /// <param name="offsetY">Отступ по вертикали от элемента управления формы до NumericUpDown.</param>
         public void AddNumericUpDownToGroupBox(
             GroupBox groupBox,
             string controlName,
@@ -95,6 +131,18 @@ namespace Wheel_Tension_Application
             );
         }
 
+        // Добавление группы TextBox в GroupBox.
+        /// <summary>
+        /// Добавление группы TextBox в GroupBox.
+        /// </summary>
+        /// <param name="groupBox">GroupBox на который будут добавлены TextBox.</param>
+        /// <param name="controlName">Имя добавляемых TextBox.</param>
+        /// <param name="controlProperties">Свойства добавляемого TexBox.</param>
+        /// <param name="controlHeight">Высота добавляемого TextBox.</param>
+        /// <param name="controlCount">Количество добавляемых TextBox.</param>
+        /// <param name="stepBetweenControls">Отступ между добавляемыми TextBox.</param>
+        /// <param name="offsetX">Отступ по горизонтали от элемента управления формы до TextBox.</param>
+        /// <param name="offsetY">Отступ по вертикали от элемента управления формы до TextBox.</param>
         public void AddTextBoxToGroupBox(
             GroupBox groupBox,
             string controlName,
@@ -125,11 +173,24 @@ namespace Wheel_Tension_Application
             );
         }
 
+        // Получение отступа от элемента формы.
+        /// <summary>
+        /// Получение отступа от элемента формы.
+        /// </summary>
+        /// <param name="control">Элемент управления формы отступ от которого будет рассчитан.</param>
+        /// <returns>Отступ от элемента управления формы.</returns>
         public int GetOffsetFromControl(Control control)
         {
             return control.Location.Y + control.Size.Height;
         }
 
+        // Получение значений указанных элементов из GroupBox.
+        /// <summary>
+        /// Получение значений указанных элементов из GroupBox.
+        /// </summary>
+        /// <param name="groupBox">GroupBox, значения элементов управления формы которого будут получены.</param>
+        /// <param name="controlsName">Имя элементов управления формы значения которых надо получить.</param>
+        /// <returns>Словарь значений указанных элементов из GroupBox.</returns>
         public Dictionary<Control, string> GetValuesFromGroupControls(GroupBox groupBox, string controlsName)
         {
             var values = new Dictionary<Control, string>() { };
@@ -145,6 +206,14 @@ namespace Wheel_Tension_Application
             return values;
         }
 
+        // Установка значений выпадающего списка ComboBox.
+        /// <summary>
+        /// Установка значений выпадающего списка ComboBox.
+        /// </summary>
+        /// <param name="comboBox">ComboBox в который будут добавлены значения.</param>
+        /// <param name="values">Значения, которые будут добавлены в выпадающий список ComboBox.</param>
+        /// <param name="isAddRange">Добавлять ли значения в выпадающий список ComboBox.</param>
+        /// <param name="isEnabled">Флаг доступности ComboBox.</param>
         public void SetValuesToGroupControlsText(GroupBox groupBox, string controlsName, string[] valuesForAdding)
         {
             int index = 0;
@@ -160,6 +229,14 @@ namespace Wheel_Tension_Application
             }
         }
 
+        // Установка значений выпадающего списка ComboBox.
+        /// <summary>
+        /// Установка значений выпадающего списка ComboBox.
+        /// </summary>
+        /// <param name="comboBox">ComboBox в который будут добавлены значения.</param>
+        /// <param name="values">Значения, которые будут добавлены в выпадающий список ComboBox.</param>
+        /// <param name="isAddRange">Добавлять ли значения в выпадающий список ComboBox.</param>
+        /// <param name="isEnabled">Флаг доступности ComboBox.</param>
         public void SetComboBoxValue(ComboBox comboBox, List<string> values, bool isAddRange, bool isEnabled)
         {
             comboBox.Items.Clear();
@@ -172,6 +249,12 @@ namespace Wheel_Tension_Application
             comboBox.Enabled = isEnabled;
         }
 
+        // Получение значений строк из DataGridView.
+        /// <summary>
+        /// Получение значений строк из DataGridView.
+        /// </summary>
+        /// <param name="dataGridView">DataGridView из которого будут считаны значения строк.</param>
+        /// <returns>Массив значений строк из DataGridView.</returns>
         public List<string[]> GetDataGridViewValues(DataGridView dataGridView)
         {
             var values = new List<string[]>();
@@ -191,6 +274,14 @@ namespace Wheel_Tension_Application
             return values;
         }
 
+        // Заполнение DataGridView.
+        /// <summary>
+        /// Заполнение DataGridView.
+        /// </summary>
+        /// <param name="dataGridView">DataGridView в который будут добавлены строки.</param>
+        /// <param name="columnCount">Количество добавляемых столбцов.</param>
+        /// <param name="rowHeaders">Массив заголовков добавляемых строк.</param>
+        /// <param name="rows">Массив значений добавляемых строк.</param>
         public void SetDataGridViewValues(DataGridView dataGridView, int columnCount, string[] rowHeaders, List<string[]> rows)
         {
             dataGridView.ColumnCount = columnCount;
