@@ -26,10 +26,12 @@ namespace Wheel_Tension_Application
         /// <param name="tm1Reading">Список значений <c>tm1Reading</c>.</param>
         public void DrawTension(Chart chart, string SeriesName, List<float> spokesAngles, List<float> tm1Reading)
         {
+            // Угол спицы.
             float angle;
+            // TM-1 Reading
             float tm1;
 
-            // Добавление конечных значений углов и tm1Reading для создания замкнутой диаграммы.
+            // Добавление конечных значений углов и TM-1 Reading для создания замкнутой диаграммы.
             spokesAngles.Add(360);
             tm1Reading.Add(tm1Reading[0]);
 
@@ -49,7 +51,7 @@ namespace Wheel_Tension_Application
                 // Номер спицы (начинается с 1).
                 int spoke = i + 1;
 
-                // Текущее значение угла и tm1 reading.
+                // Текущее значение угла и TM-1 Reading.
                 angle = spokesAngles[i];
                 tm1 = tm1Reading[i];
 
@@ -69,11 +71,11 @@ namespace Wheel_Tension_Application
             // Отрисовка "спиц".
             for (var i = 0; i < spokesAngles.Count; i++)
             {
-                // Текущее значение угла и tm1 reading.
+                // Текущее значение угла и TM-1 Reading.
                 angle = spokesAngles[i];
                 tm1 = tm1Reading[i];
 
-                // Добавление точки на диаграмму.
+                // Добавление линии из центра диаграммы до точки TM-1 Reading.
                 chart.Series[SeriesName].Points.AddXY(0, 0);
                 chart.Series[SeriesName].Points.AddXY(angle, tm1);
             }
