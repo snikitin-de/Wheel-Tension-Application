@@ -70,7 +70,7 @@ namespace Wheel_Tension_Application
             // Значения из таблицы DataGridView.
             List<string[]> dataGridViewValues = formControl.GetDataGridViewValues(dataGridView);
 
-            // Массив натяжения спиц.
+            // Массив TM-1 Reading.
             List<string> tensions = formControl.GetValuesFromGroupControls(groupBox, controlsNameTm1Reading).Values.ToList();
 
             // Определение силы натяжения спицы по TM-1 Reading в таблице DataGridView.
@@ -81,8 +81,10 @@ namespace Wheel_Tension_Application
 
                 for (int j = 0; j < dataGridViewValues[0].Length; j++)
                 {
+                    // TM-1 Reading из таблицы DataGridView.
                     string tensionFromTable = dataGridViewValues[0][j];
 
+                    // Если указанный TM-1 Reading найден в таблице DataGridView, то добавляем натяжение в кгс в массив.
                     if (tension == tensionFromTable)
                     {
                         isFound = true;
