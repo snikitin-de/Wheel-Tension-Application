@@ -29,9 +29,12 @@ namespace Wheel_Tension_Application
         /// <returns>Массив углов положения спиц.</returns>
         public List<float> CalculateSpokeAngles(byte spokeCount)
         {
+            // Массив углов спиц.
             var angles = new List<float>(spokeCount);
 
+            // Угол спицы в градусах.
             float angle = 0;
+            // Шаг в градусах между спицами.
             float angleStep;
 
             // Расчет шага в градусах между спицами.
@@ -58,19 +61,24 @@ namespace Wheel_Tension_Application
         /// <returns>Массив натяжения спиц.</returns>
         public float[] CalculateTensionKgf(DataGridView dataGridView, GroupBox groupBox, string controlsNameTm1Reading)
         {
+            // Объект FormControls.
             var formControl = new FormControls();
 
+            // Массив натяжения спиц в кгс.
             var tensionKgf = new List<float>();
 
-            // Получение сил натяжения спиц
+            // Значения из таблицы DataGridView.
             List<string[]> dataGridViewValues = formControl.GetDataGridViewValues(dataGridView);
+
+            // Массив натяжения спиц.
             List<string> tensions = formControl.GetValuesFromGroupControls(groupBox, controlsNameTm1Reading).Values.ToList();
 
+            // Определение силы натяжения спицы по TM-1 Reading в таблице DataGridView.
             foreach (string tension in tensions)
             {
+                // Найдено ли натяжение в таблице DataGridView.
                 bool isFound = false;
 
-                // Определение силы натяжения спиц по таблице.
                 for (int j = 0; j < dataGridViewValues[0].Length; j++)
                 {
                     string tensionFromTable = dataGridViewValues[0][j];
@@ -99,14 +107,15 @@ namespace Wheel_Tension_Application
         /// <returns>Стандартное отклонение натяжения спиц.</returns>
         public double StdDev(List<float> values)
         {
-            // Расчет среднего арифметического натяжения спиц.
+            // Среднее арифметическое натяжения спиц.
             double mean = values.Sum() / values.Count();
 
-            // Расчет суммы квадратов.
+            // Квадратичные значения.
             var squares_query =
                 from float value in values
                 select (value - mean) * (value - mean);
 
+            // Сумма квадратичных значений.
             double sum_of_squares = squares_query.Sum();
 
             // Расчет стандартного отклонения натяжения спиц.
@@ -123,6 +132,7 @@ namespace Wheel_Tension_Application
         /// <returns>Граница интервала натяжения спицы.</returns>
         public double TensionLimit(double averageSpokeTension, int variance, bool isLower)
         {
+            // Граница интервала натяжения спицы.
             double tensionLimit = 0;
 
             switch (isLower)
@@ -148,8 +158,10 @@ namespace Wheel_Tension_Application
         /// <returns>Попадает ли сила натяжения спицы в допустимый интервал.</returns>
         public bool isWithinTensionLimit(int tensionKgf, double lowerTensionLimit, double upperTensionLimit)
         {
+            // Попадает ли сила натяжения спицы в допустимый интервал.
             bool isWithinTensionLimit = false;
 
+            // Если натяжение спицы в кгс находится между нижней и верхней границами допустимого интервала натяжения
             if (tensionKgf >= lowerTensionLimit && tensionKgf <= upperTensionLimit)
             {
                 isWithinTensionLimit = true;
@@ -179,9 +191,13 @@ namespace Wheel_Tension_Application
             // Установка иконки выхода натяжения спицы за границы допустимого интервала.
             errorProvider.Icon = icons.ErrorProviderError;
 
+            // Объект FormControls.
             FormControls formControl = new FormControls();
+
+            // Массив натяжения спиц в кгс.
             Dictionary<Control, string> tensionsKgf = formControl.GetValuesFromGroupControls(groupBox, controlsName);
 
+            // Иконка для отображения выхода натяжения за границы интервала.
             errorProvider.Icon = icons.ErrorProviderError;
 
             foreach (KeyValuePair<Control, string> tensionKgf in tensionsKgf)
