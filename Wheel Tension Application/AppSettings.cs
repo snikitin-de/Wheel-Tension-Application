@@ -38,6 +38,7 @@ namespace Wheel_Tension_Application
 		{
 			// Определение пользовательской иерархии файлов конфигурации для EXE-приложения.
 			var map = new ExeConfigurationFileMap { ExeConfigFilename = configPath };
+			// Получение объекта конфигурации.
 			var configFile = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
 
 			return configFile;
