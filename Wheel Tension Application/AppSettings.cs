@@ -21,6 +21,7 @@ namespace Wheel_Tension_Application
 	/// </remarks>
 	class AppSettings
 	{
+		// Путь к конфигурационному файлу настроек программы.
 		private string configPath;
 
 		public AppSettings(string appSettingsPath)
@@ -55,6 +56,7 @@ namespace Wheel_Tension_Application
 		/// </example>
 		private string ConverterSetting(string key)
         {
+			// Новый формат ключа настройки.
 			string newKey = key;
 
 			if (key.Contains("SideSpokesNumericUpDown"))
@@ -83,6 +85,7 @@ namespace Wheel_Tension_Application
 		/// </example>
 		private string ConverterValue(string value)
 		{
+			// Новый формат значения настройки.
 			var newValue = value;
 
 			if (value.Contains("%"))
@@ -111,8 +114,9 @@ namespace Wheel_Tension_Application
 
 			try
 			{
-				// Конфигурационный файл и настройки программы.
+				// Конфигурационный файл настроек программы.
 				var configFile = GetConfig();
+				// Настройки программы.
 				var settings = configFile.AppSettings.Settings;
 
 				// Если настройка с указанным ключом есть в конфигурационном файле, то получааем ее.
@@ -152,8 +156,9 @@ namespace Wheel_Tension_Application
 		{
 			try
 			{
-				// Конфигурационный файл и настройки программы.
+				// Конфигурационный файл настроек программы.
 				var configFile = GetConfig();
+				// Настройки программы.
 				var settings = configFile.AppSettings.Settings;
 
 				// Добавление настройки в конфигурационный файл.
@@ -183,8 +188,9 @@ namespace Wheel_Tension_Application
 		{
 			try
 			{
-				// Конфигурационный файл и настройки программы.
+				// Конфигурационный файл настроек программы.
 				var configFile = GetConfig();
+				// Настройки программы.
 				var settings = configFile.AppSettings.Settings;
 
 				// Обновление существующей настройки в конфигурационном файле.
@@ -233,8 +239,9 @@ namespace Wheel_Tension_Application
 			// Настройки программы в формате ключ-значение.
 			var settings = new Dictionary<string, string>();
 
-			// Конфигурационный файл и настройки программы.
+			// Конфигурационный файл настроек программы.
 			var configFile = GetConfig();
+			// Настройки программы.
 			var configSettings = configFile.AppSettings.Settings;
 
 			// Проверка, что путь к конфигурационному файлу не пустой.
@@ -267,8 +274,9 @@ namespace Wheel_Tension_Application
 			// Считывание настроек и их значений из словаря.
             foreach (KeyValuePair<string, string> setting in settings)
 			{
-				// Конфигурационный файл и настройки программы.
+				// Конфигурационный файл настроек программы.
 				var configFile = GetConfig();
+				// Настройки программы.
 				var configSettings = configFile.AppSettings.Settings;
 
 				// Если настройки нет в конфигурационном файле, то добавляем ее, иначе обновляем.
