@@ -1,14 +1,24 @@
-﻿using System;
+﻿// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System;
 using System.Reflection;
 using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
 {
+    // Класс About для отображения сведений о программе.
+    /// <summary>
+    /// Класс <c>About</c> для отображения сведений о программе.
+    /// </summary>
     partial class About : Form
     {
         public About()
         {
             InitializeComponent();
+
+            // Заполнение сведений о программе из Assembly.
             this.Text = String.Format("About {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
@@ -98,6 +108,7 @@ namespace Wheel_Tension_Application
 
         private void okButton_Click(object sender, EventArgs e)
         {
+            // Закрытие окна "About" после нажатия кнопки "ОК".
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
