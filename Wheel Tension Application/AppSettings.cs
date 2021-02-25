@@ -166,7 +166,7 @@ namespace Wheel_Tension_Application
 				settings.Add(key, value);
 
 				// Сохранение конфигурационного файла.
-				SaveSetting(configFile);
+				SaveConfig(configFile);
 			}
 			catch (ConfigurationErrorsException)
 			{
@@ -198,7 +198,7 @@ namespace Wheel_Tension_Application
 				settings[key].Value = value;
 
 				// Сохранение конфигурационного файла.
-				SaveSetting(configFile);
+				SaveConfig(configFile);
 			}
 			catch (ConfigurationErrorsException)
 			{
@@ -214,10 +214,10 @@ namespace Wheel_Tension_Application
 		/// <example>
 		/// <code>
 		/// var configFile = GetConfig();
-		/// SaveSetting(configFile);
+		/// SaveConfig(configFile);
 		/// </code>
 		/// </example>
-		public void SaveSetting(Configuration configFile)
+		public void SaveConfig(Configuration configFile)
 		{
 			// Сохранение конфигурационного файла.
 			configFile.Save(ConfigurationSaveMode.Modified);
