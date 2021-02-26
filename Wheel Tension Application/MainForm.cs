@@ -36,6 +36,8 @@ namespace Wheel_Tension_Application
         private readonly List<string> numericUpDownProperties = new List<string>() { "Minimum", "Maximum", "DecimalPlaces", "Increment", "Size" };
         // Свойства TextBox - силы натяжения спиц.
         private readonly List<string> textBoxProperties = new List<string>() { "Enabled", "Size" };
+        // Свойства Label - порядкового номера спицы.
+        private readonly List<string> labelProperties = new List<string>() { "Size" };
 
         // Словарь параметров для выполнения параметризированных запросов к БД.
         private Dictionary<string, string> parameters = new Dictionary<string, string>() { };
@@ -250,6 +252,19 @@ namespace Wheel_Tension_Application
                 indentFromComboBox
             );
 
+            // Добавление Label в GroupBox для отображения порядкового номера спицы.
+            formControl.AddLabelToGroupBox(
+                leftSideSpokesGroupBox,
+                "leftSideSpokesNumberLabel",
+                labelProperties,
+                leftSideSpokeCountComboBox.Size.Width,
+                leftSideSpokeCountComboBox.Size.Height,
+                leftSideSpokesCount,
+                stepBetweenControls,
+                leftSideSpokesNumLabel.Location.X,
+                indentFromComboBox + leftSideSpokeCountComboBox.Size.Height / 2 - leftSideSpokesNumLabel.Height / 2
+            );
+
             foreach (NumericUpDown item in leftSideSpokesGroupBox.Controls.OfType<NumericUpDown>())
             {
                 if (item.Name.IndexOf("leftSideSpokesTm1ReadingNumericUpDown") > -1)
@@ -311,6 +326,19 @@ namespace Wheel_Tension_Application
                 stepBetweenControls,
                 tensionLeftSpokesLabel.Location.X,
                 indentFromComboBox
+            );
+
+            // Добавление Label в GroupBox для отображения порядкового номера спицы.
+            formControl.AddLabelToGroupBox(
+                rightSideSpokesGroupBox,
+                "rightSideSpokesNumberLabel",
+                labelProperties,
+                rightSideSpokeCountComboBox.Size.Width,
+                rightSideSpokeCountComboBox.Size.Height,
+                rightSideSpokesCount,
+                stepBetweenControls,
+                rightSideSpokesNumLabel.Location.X,
+                indentFromComboBox + rightSideSpokeCountComboBox.Size.Height / 2 - rightSideSpokesNumLabel.Height / 2
             );
 
             foreach (NumericUpDown item in rightSideSpokesGroupBox.Controls.OfType<NumericUpDown>())
