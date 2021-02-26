@@ -1,7 +1,12 @@
 name: Application
 
 on:
-  push
+  push:
+    paths-ignore:
+      - 'README.md'
+      - '.gitattributes'
+      - '.gitignore'
+      - '.github/workflows/**'
 
 jobs:
 
