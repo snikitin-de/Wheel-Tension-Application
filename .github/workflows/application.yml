@@ -33,7 +33,6 @@ jobs:
       run: |
         mkdir "artifacts"
         xcopy /e "${{ env.path_to_build }}\*.*" "artifacts\${{ env.project_name }}\bin\${{ matrix.configuration }}\*.*"
-        xcopy /e "${{ env.project_name }}\wheel_tension.sqlite3" "artifacts\${{ env.project_name }}"
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with:

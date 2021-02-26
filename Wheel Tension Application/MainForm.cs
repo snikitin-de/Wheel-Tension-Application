@@ -23,10 +23,9 @@ namespace Wheel_Tension_Application
     {
         // Расстояние между элементами NumericUpDown и TextBox, которые содержат значения TM-1 Reading и силы натяжения спиц.
         private readonly int stepBetweenControls = 3;
-
+    
         // Строка подключения к БД.
-        private readonly string connectionString = "Data Source=" + Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\" +
-            Application.ProductName + "\\wheel_tension.sqlite3;Version=3;";
+        private readonly string connectionString = "Data Source=wheel_tension.sqlite3;Version=3;";
 
         // Флаг зажатия левой кнопки мыши на TrackBar допустимого натяжения спиц.
         private bool isTrackbarMouseDown = false;
