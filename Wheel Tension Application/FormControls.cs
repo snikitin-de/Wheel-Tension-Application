@@ -80,6 +80,10 @@ namespace Wheel_Tension_Application
 
                 // Имя добавляемого элемента управления формы.
                 newControl.Name = controlName + indexAdd;
+
+                // Текст добавляемого элемента управления формы.
+                newControl.Text = controlForAdding.Text == "SideSpokesNumberLabel" ? indexAdd.ToString() : newControl.Text;
+
                 // Местоположение добавляемого элемента управления формы.
                 newControl.Location = new Point(offsetX, indent);
 
@@ -182,6 +186,50 @@ namespace Wheel_Tension_Application
             AddGroupControlsToGroupBox(
                 groupBox,
                 textBox,
+                controlProperties,
+                controlName,
+                controlHeight,
+                controlCount,
+                stepBetweenControls,
+                offsetX,
+                offsetY
+            );
+        }
+
+        // Добавление группы Label в GroupBox.
+        /// <summary>
+        /// Добавление группы Label в GroupBox.
+        /// </summary>
+        /// <param name="groupBox">GroupBox на который будут добавлены Label.</param>
+        /// <param name="controlName">Имя добавляемых Label.</param>
+        /// <param name="controlProperties">Свойства добавляемого Label.</param>
+        /// <param name="controlHeight">Высота добавляемого Label.</param>
+        /// <param name="controlCount">Количество добавляемых Label.</param>
+        /// <param name="stepBetweenControls">Отступ между добавляемыми Label.</param>
+        /// <param name="offsetX">Отступ по горизонтали от элемента управления формы до Label.</param>
+        /// <param name="offsetY">Отступ по вертикали от элемента управления формы до Label.</param>
+        public void AddLabelToGroupBox(
+            GroupBox groupBox,
+            string controlName,
+            List<string> controlProperties,
+            int controlWidth,
+            int controlHeight,
+            int controlCount,
+            int stepBetweenControls,
+            int offsetX,
+            int offsetY)
+        {
+            // Label, который будет добавлен на форму.
+            Label label = new Label()
+            {
+                Text = controlName.Contains("SideSpokesNumberLabel") ? "SideSpokesNumberLabel" : "",
+                Size = new Size(controlWidth, controlHeight)
+            };
+
+            // Добавление группы Label в GroupBox.
+            AddGroupControlsToGroupBox(
+                groupBox,
+                label,
                 controlProperties,
                 controlName,
                 controlHeight,
