@@ -226,7 +226,7 @@ namespace Wheel_Tension_Application
                 Size = new Size(controlWidth, controlHeight)
             };
 
-            // Добавление группы NumericUpDown в GroupBox.
+            // Добавление группы Label в GroupBox.
             AddGroupControlsToGroupBox(
                 groupBox,
                 label,
