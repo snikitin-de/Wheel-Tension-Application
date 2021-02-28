@@ -6,7 +6,7 @@ on:
       - 'README.md'
       - '.gitattributes'
       - '.gitignore'
-      - '.github/workflows/**'
+      #- '.github/workflows/**'
 
 jobs:
 
@@ -22,6 +22,7 @@ jobs:
       project_name: Wheel Tension Application
       solution_name: Wheel Tension Application.sln
       path_to_build: Wheel Tension Application\bin\${{ matrix.configuration }}
+      path_to_installer: Wheel Tension Application\installer\${{ matrix.configuration }}
 
     steps:
     - name: Checkout
@@ -34,10 +35,13 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
     - name: Build with MSBuild
       run: msbuild $env:solution_name -p:Configuration=${{ matrix.configuration }}
+    - name: Compile installer
+      run: iscc "installer\setup.iss" /DApplicationConfiguration=${{ matrix.configuration }}
     - name: Create build artifacts
       run: |
         mkdir "artifacts"
         xcopy /e "${{ env.path_to_build }}\*.*" "artifacts\${{ env.project_name }}\bin\${{ matrix.configuration }}\*.*"
+        xcopy /e "${{ env.path_to_installer }}\*.exe" "artifacts\${{ env.project_name }}\${{ matrix.configuration }}\installer\*.*"
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with:
