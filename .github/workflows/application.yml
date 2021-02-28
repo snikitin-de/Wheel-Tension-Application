@@ -40,7 +40,7 @@ jobs:
     - name: Create build artifacts
       run: |
         mkdir "artifacts"
-        xcopy /e "${{ env.path_to_build }}\*.*" "artifacts\${{ env.project_name }}\bin\${{ matrix.configuration }}\*.*"
+        xcopy /e "${{ env.path_to_build }}\*.*" "artifacts\${{ env.project_name }}\${{ matrix.configuration }}\bin\*.*"
         xcopy /e "${{ env.path_to_installer }}\*.exe" "artifacts\${{ env.project_name }}\${{ matrix.configuration }}\installer\*.*"
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
