@@ -48,7 +48,7 @@ DefaultDirName={commonpf}\{#ApplicationName}
 DefaultGroupName={#ApplicationName}
 
 ; Output directory name
-OutputDir=..\{#ApplicationName}\installer\{#ApplicationConfiguration}\{#ApplicationConfiguration}\
+OutputDir=..\{#ApplicationName}\installer\{#ApplicationConfiguration}
 
 ; Output file name
 OutputBaseFileName={#ApplicationName} {#ApplicationVersion} Setup
