@@ -20,10 +20,8 @@
 #define   ApplicationIcon            "bicycle.ico"
 ; Executable module name
 #define   ApplicationExeName         "Wheel Tension Application.exe"
-; Configuration
-#define   ApplicationConfiguration   {param:configuration|Release}
 ; Application version
-#define   ApplicationVersion         GetFileVersion(ApplicationName + "\bin\" + ApplicationConfiguration + "\" + ApplicationExeName)
+#define   ApplicationVersion         GetVersionNumbersString("..\" + ApplicationName + "\bin\" + ApplicationConfiguration + "\" + ApplicationExeName)
 
 ;------------------------------------------------------------------------------
 ;   Installation options 
@@ -49,16 +47,19 @@ DefaultDirName={commonpf}\{#ApplicationName}
 ; Start menu group name
 DefaultGroupName={#ApplicationName}
 
+; Output directory name
+OutputDir=..\{#ApplicationName}\bin\{#ApplicationConfiguration}\
+
 ; Output file name
 OutputBaseFileName={#ApplicationName} {#ApplicationVersion} Setup
 
 ; Application icon file
-SetupIconFile={#ApplicationName}\{#ApplicationIcon}
+SetupIconFile=..\{#ApplicationName}\{#ApplicationIcon}
 
 ; Compression options 
 Compression=lzma
 SolidCompression=yes
- 
+
 ;------------------------------------------------------------------------------
 ;   Installing languages for the installation process 
 ;------------------------------------------------------------------------------
@@ -81,10 +82,10 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 
 ; Executable file
-Source: "{#ApplicationName}\bin\{#ApplicationConfiguration}\{#ApplicationExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\{#ApplicationName}\bin\{#ApplicationConfiguration}\{#ApplicationExeName}"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Resources
-Source: "{#ApplicationName}\bin\{#ApplicationConfiguration}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\{#ApplicationName}\bin\{#ApplicationConfiguration}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 ;------------------------------------------------------------------------------
 ;   Icons
