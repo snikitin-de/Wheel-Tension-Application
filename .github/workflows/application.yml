@@ -37,7 +37,7 @@ jobs:
     - name: Build with MSBuild
       run: msbuild $env:solution_name -p:Configuration=${{ matrix.configuration }}
     - name: Compile installer
-      run: iscc "installer\setup.iss"
+      run: iscc "installer\setup.iss" /configuration=${{ matrix.configuration }}
     - name: Create build artifacts
       run: |
         mkdir "artifacts"
