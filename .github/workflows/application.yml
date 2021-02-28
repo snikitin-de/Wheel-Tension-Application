@@ -6,7 +6,7 @@ on:
       - 'README.md'
       - '.gitattributes'
       - '.gitignore'
-      - '.github/workflows/**'
+      #- '.github/workflows/**'
 
 jobs:
 
@@ -30,6 +30,8 @@ jobs:
       uses: nuget/setup-nuget@v1
     - name: Restore Nuget packages
       run: nuget restore $env:solution_name
+    - name: Setup Inno Setup
+      run: Choco-Install -PackageName innosetup
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
     - name: Build with MSBuild
