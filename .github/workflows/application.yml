@@ -22,6 +22,7 @@ jobs:
       project_name: Wheel Tension Application
       solution_name: Wheel Tension Application.sln
       path_to_build: Wheel Tension Application\bin\${{ matrix.configuration }}
+      path_to_installer: installer\${{ matrix.configuration }}
 
     steps:
     - name: Checkout
