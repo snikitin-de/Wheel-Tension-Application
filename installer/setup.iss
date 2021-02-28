@@ -21,7 +21,7 @@
 ; Executable module name
 #define   ApplicationExeName         "Wheel Tension Application.exe"
 ; Configuration
-#define   ApplicationConfiguration   "Release"
+#define   ApplicationConfiguration   {param:configuration|Release}
 ; Application version
 #define   ApplicationVersion         GetFileVersion(ApplicationName + "\bin\" + ApplicationConfiguration + "\" + ApplicationExeName)
 
