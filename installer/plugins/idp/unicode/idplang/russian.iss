@@ -1,6 +1,6 @@
 ﻿[CustomMessages]
 russian.IDP_FormCaption           =Скачивание дополнительных файлов
-russian.IDP_FormDescription       =Пожалуйста подождите, пока инсталлятор скачает дополнительные файлы...
+russian.IDP_FormDescription       =Пожалуйста подождите, пока программа установки скачает дополнительные файлы...
 russian.IDP_TotalProgress         =Общий прогресс
 russian.IDP_CurrentFile           =Текущий файл
 russian.IDP_File                  =Файл:
