@@ -64,7 +64,8 @@ SetupIconFile=..\{#ApplicationName}\{#ApplicationIcon}
 Compression=lzma
 SolidCompression=yes
 
-#include <C:\Program Files (x86)\Inno Download Plugin\idp.iss>
+; Path to Inno Download Plugin 
+#include "plugins\idp\idp.iss"
 
 ;------------------------------------------------------------------------------
 ;   Installing languages for the installation process 
@@ -74,6 +75,39 @@ SolidCompression=yes
 Name: "english"; MessagesFile: "compiler:Default.isl";
 Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl";
 
+; Path to Inno Download Plugin localization file
+#include "plugins\idp\unicode\idplang\Russian.iss"
+
+;------------------------------------------------------------------------------
+;   Custom Messages
+;------------------------------------------------------------------------------ 
+[CustomMessages]
+; English
+english.InstallingDotNetFramework=Installing .NET Framework {#DotNetFrameworkVersion}. This might take a few minutes...
+english.DotNetFrameworkFailedToLaunch=Failed to launch .NET Framework Installer with error "%1". Please fix the error then run this installer again.
+english.DotNetFrameworkFailed1602=.NET Framework installation was cancelled. This installation can continue, but be aware that this application may not run unless the .NET Framework installation is completed successfully.
+english.DotNetFrameworkFailed1603=A fatal error occurred while installing the .NET Framework. Please fix the error, then run the installer again.
+english.DotNetFrameworkFailed5100=Your computer does not meet the requirements of the .NET Framework. Please consult the documentation.
+english.DotNetFrameworkFailedOther=The .NET Framework installer exited with an unexpected status code "%1". Please review any other messages shown by the installer to determine whether the installation completed successfully, and abort this installation and fix the problem if it did not.
+english.DotNetFrameworkPageTitle=Install .NET Framework
+english.DotNetFrameworkPageDescription=Setup is now ready to begin installing .NET Framework on your computer.
+english.DotNetFrameworkInstallationSuccessful=.NET Framework has successfully installed.
+english.DotNetFrameworkInstallationIgnore={#ApplicationName} requires Microsoft .NET Framework {#DotNetFrameworkVersion}.%n%nAre you sure what you want to ignore it?
+english.DotNetFrameworkTaskDescription=Download and install .NET Framework {#DotNetFrameworkVersion}
+
+; Russian
+russian.InstallingDotNetFramework=Установка .NET Framework {#DotNetFrameworkVersion}. Это может занять несколько минут...
+russian.DotNetFrameworkFailedToLaunch=Не удалось запустить установщик .NET Framework с ошибкой "%1". Пожалуйста, исправьте ошибку, затем снова запустите программу установки.
+russian.DotNetFrameworkFailed1602=Установка .NET Framework отменена. Эту установку можно продолжить, но имейте в виду, что это приложение может не работать, если установка .NET Framework не будет успешно завершена.
+russian.DotNetFrameworkFailed1603=При установке .NET Framework произошла фатальная ошибка. Пожалуйста, исправьте ошибку, затем снова запустите программу установки.
+russian.DotNetFrameworkFailed5100=Ваш компьютер не соответствует требованиям .NET Framework. Пожалуйста, обратитесь к документации.
+russian.DotNetFrameworkFailedOther=Программа установки .NET Framework завершилась с неожиданным кодом состояния "%1". Просмотрите любые другие сообщения, отображаемые установщиком, чтобы определить, успешно ли завершилась установка, и прервите эту установку и устраните проблему, если это не так.
+russian.DotNetFrameworkPageTitle=Установить .NET Framework
+russian.DotNetFrameworkPageDescription=Установщик сейчас готов начать установку .NET Framework на ваш компьютер.
+russian.DotNetFrameworkInstallationSuccessful=Установка .NET Framework успешно завершена.
+russian.DotNetFrameworkInstallationIgnore={#ApplicationName} требуется Microsoft .NET Framework {#DotNetFrameworkVersion}.%n%nВы уверены, что хотите игнорировать это?
+russian.DotNetFrameworkTaskDescription=Скачать и установить .NET Framework {#DotNetFrameworkVersion}
+
 ;------------------------------------------------------------------------------
 ;   Tasks
 ;------------------------------------------------------------------------------
@@ -82,7 +116,7 @@ Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl";
 ; Create Desktop icon
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 ; Install .NET Framework
-Name: "dotnetframeworkinstall"; Description: "Download and install .NET Framework {#DotNetFrameworkVersion}"; GroupDescription: ".NET Framework:"; Flags: unchecked
+Name: "dotnetframeworkinstall"; Description: "{cm:DotNetFrameworkTaskDescription}"; GroupDescription: ".NET Framework:"; Flags: unchecked
 
 ;------------------------------------------------------------------------------
 ;   Files
@@ -102,14 +136,6 @@ Source: "..\{#ApplicationName}\bin\{#ApplicationConfiguration}\*"; DestDir: "{ap
 
 Name: "{group}\{#ApplicationName}"; Filename: "{app}\{#ApplicationExeName}"
 Name: "{commondesktop}\{#ApplicationName}"; Filename: "{app}\{#ApplicationExeName}"; Tasks: desktopicon
-
-[CustomMessages]
-InstallingDotNetFramework=Installing .NET Framework. This might take a few minutes...
-DotNetFrameworkFailedToLaunch=Failed to launch .NET Framework Installer with error "%1". Please fix the error then run this installer again.
-DotNetFrameworkFailed1602=.NET Framework installation was cancelled. This installation can continue, but be aware that this application may not run unless the .NET Framework installation is completed successfully.
-DotNetFrameworkFailed1603=A fatal error occurred while installing the .NET Framework. Please fix the error, then run the installer again.
-DotNetFrameworkFailed5100=Your computer does not meet the requirements of the .NET Framework. Please consult the documentation.
-DotNetFrameworkFailedOther=The .NET Framework installer exited with an unexpected status code "%1". Please review any other messages shown by the installer to determine whether the installation completed successfully, and abort this installation and fix the problem if it did not.
 
 ;------------------------------------------------------------------------------
 ;   Code section included from a separate file 
@@ -143,7 +169,7 @@ begin
 
   if Pos('{#DotNetFrameworkVersion}', version) = 1 then
     begin
-      sub_key := 'v4\Full';
+      sub_key := 'v4\Full1';
       reg_key := reg_key + sub_key;
       success := RegQueryDWordValue(HKLM, reg_key, 'Release', releaseFromRegistry);
       success := success and (releaseFromRegistry >= release);
@@ -167,8 +193,6 @@ function InstallDotNet(): String;
 var
   resultCode: Integer;
 begin
-  dotNetFrameworkStatusLabel.Caption := CustomMessage('InstallingDotNetFramework');
-
   if not Exec(ExpandConstant('{tmp}\.NET Framework {#DotNetFrameworkVersion}.exe'), '/passive /norestart /showrmui /showfinalerror', '', SW_SHOW, ewWaitUntilTerminated, resultCode) then
     begin
       Result := FmtMessage(CustomMessage('DotNetFrameworkFailedToLaunch'), [SysErrorMessage(resultCode)]);
@@ -177,7 +201,7 @@ begin
     begin
       case resultCode of
         0: begin
-          dotNetFrameworkStatusLabel.Caption := '.NET Framework has successfully installed.';
+          dotNetFrameworkStatusLabel.Caption := CustomMessage('DotNetFrameworkInstallationSuccessful');
         end;
         1602 : begin
           MsgBox(CustomMessage('DotNetFrameworkFailed1602'), mbInformation, MB_OK);
@@ -209,10 +233,10 @@ var
   Page: TWizardPage;
 begin
   // ID download page is 100
-  Page := CreateCustomPage(100, 'Install .NET Framework', 'Setup is now ready to begin installing .NET Framework on your computer.');
-
+  Page := CreateCustomPage(100, CustomMessage('DotNetFrameworkPageTitle'), CustomMessage('DotNetFrameworkPageDescription'));
+                           
   dotNetFrameworkStatusLabel := TLabel.Create(Page);
-  dotNetFrameworkStatusLabel.Caption := 'Installing .NET Framework {#DotNetFrameworkVersion}...';
+  dotNetFrameworkStatusLabel.Caption := CustomMessage('InstallingDotNetFramework');
   dotNetFrameworkStatusLabel.AutoSize := True;
   dotNetFrameworkStatusLabel.Parent := Page.Surface;
 end;
@@ -241,8 +265,7 @@ begin
         begin
           if not WizardIsTaskSelected('dotnetframeworkinstall') then
             begin
-              if MsgBox('{#ApplicationName} requires Microsoft .NET Framework {#DotNetFrameworkVersion}.'#13#13
-                 'Are you sure what you want to ignore it?', mbInformation, MB_YESNO) = IDYES then
+              if MsgBox(CustomMessage('DotNetFrameworkInstallationIgnore'), mbInformation, MB_YESNO) = IDYES then
                 begin
                   result := true;
                   ignoreInstallDotNetFramework := true;
