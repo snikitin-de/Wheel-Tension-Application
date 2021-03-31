@@ -6,10 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
 {
+    delegate dynamic FOTA_delegate();
+
     /*
      * Класс MainForm — основной класс программы.
      */
@@ -88,6 +91,28 @@ namespace Wheel_Tension_Application
 
             // Заполнение выпадающего списка материалов спиц.
             formControl.SetComboBoxValue(materialComboBox, materialsList, true, true);
+
+            Task.Run(async () => {
+                var author = "snikitin-de";
+                var repositoryName = "Wheel-Tension-Application";
+                var appName = "Wheel Tension Application";
+                var downloadDirectory = "Temp";
+
+                var FOTA = new FOTA(author, repositoryName, repositoryName, appName, downloadDirectory);
+
+                await FOTA.getReleases();
+
+                string latestAssetsName = FOTA.getLatestAssetsName();
+
+                string latestTagName = FOTA.getLatestTagName();
+
+                bool isUpdateNeeded = FOTA.isUpdateNeeded();
+
+                if (isUpdateNeeded && !string.IsNullOrEmpty(latestTagName))
+                {
+                    Updater.FOTA = FOTA;
+                }
+            });
         }
 
         // Событие изменения выбранного материала спиц.
