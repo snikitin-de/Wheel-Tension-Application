@@ -20,4 +20,9 @@ namespace Wheel_Tension_Application
             Application.Run(new MainForm());
         }
     }
+
+    static class Updater
+    {
+        public static FOTA FOTA { get; set; }
+    }
 }
