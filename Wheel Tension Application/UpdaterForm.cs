@@ -53,15 +53,5 @@ namespace Wheel_Tension_Application
             FOTA.DownloadLatestUpdate(downloadUrl);
             FOTA.InstallUpdate();
         }
-
-        private void linkLabelSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(linkSite);
-        }
-
-        private void linkLabelQA_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(linkQA);
-        }
     }
 }
