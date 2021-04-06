@@ -27,16 +27,19 @@ namespace Wheel_Tension_Application
 
         private void FOTA_DownloadProgressChanged(int bytesReceived, int totalBytesToDownload, int progressPercentage)
         {
-            Invoke((Action)delegate
+            if (IsHandleCreated)
             {
-                float totalKBytesToDownload = totalBytesToDownload / 1000;
-                float KBytesReceived = bytesReceived / 1000;
+                Invoke((Action)delegate
+                {
+                    float totalKBytesToDownload = totalBytesToDownload / 1000;
+                    float KBytesReceived = bytesReceived / 1000;
 
-                progressBarDownload.Maximum = (int)totalKBytesToDownload;
-                progressBarDownload.Value = (int)KBytesReceived;
+                    progressBarDownload.Maximum = (int)totalKBytesToDownload;
+                    progressBarDownload.Value = (int)KBytesReceived;
 
-                labelBytesDownload.Text = $"Downloaded {KBytesReceived} KB of {totalKBytesToDownload} KB ({progressPercentage}%)";
-            });
+                    labelBytesDownload.Text = $"Downloaded {KBytesReceived} KB of {totalKBytesToDownload} KB ({progressPercentage}%)";
+                });
+            }
         }
 
         private void FOTA_DownloadFileCompleted(bool downloadFileCompleted)
