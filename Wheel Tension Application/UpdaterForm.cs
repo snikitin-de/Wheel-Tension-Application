@@ -5,9 +5,6 @@ namespace Wheel_Tension_Application
 {
     public partial class UpdaterForm : Form
     {
-        private string linkSite = "https://github.com/snikitin-de/Wheel-Tension-Application";
-        private string linkQA = "https://github.com/snikitin-de/Wheel-Tension-Application/discussions/categories/q-a";
-
         private FOTA FOTA = Updater.FOTA;
 
         public UpdaterForm()
