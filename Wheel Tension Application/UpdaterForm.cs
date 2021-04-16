@@ -43,6 +43,10 @@ namespace Wheel_Tension_Application
         private void FOTA_DownloadFileCompleted(bool downloadFileCompleted)
         {
             updateButton.Enabled = false;
+
+            FOTA.InstallUpdate();
+
+            Application.Exit();
         }
 
         private void updateButton_Click(object sender, EventArgs e)
@@ -52,7 +56,6 @@ namespace Wheel_Tension_Application
             string downloadUrl = FOTA.getDownloadUrl(latestAssetsName);
 
             FOTA.DownloadLatestUpdate(downloadUrl);
-            FOTA.InstallUpdate();
         }
 
         private void changelogLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

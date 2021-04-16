@@ -203,7 +203,7 @@ namespace Wheel_Tension_Application
             process.FileName = $"{downloadDirectory}\\{latestAssetsName}";
             process.Arguments = "/SILENT";
 
-           //Process.Start(process);
+           Process.Start(process);
         }
 
         private void CreateDownloadDir()
