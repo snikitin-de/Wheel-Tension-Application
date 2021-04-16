@@ -25,7 +25,7 @@ namespace Wheel_Tension_Application
             // Заполнение сведений о программе из Assembly.
             this.Text = String.Format("About {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = $"Version {AssemblyVersion} ({FOTA.getLatestTagName()} is available)"; 
+            this.labelVersion.Text = $"Version {AssemblyVersion}"; 
             this.labelCopyright.Text = AssemblyCopyright;
             this.textBoxDescription.Text = AssemblyDescription;
         }
@@ -115,16 +115,6 @@ namespace Wheel_Tension_Application
             // Закрытие окна "About" после нажатия кнопки "ОК".
             this.DialogResult = DialogResult.Cancel;
             this.Close();
-        }
-
-        private void About_Shown(object sender, EventArgs e)
-        {
-            var downloadUpdateForm = new UpdaterForm();
-
-            if (FOTA.isUpdateNeeded())
-            {
-                downloadUpdateForm.Show();
-            }
         }
     }
 }

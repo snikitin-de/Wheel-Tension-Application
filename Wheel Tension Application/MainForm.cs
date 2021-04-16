@@ -111,6 +111,15 @@ namespace Wheel_Tension_Application
                 if (isUpdateNeeded && !string.IsNullOrEmpty(latestTagName))
                 {
                     Updater.FOTA = FOTA;
+
+                    // Задаем иконку всплывающей подсказки
+                    updaterNotifyIcon.BalloonTipIcon = ToolTipIcon.Info;
+                    // Задаем текст подсказки
+                    updaterNotifyIcon.BalloonTipText = $"Version {latestTagName.Replace("v", "")} is available. Click to update.";
+                    // Устанавливаем зголовк
+                    updaterNotifyIcon.BalloonTipTitle = $"Update";
+                    // Отображаем подсказку 5 секунд
+                    updaterNotifyIcon.ShowBalloonTip(5);
                 }
             });
         }
@@ -891,6 +900,20 @@ namespace Wheel_Tension_Application
         private void varianceTrackBar_MouseDown(object sender, MouseEventArgs e)
         {
             isTrackbarMouseDown = true;
+        }
+
+        private void updaterNotifyIcon_Click(object sender, EventArgs e)
+        {
+            var updaterForm = new UpdaterForm();
+
+            updaterForm.Show();
+        }
+
+        private void updaterNotifyIcon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            var updaterForm = new UpdaterForm();
+
+            updaterForm.Show();
         }
     }
 }
