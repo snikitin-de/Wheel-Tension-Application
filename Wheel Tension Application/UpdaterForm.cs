@@ -9,15 +9,16 @@ namespace Wheel_Tension_Application
 
         public UpdaterForm()
         {
+            InitializeComponent();
+
             string appName = FOTA.AppName;
             string latestTagName = FOTA.getLatestTagName();
-
-            InitializeComponent();
 
             FOTA.DownloadProgressChanged += FOTA_DownloadProgressChanged;
             FOTA.DownloadFileCompleted += FOTA_DownloadFileCompleted;
 
-            labelAppUpdateVersion.Text = $"{appName} {latestTagName} is available";
+            currentVersionLabel.Text += " " + Application.ProductVersion;
+            updateVersionLabel.Text += " " + latestTagName.Replace("v", "");
         }
 
         private void FOTA_DownloadProgressChanged(int bytesReceived, int totalBytesToDownload, int progressPercentage)
@@ -32,7 +33,9 @@ namespace Wheel_Tension_Application
                     progressBarDownload.Maximum = (int)totalKBytesToDownload;
                     progressBarDownload.Value = (int)KBytesReceived;
 
-                    labelBytesDownload.Text = $"Downloaded {KBytesReceived} KB of {totalKBytesToDownload} KB ({progressPercentage}%)";
+                    bytesDownloadLabel.Text = $"Downloaded {KBytesReceived} KB of {totalKBytesToDownload} KB";
+                    progressPercentageLabel.Text = $"{progressPercentage}%";
+                    downloadFileNameLabel.Text = FOTA.getLatestAssetsName();
                 });
             }
         }
@@ -50,6 +53,11 @@ namespace Wheel_Tension_Application
 
             FOTA.DownloadLatestUpdate(downloadUrl);
             FOTA.InstallUpdate();
+        }
+
+        private void changelogLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(FOTA.getLatestReleaseUrl());
         }
     }
 }

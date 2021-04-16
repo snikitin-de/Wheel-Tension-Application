@@ -100,7 +100,19 @@ namespace Wheel_Tension_Application
 
             return latestTagName;
         }
-        
+
+        public string getLatestReleaseUrl()
+        {
+            string latestReleaseUrl = null;
+
+            if (!object.ReferenceEquals(null, releases))
+            {
+                latestReleaseUrl = releases[0].html_url;
+            }
+
+            return latestReleaseUrl;
+        }
+
         public dynamic getAssetsByTagName(string tagName)
         {
             dynamic assets = null;

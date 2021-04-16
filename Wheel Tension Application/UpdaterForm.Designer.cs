@@ -30,94 +30,114 @@ namespace Wheel_Tension_Application
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdaterForm));
-            this.labelAppUpdateVersion = new System.Windows.Forms.Label();
-            this.labelBytesDownload = new System.Windows.Forms.Label();
+            this.bytesDownloadLabel = new System.Windows.Forms.Label();
             this.progressBarDownload = new System.Windows.Forms.ProgressBar();
-            this.panelUpdate = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.updateButton = new System.Windows.Forms.Button();
-            this.panelUpdate.SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.currentVersionLabel = new System.Windows.Forms.Label();
+            this.updateVersionLabel = new System.Windows.Forms.Label();
+            this.changelogLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.progressPercentageLabel = new System.Windows.Forms.Label();
+            this.downloadFileNameLabel = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // labelAppUpdateVersion
+            // bytesDownloadLabel
             // 
-            this.labelAppUpdateVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.bytesDownloadLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelAppUpdateVersion.AutoSize = true;
-            this.labelAppUpdateVersion.Location = new System.Drawing.Point(34, 76);
-            this.labelAppUpdateVersion.Name = "labelAppUpdateVersion";
-            this.labelAppUpdateVersion.Size = new System.Drawing.Size(0, 13);
-            this.labelAppUpdateVersion.TabIndex = 1;
-            // 
-            // labelBytesDownload
-            // 
-            this.labelBytesDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelBytesDownload.AutoSize = true;
-            this.labelBytesDownload.Location = new System.Drawing.Point(34, 112);
-            this.labelBytesDownload.Name = "labelBytesDownload";
-            this.labelBytesDownload.Size = new System.Drawing.Size(0, 13);
-            this.labelBytesDownload.TabIndex = 4;
+            this.bytesDownloadLabel.AutoSize = true;
+            this.bytesDownloadLabel.Location = new System.Drawing.Point(83, 86);
+            this.bytesDownloadLabel.Name = "bytesDownloadLabel";
+            this.bytesDownloadLabel.Size = new System.Drawing.Size(67, 13);
+            this.bytesDownloadLabel.TabIndex = 4;
+            this.bytesDownloadLabel.Text = "Downloaded";
             // 
             // progressBarDownload
             // 
-            this.progressBarDownload.Location = new System.Drawing.Point(36, 128);
+            this.progressBarDownload.Location = new System.Drawing.Point(119, 102);
             this.progressBarDownload.Name = "progressBarDownload";
-            this.progressBarDownload.Size = new System.Drawing.Size(419, 26);
+            this.progressBarDownload.Size = new System.Drawing.Size(419, 15);
             this.progressBarDownload.TabIndex = 12;
-            // 
-            // panelUpdate
-            // 
-            this.panelUpdate.BackColor = System.Drawing.SystemColors.Window;
-            this.panelUpdate.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelUpdate.Controls.Add(this.label2);
-            this.panelUpdate.Controls.Add(this.label1);
-            this.panelUpdate.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.panelUpdate.Location = new System.Drawing.Point(-5, -3);
-            this.panelUpdate.Name = "panelUpdate";
-            this.panelUpdate.Size = new System.Drawing.Size(506, 62);
-            this.panelUpdate.TabIndex = 13;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 35);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Do you want to update?";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Updater";
             // 
             // updateButton
             // 
-            this.updateButton.Location = new System.Drawing.Point(377, 177);
+            this.updateButton.Location = new System.Drawing.Point(500, 52);
             this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(104, 30);
+            this.updateButton.Size = new System.Drawing.Size(117, 27);
             this.updateButton.TabIndex = 8;
             this.updateButton.Text = "Update";
             this.updateButton.UseVisualStyleBackColor = true;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.changelogLinkLabel);
+            this.panel1.Controls.Add(this.updateVersionLabel);
+            this.panel1.Controls.Add(this.currentVersionLabel);
+            this.panel1.Controls.Add(this.updateButton);
+            this.panel1.Location = new System.Drawing.Point(-5, 217);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(636, 100);
+            this.panel1.TabIndex = 14;
+            // 
+            // currentVersionLabel
+            // 
+            this.currentVersionLabel.AutoSize = true;
+            this.currentVersionLabel.Location = new System.Drawing.Point(14, 13);
+            this.currentVersionLabel.Name = "currentVersionLabel";
+            this.currentVersionLabel.Size = new System.Drawing.Size(81, 13);
+            this.currentVersionLabel.TabIndex = 9;
+            this.currentVersionLabel.Text = "Current version:";
+            // 
+            // updateVersionLabel
+            // 
+            this.updateVersionLabel.AutoSize = true;
+            this.updateVersionLabel.Location = new System.Drawing.Point(14, 35);
+            this.updateVersionLabel.Name = "updateVersionLabel";
+            this.updateVersionLabel.Size = new System.Drawing.Size(82, 13);
+            this.updateVersionLabel.TabIndex = 10;
+            this.updateVersionLabel.Text = "Update version:";
+            // 
+            // changelogLinkLabel
+            // 
+            this.changelogLinkLabel.AutoSize = true;
+            this.changelogLinkLabel.Location = new System.Drawing.Point(14, 59);
+            this.changelogLinkLabel.Name = "changelogLinkLabel";
+            this.changelogLinkLabel.Size = new System.Drawing.Size(58, 13);
+            this.changelogLinkLabel.TabIndex = 11;
+            this.changelogLinkLabel.TabStop = true;
+            this.changelogLinkLabel.Text = "Changelog";
+            this.changelogLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.changelogLinkLabel_LinkClicked);
+            // 
+            // progressPercentageLabel
+            // 
+            this.progressPercentageLabel.AutoSize = true;
+            this.progressPercentageLabel.Location = new System.Drawing.Point(83, 104);
+            this.progressPercentageLabel.Name = "progressPercentageLabel";
+            this.progressPercentageLabel.Size = new System.Drawing.Size(21, 13);
+            this.progressPercentageLabel.TabIndex = 15;
+            this.progressPercentageLabel.Text = "0%";
+            // 
+            // downloadFileNameLabel
+            // 
+            this.downloadFileNameLabel.AutoSize = true;
+            this.downloadFileNameLabel.Location = new System.Drawing.Point(83, 120);
+            this.downloadFileNameLabel.Name = "downloadFileNameLabel";
+            this.downloadFileNameLabel.Size = new System.Drawing.Size(0, 13);
+            this.downloadFileNameLabel.TabIndex = 16;
+            // 
             // UpdaterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(493, 219);
-            this.Controls.Add(this.updateButton);
-            this.Controls.Add(this.panelUpdate);
+            this.ClientSize = new System.Drawing.Size(625, 309);
+            this.Controls.Add(this.downloadFileNameLabel);
+            this.Controls.Add(this.progressPercentageLabel);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.progressBarDownload);
-            this.Controls.Add(this.labelAppUpdateVersion);
-            this.Controls.Add(this.labelBytesDownload);
+            this.Controls.Add(this.bytesDownloadLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -125,20 +145,22 @@ namespace Wheel_Tension_Application
             this.Name = "UpdaterForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Updater";
-            this.panelUpdate.ResumeLayout(false);
-            this.panelUpdate.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label labelAppUpdateVersion;
-        private System.Windows.Forms.Label labelBytesDownload;
+        private System.Windows.Forms.Label bytesDownloadLabel;
         private System.Windows.Forms.ProgressBar progressBarDownload;
-        private System.Windows.Forms.Panel panelUpdate;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button updateButton;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label updateVersionLabel;
+        private System.Windows.Forms.Label currentVersionLabel;
+        private System.Windows.Forms.LinkLabel changelogLinkLabel;
+        private System.Windows.Forms.Label progressPercentageLabel;
+        private System.Windows.Forms.Label downloadFileNameLabel;
     }
 }
