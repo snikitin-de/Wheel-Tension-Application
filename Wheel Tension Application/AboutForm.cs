@@ -12,22 +12,18 @@ namespace Wheel_Tension_Application
     /// <summary>
     /// Класс <c>About</c> для отображения сведений о программе.
     /// </summary>
-    partial class About : Form
+    partial class AboutForm : Form
     {
-        private FOTA FOTA = Updater.FOTA;
-
-        public About()
+        public AboutForm()
         {
             InitializeComponent();
 
-            string latestTagName = FOTA.getLatestTagName();
-
             // Заполнение сведений о программе из Assembly.
-            this.Text = String.Format("About {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = $"Version {AssemblyVersion}"; 
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.textBoxDescription.Text = AssemblyDescription;
+            Text = $"About {AssemblyTitle}";
+            labelProductName.Text = AssemblyProduct;
+            labelVersion.Text = $"Version {AssemblyVersion}"; 
+            labelCopyright.Text = AssemblyCopyright;
+            textBoxDescription.Text = AssemblyDescription;
         }
 
         #region Assembly Attribute Accessors
@@ -113,8 +109,8 @@ namespace Wheel_Tension_Application
         private void okButton_Click(object sender, EventArgs e)
         {
             // Закрытие окна "About" после нажатия кнопки "ОК".
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
     }
 }
