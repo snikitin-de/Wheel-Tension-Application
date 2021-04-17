@@ -465,28 +465,28 @@ namespace Wheel_Tension_Application
                 averageWheelSpokeTensionRightTextBox.Text = averageWheelSpokeTension;
 
                 // Расчет стандартного отклонения натяжения спиц.
-                standartDevLeftSpokesTensionTextBox.Text = parameterCalculations.StdDev(leftSideSpokesTensionKgf.ToList()).ToString();
-                standartDevRightSpokesTensionTextBox.Text = parameterCalculations.StdDev(rightSideSpokesTensionKgf.ToList()).ToString();
+                standartDevLeftSpokesTensionTextBox.Text = Math.Round(parameterCalculations.StdDev(leftSideSpokesTensionKgf.ToList()), 2).ToString();
+                standartDevRightSpokesTensionTextBox.Text = Math.Round(parameterCalculations.StdDev(rightSideSpokesTensionKgf.ToList()), 2).ToString();
 
                 // Расчет среднего натяжения спиц.
-                averageLeftSpokesTensionTextBox.Text = leftSideSpokesTensionKgf.Average().ToString();
-                averageRightSpokesTensionTextBox.Text = rightSideSpokesTensionKgf.Average().ToString();
+                averageLeftSpokesTensionTextBox.Text = Math.Round(leftSideSpokesTensionKgf.Average(), 2).ToString();
+                averageRightSpokesTensionTextBox.Text = Math.Round(rightSideSpokesTensionKgf.Average(), 2).ToString();
 
                 // Допустимое натяжение спиц.
                 int variance = varianceTrackBar.Value;
 
                 // Расчет границ натяжения спиц.
-                leftSpokesLowerTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
-                    double.Parse(averageLeftSpokesTensionTextBox.Text), variance, true).ToString();
+                leftSpokesLowerTensionLimitTextBox.Text = Math.Round(parameterCalculations.TensionLimit(
+                    double.Parse(averageLeftSpokesTensionTextBox.Text), variance, true), 2).ToString();
 
-                leftSpokesUpperTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
-                    double.Parse(averageLeftSpokesTensionTextBox.Text), variance, false).ToString();
+                leftSpokesUpperTensionLimitTextBox.Text = Math.Round(parameterCalculations.TensionLimit(
+                    double.Parse(averageLeftSpokesTensionTextBox.Text), variance, false), 2).ToString();
 
-                rightSpokesLowerTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
-                    double.Parse(averageRightSpokesTensionTextBox.Text), variance, true).ToString();
+                rightSpokesLowerTensionLimitTextBox.Text = Math.Round(parameterCalculations.TensionLimit(
+                    double.Parse(averageRightSpokesTensionTextBox.Text), variance, true), 2).ToString();
 
-                rightSpokesUpperTensionLimitTextBox.Text = parameterCalculations.TensionLimit(
-                    double.Parse(averageRightSpokesTensionTextBox.Text), variance, false).ToString();
+                rightSpokesUpperTensionLimitTextBox.Text = Math.Round(parameterCalculations.TensionLimit(
+                    double.Parse(averageRightSpokesTensionTextBox.Text), variance, false), 2).ToString();
 
                 // Нижняя граница силы натяжения спиц левой стороны колеса.
                 var leftSpokesLowerTensionLimit = double.Parse(leftSpokesLowerTensionLimitTextBox.Text);
