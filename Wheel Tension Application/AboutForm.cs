@@ -19,11 +19,11 @@ namespace Wheel_Tension_Application
             InitializeComponent();
 
             // Заполнение сведений о программе из Assembly.
-            this.Text = String.Format("About {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = $"Version {AssemblyVersion}"; 
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.textBoxDescription.Text = AssemblyDescription;
+            Text = String.Format("About {0}", AssemblyTitle);
+            labelProductName.Text = AssemblyProduct;
+            labelVersion.Text = $"Version {AssemblyVersion}"; 
+            labelCopyright.Text = AssemblyCopyright;
+            textBoxDescription.Text = AssemblyDescription;
         }
 
         #region Assembly Attribute Accessors
@@ -109,8 +109,8 @@ namespace Wheel_Tension_Application
         private void okButton_Click(object sender, EventArgs e)
         {
             // Закрытие окна "About" после нажатия кнопки "ОК".
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
     }
 }
