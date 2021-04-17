@@ -30,10 +30,10 @@
 #define IDP_VER_REV
 #define IDP_VER_BUILD
 
-#expr ParseVersion(IDPDLLDIR + "\idp.dll", IDP_VER_MAJOR, IDP_VER_MINOR, IDP_VER_REV, IDP_VER_BUILD)
+#expr GetVersionComponents(IDPDLLDIR + "\idp.dll", IDP_VER_MAJOR, IDP_VER_MINOR, IDP_VER_REV, IDP_VER_BUILD)
 #define IDP_VER EncodeVer(IDP_VER_MAJOR, IDP_VER_MINOR, IDP_VER_REV, IDP_VER_BUILD)
 
-#define IDP_VER_STR GetFileVersion(IDPDLLDIR + "\idp.dll")
+#define IDP_VER_STR GetVersionNumbersString(IDPDLLDIR + "\idp.dll")
 
 [Files]
 Source: "{#IDPDLLDIR}\idp.dll"; Flags: dontcopy;
