@@ -458,6 +458,12 @@ namespace Wheel_Tension_Application
                 tensionChart.DrawTension(spokeTensionChart, "Left Side Spokes", leftSpokesAngles, leftSideSpokesTm1);
                 tensionChart.DrawTension(spokeTensionChart, "Right Side Spokes", rightSpokesAngles, rightSideSpokesTm1);
 
+                // Расчет среднего натяжения спиц всего колеса.
+                string averageWheelSpokeTension = Math.Round(leftSideSpokesTensionKgf.Concat(rightSideSpokesTensionKgf).ToArray().Average(), 2).ToString();
+
+                averageWheelSpokeTensionLeftTextBox.Text = averageWheelSpokeTension;
+                averageWheelSpokeTensionRightTextBox.Text = averageWheelSpokeTension;
+
                 // Расчет стандартного отклонения натяжения спиц.
                 standartDevLeftSpokesTensionTextBox.Text = parameterCalculations.StdDev(leftSideSpokesTensionKgf.ToList()).ToString();
                 standartDevRightSpokesTensionTextBox.Text = parameterCalculations.StdDev(rightSideSpokesTensionKgf.ToList()).ToString();
