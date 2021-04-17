@@ -148,11 +148,10 @@ namespace Wheel_Tension_Application
 
             if (!string.IsNullOrEmpty(getLatestTagName()))
             {
-                string latestTagName = getLatestTagName().Replace("v", "");
-
-                var currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-                if (!currentVersion.Contains(latestTagName))
+                int latestVersion = int.Parse(getLatestTagName().Replace("v", "").Replace(".", ""));
+                int currentVersion = int.Parse(Application.ProductVersion.Replace(".", ""));
+                
+                if (currentVersion < latestVersion)
                 {
                     isUpdate = true;
                 }
