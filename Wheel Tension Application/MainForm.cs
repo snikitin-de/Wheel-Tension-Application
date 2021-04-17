@@ -96,9 +96,8 @@ namespace Wheel_Tension_Application
                 var author = "snikitin-de";
                 var repositoryName = "Wheel-Tension-Application";
                 var appName = "Wheel Tension Application";
-                var downloadDirectory = "Temp";
 
-                var FOTA = new FOTA(author, repositoryName, repositoryName, appName, downloadDirectory);
+                var FOTA = new FOTA(author, repositoryName, repositoryName, appName);
 
                 await FOTA.getReleases();
 

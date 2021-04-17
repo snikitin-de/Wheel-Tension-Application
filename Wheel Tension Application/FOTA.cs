@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Syroot.Windows.IO;
 
 namespace Wheel_Tension_Application
 {
@@ -13,7 +13,7 @@ namespace Wheel_Tension_Application
     {
         private string author;
         private string repositoryName;
-        private string downloadDirectory;
+        private string downloadDirectory = new KnownFolder(KnownFolderType.Downloads).Path;
         private string userAgent;
 
         private dynamic releases = null;
@@ -23,11 +23,10 @@ namespace Wheel_Tension_Application
 
         public string AppName { get; set; }
 
-        public FOTA(string author, string repositoryName, string userAgent, string appName, string downloadDirectory)
+        public FOTA(string author, string repositoryName, string userAgent, string appName)
         {
             this.author = author;
             this.repositoryName = repositoryName;
-            this.downloadDirectory = downloadDirectory;
             this.userAgent = userAgent;
 
             AppName = appName;
@@ -68,7 +67,7 @@ namespace Wheel_Tension_Application
                     response = await webClient.DownloadStringTaskAsync(URL);
                 } catch (Exception e)
                 {
-                    MessageBox.Show($"Error retrieving update information: { e.Message}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"Error retrieving update information: {e.Message}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 releases = JsonConvert.DeserializeObject(response); 
@@ -174,8 +173,6 @@ namespace Wheel_Tension_Application
 
                         webClient.Headers["User-Agent"] = userAgent;
 
-                        CreateDownloadDir();
-
                         webClient.DownloadProgressChanged += (s, e) =>
                         {
                             OnDownloadProgressChanged((int)e.BytesReceived, (int)e.TotalBytesToReceive, e.ProgressPercentage);
@@ -184,13 +181,13 @@ namespace Wheel_Tension_Application
                         {
                             OnDownloadFileCompleted(false);
                         };
-     
+
                         webClient.DownloadFileAsync(new Uri(downloadUrl), $"{downloadDirectory}\\{latestAssetsName}");
                     }
                 }
             }
             catch (Exception e){
-                MessageBox.Show($"Update download error: { e.Message}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Update download error: {e.Message}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -204,11 +201,6 @@ namespace Wheel_Tension_Application
             process.Arguments = "/SILENT";
 
            Process.Start(process);
-        }
-
-        private void CreateDownloadDir()
-        {
-            Directory.CreateDirectory(downloadDirectory);
         }
     }
 }
