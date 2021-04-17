@@ -520,7 +520,7 @@ namespace Wheel_Tension_Application
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Объект About.
-            About about = new About();
+            AboutForm about = new AboutForm();
             // Открытие окна "About".
             about.Show();
         }

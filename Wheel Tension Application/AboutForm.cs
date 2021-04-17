@@ -12,11 +12,11 @@ namespace Wheel_Tension_Application
     /// <summary>
     /// Класс <c>About</c> для отображения сведений о программе.
     /// </summary>
-    partial class About : Form
+    partial class AboutForm : Form
     {
         private FOTA FOTA = Updater.FOTA;
 
-        public About()
+        public AboutForm()
         {
             InitializeComponent();
 
