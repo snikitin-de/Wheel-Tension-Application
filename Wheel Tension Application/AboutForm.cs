@@ -14,13 +14,9 @@ namespace Wheel_Tension_Application
     /// </summary>
     partial class AboutForm : Form
     {
-        private FOTA FOTA = Updater.FOTA;
-
         public AboutForm()
         {
             InitializeComponent();
-
-            string latestTagName = FOTA.getLatestTagName();
 
             // Заполнение сведений о программе из Assembly.
             this.Text = String.Format("About {0}", AssemblyTitle);
