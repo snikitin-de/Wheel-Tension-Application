@@ -148,8 +148,8 @@ namespace Wheel_Tension_Application
 
             if (!string.IsNullOrEmpty(getLatestTagName()))
             {
-                float latestVersion = float.Parse(getLatestTagName().Replace("v", "").Replace(".", ""));
-                float currentVersion = float.Parse(Application.ProductVersion.Replace(".", ""));
+                int latestVersion = int.Parse(getLatestTagName().Replace("v", "").Replace(".", ""));
+                int currentVersion = int.Parse(Application.ProductVersion.Replace(".", ""));
                 
                 if (currentVersion < latestVersion)
                 {
