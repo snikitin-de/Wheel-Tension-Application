@@ -33,8 +33,8 @@ namespace Wheel_Tension_Application
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.spokeTensionChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.calculateButton = new System.Windows.Forms.Button();
@@ -52,6 +52,7 @@ namespace Wheel_Tension_Application
             this.varianceTrackBar = new System.Windows.Forms.TrackBar();
             this.varianceLabel = new System.Windows.Forms.Label();
             this.rightSideSpokesGroupBox = new System.Windows.Forms.GroupBox();
+            this.rightSideSpokesNumLabel = new System.Windows.Forms.Label();
             this.withinTensionLimitRightSpokesLabel = new System.Windows.Forms.Label();
             this.tensionRightSpokesLabel = new System.Windows.Forms.Label();
             this.rightSpokesLowerTensionLimitTextBox = new System.Windows.Forms.TextBox();
@@ -88,7 +89,7 @@ namespace Wheel_Tension_Application
             this.errorProviderTensionLimitError = new System.Windows.Forms.ErrorProvider(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.rightSideSpokesNumLabel = new System.Windows.Forms.Label();
+            this.updaterNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.spokeTensionChart)).BeginInit();
             this.wheelSettingsGroupBox.SuspendLayout();
             this.conversionTableGroupBox.SuspendLayout();
@@ -103,12 +104,12 @@ namespace Wheel_Tension_Application
             // 
             // spokeTensionChart
             // 
-            chartArea1.AxisX.LabelStyle.Enabled = false;
-            chartArea1.AxisX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.Name = "ChartArea";
-            this.spokeTensionChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend";
-            this.spokeTensionChart.Legends.Add(legend1);
+            chartArea2.AxisX.LabelStyle.Enabled = false;
+            chartArea2.AxisX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea2.Name = "ChartArea";
+            this.spokeTensionChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend";
+            this.spokeTensionChart.Legends.Add(legend2);
             this.spokeTensionChart.Location = new System.Drawing.Point(7, 247);
             this.spokeTensionChart.Name = "spokeTensionChart";
             this.spokeTensionChart.Size = new System.Drawing.Size(767, 667);
@@ -297,6 +298,15 @@ namespace Wheel_Tension_Application
             this.rightSideSpokesGroupBox.TabIndex = 9;
             this.rightSideSpokesGroupBox.TabStop = false;
             this.rightSideSpokesGroupBox.Text = "Right side spokes";
+            // 
+            // rightSideSpokesNumLabel
+            // 
+            this.rightSideSpokesNumLabel.AutoSize = true;
+            this.rightSideSpokesNumLabel.Location = new System.Drawing.Point(11, 20);
+            this.rightSideSpokesNumLabel.Name = "rightSideSpokesNumLabel";
+            this.rightSideSpokesNumLabel.Size = new System.Drawing.Size(18, 13);
+            this.rightSideSpokesNumLabel.TabIndex = 13;
+            this.rightSideSpokesNumLabel.Text = "№";
             // 
             // withinTensionLimitRightSpokesLabel
             // 
@@ -664,14 +674,13 @@ namespace Wheel_Tension_Application
             this.errorProviderTensionLimitError.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProviderTensionLimitError.ContainerControl = this;
             // 
-            // rightSideSpokesNumLabel
+            // updaterNotifyIcon
             // 
-            this.rightSideSpokesNumLabel.AutoSize = true;
-            this.rightSideSpokesNumLabel.Location = new System.Drawing.Point(11, 20);
-            this.rightSideSpokesNumLabel.Name = "rightSideSpokesNumLabel";
-            this.rightSideSpokesNumLabel.Size = new System.Drawing.Size(18, 13);
-            this.rightSideSpokesNumLabel.TabIndex = 13;
-            this.rightSideSpokesNumLabel.Text = "№";
+            this.updaterNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("updaterNotifyIcon.Icon")));
+            this.updaterNotifyIcon.Text = "Wheel Tension Application";
+            this.updaterNotifyIcon.Visible = true;
+            this.updaterNotifyIcon.BalloonTipClicked += new System.EventHandler(this.updaterNotifyIcon_BalloonTipClicked);
+            this.updaterNotifyIcon.Click += new System.EventHandler(this.updaterNotifyIcon_Click);
             // 
             // MainForm
             // 
@@ -767,6 +776,7 @@ namespace Wheel_Tension_Application
         private System.Windows.Forms.Label varianceValueLabel;
         private System.Windows.Forms.Label leftSideSpokesNumLabel;
         private System.Windows.Forms.Label rightSideSpokesNumLabel;
+        private System.Windows.Forms.NotifyIcon updaterNotifyIcon;
     }
 }
 

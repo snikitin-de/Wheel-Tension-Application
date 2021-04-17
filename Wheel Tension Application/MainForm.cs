@@ -6,10 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Wheel_Tension_Application
 {
+    delegate dynamic FOTA_delegate();
+
     /*
      * Класс MainForm — основной класс программы.
      */
@@ -88,6 +91,36 @@ namespace Wheel_Tension_Application
 
             // Заполнение выпадающего списка материалов спиц.
             formControl.SetComboBoxValue(materialComboBox, materialsList, true, true);
+
+            Task.Run(async () => {
+                var author = "snikitin-de";
+                var repositoryName = "Wheel-Tension-Application";
+                var appName = "Wheel Tension Application";
+
+                var FOTA = new FOTA(author, repositoryName, repositoryName, appName);
+
+                await FOTA.getReleases();
+
+                string latestAssetsName = FOTA.getLatestAssetsName();
+
+                string latestTagName = FOTA.getLatestTagName();
+
+                bool isUpdateNeeded = FOTA.isUpdateNeeded();
+
+                if (isUpdateNeeded && !string.IsNullOrEmpty(latestTagName))
+                {
+                    Updater.FOTA = FOTA;
+
+                    // Задаем иконку всплывающей подсказки
+                    updaterNotifyIcon.BalloonTipIcon = ToolTipIcon.Info;
+                    // Задаем текст подсказки
+                    updaterNotifyIcon.BalloonTipText = $"Version {latestTagName.Replace("v", "")} is available. Click to update.";
+                    // Устанавливаем зголовк
+                    updaterNotifyIcon.BalloonTipTitle = $"Update";
+                    // Отображаем подсказку 5 секунд
+                    updaterNotifyIcon.ShowBalloonTip(5);
+                }
+            });
         }
 
         // Событие изменения выбранного материала спиц.
@@ -866,6 +899,20 @@ namespace Wheel_Tension_Application
         private void varianceTrackBar_MouseDown(object sender, MouseEventArgs e)
         {
             isTrackbarMouseDown = true;
+        }
+
+        private void updaterNotifyIcon_Click(object sender, EventArgs e)
+        {
+            var updaterForm = new UpdaterForm();
+
+            updaterForm.Show();
+        }
+
+        private void updaterNotifyIcon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            var updaterForm = new UpdaterForm();
+
+            updaterForm.Show();
         }
     }
 }
