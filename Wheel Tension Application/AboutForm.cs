@@ -19,7 +19,7 @@ namespace Wheel_Tension_Application
             InitializeComponent();
 
             // Заполнение сведений о программе из Assembly.
-            Text = String.Format("About {0}", AssemblyTitle);
+            Text = $"About {AssemblyTitle}";
             labelProductName.Text = AssemblyProduct;
             labelVersion.Text = $"Version {AssemblyVersion}"; 
             labelCopyright.Text = AssemblyCopyright;
