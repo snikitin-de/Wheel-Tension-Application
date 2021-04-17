@@ -34,9 +34,9 @@ namespace Wheel_Tension_Application
             this.progressBarDownload = new System.Windows.Forms.ProgressBar();
             this.updateButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.currentVersionLabel = new System.Windows.Forms.Label();
-            this.updateVersionLabel = new System.Windows.Forms.Label();
             this.changelogLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.updateVersionLabel = new System.Windows.Forms.Label();
+            this.currentVersionLabel = new System.Windows.Forms.Label();
             this.progressPercentageLabel = new System.Windows.Forms.Label();
             this.downloadFileNameLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -62,7 +62,7 @@ namespace Wheel_Tension_Application
             // 
             // updateButton
             // 
-            this.updateButton.Location = new System.Drawing.Point(500, 52);
+            this.updateButton.Location = new System.Drawing.Point(500, 47);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(117, 27);
             this.updateButton.TabIndex = 8;
@@ -77,39 +77,39 @@ namespace Wheel_Tension_Application
             this.panel1.Controls.Add(this.updateVersionLabel);
             this.panel1.Controls.Add(this.currentVersionLabel);
             this.panel1.Controls.Add(this.updateButton);
-            this.panel1.Location = new System.Drawing.Point(-5, 217);
+            this.panel1.Location = new System.Drawing.Point(-5, 222);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(636, 100);
+            this.panel1.Size = new System.Drawing.Size(636, 95);
             this.panel1.TabIndex = 14;
-            // 
-            // currentVersionLabel
-            // 
-            this.currentVersionLabel.AutoSize = true;
-            this.currentVersionLabel.Location = new System.Drawing.Point(14, 13);
-            this.currentVersionLabel.Name = "currentVersionLabel";
-            this.currentVersionLabel.Size = new System.Drawing.Size(81, 13);
-            this.currentVersionLabel.TabIndex = 9;
-            this.currentVersionLabel.Text = "Current version:";
-            // 
-            // updateVersionLabel
-            // 
-            this.updateVersionLabel.AutoSize = true;
-            this.updateVersionLabel.Location = new System.Drawing.Point(14, 35);
-            this.updateVersionLabel.Name = "updateVersionLabel";
-            this.updateVersionLabel.Size = new System.Drawing.Size(82, 13);
-            this.updateVersionLabel.TabIndex = 10;
-            this.updateVersionLabel.Text = "Update version:";
             // 
             // changelogLinkLabel
             // 
             this.changelogLinkLabel.AutoSize = true;
-            this.changelogLinkLabel.Location = new System.Drawing.Point(14, 59);
+            this.changelogLinkLabel.Location = new System.Drawing.Point(16, 61);
             this.changelogLinkLabel.Name = "changelogLinkLabel";
             this.changelogLinkLabel.Size = new System.Drawing.Size(58, 13);
             this.changelogLinkLabel.TabIndex = 11;
             this.changelogLinkLabel.TabStop = true;
             this.changelogLinkLabel.Text = "Changelog";
             this.changelogLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.changelogLinkLabel_LinkClicked);
+            // 
+            // updateVersionLabel
+            // 
+            this.updateVersionLabel.AutoSize = true;
+            this.updateVersionLabel.Location = new System.Drawing.Point(14, 36);
+            this.updateVersionLabel.Name = "updateVersionLabel";
+            this.updateVersionLabel.Size = new System.Drawing.Size(82, 13);
+            this.updateVersionLabel.TabIndex = 10;
+            this.updateVersionLabel.Text = "Update version:";
+            // 
+            // currentVersionLabel
+            // 
+            this.currentVersionLabel.AutoSize = true;
+            this.currentVersionLabel.Location = new System.Drawing.Point(15, 12);
+            this.currentVersionLabel.Name = "currentVersionLabel";
+            this.currentVersionLabel.Size = new System.Drawing.Size(81, 13);
+            this.currentVersionLabel.TabIndex = 9;
+            this.currentVersionLabel.Text = "Current version:";
             // 
             // progressPercentageLabel
             // 
