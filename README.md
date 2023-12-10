@@ -1,4 +1,4 @@
-# Wheel-Tension-Application
+# 💻 Wheel-Tension-Application
 
 💻 🚲 Программа для анализа натяжения спиц колеса велосипеда.
 
